@@ -12,6 +12,5 @@ export const catchError = (error:unknown): string=>{
             message = "Somthing went wrong"
         }
         console.log('catched error',message);
-        
-        return message;
+        return message;
 }

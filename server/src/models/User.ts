@@ -87,5 +87,3 @@ userSchema.set('toJSON', {
 
 
 export default mongoose.model<UserDocument>('User', userSchema);
-
-

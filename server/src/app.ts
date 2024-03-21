@@ -2,6 +2,8 @@ import express from 'express';
 import { Request, Response } from 'express';
 import adminRouter from './routes/adminRouter';
 // import { Application, urlencoded, json } from 'express';
+
+import userRouter from './routes/userRouter';
 import db from './config/database';
 import * as dotenv from 'dotenv';
 import { authentication  } from './config/jwtPassport';
@@ -21,16 +23,12 @@ db.once('open', () => {
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
-
-
 app.get('/superProtect',checkAuthorization('superAdmin'),authentication,(req:Request,res:Response)=>{  
   res.status(200).json({msg:'you are connected'})
 })
-
-
-
 app.use('/admin', adminRouter)
+app.use('/user', userRouter);
+
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
