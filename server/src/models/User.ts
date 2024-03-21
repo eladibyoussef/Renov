@@ -1,4 +1,6 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, {  Document, Schema } from 'mongoose';
+import bcrypt from 'bcrypt';
+
 
 interface Location {
   lat: number;
@@ -19,7 +21,7 @@ interface Request {
   quote: mongoose.Types.ObjectId;
 }
 
-interface UserDocument extends Document {
+export interface UserDocument extends Document {
   id: string;
   username: string;
   email: string;
@@ -30,10 +32,11 @@ interface UserDocument extends Document {
   paymentMethods?: PaymentMethod[];
   cart?: mongoose.Types.ObjectId;
   requests?: Request[];
+
 }
 
 const userSchema = new Schema<UserDocument>({
-  id: { type: String, required: true },
+  // id: { type: String, required: false },
   username: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
@@ -55,9 +58,32 @@ const userSchema = new Schema<UserDocument>({
     description: { type: String, required: false },
     images: [{ type: String, required: false }],
     quote: { type: Schema.Types.ObjectId, ref: 'Quote', required: false }
-  }]
+  }],
+
 });
 
+userSchema.pre<UserDocument>('save', async function (next) {
+  if (!this.isModified('password')) {
+      return next();
+  }
+  try {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(this.password, salt);
+      this.password = hashedPassword;
+      next();
+  } catch (error:any) {
+      console.log(error);
+      next(error);
+  }
+});
+
+userSchema.set('toJSON', {
+  transform: function (doc, ret) {
+    ret.id = ret._id;
+    delete ret._id;
+    delete ret.password;
+  }
+});
+
+
 export default mongoose.model<UserDocument>('User', userSchema);
-
-
