@@ -29,10 +29,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv = __importStar(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
 dotenv.config();
-const uri = process.env.URI;
-if (!uri) {
+const url = process.env.URI || 'mongodb+srv://demoproject:admins@cluster0.x7vj90f.mongodb.net/e-com';
+if (!url) {
     throw new Error("MongoDB URI not found in environment variables.");
 }
-mongoose_1.default.connect(uri);
+mongoose_1.default.connect(url);
 const db = mongoose_1.default.connection;
 exports.default = db;

@@ -34,8 +34,7 @@ passport_1.default.use('jwt', new passport_jwt_1.Strategy(options, (payload, don
             user = yield User_1.default.findById(payload.id);
         }
         else if (payload.type == 'admin') {
-            console.log(Admin_1.default);
-            user = yield Admin_1.default.findOne(payload.id);
+            user = yield Admin_1.default.findById(payload.id);
         }
         if (user) {
             return done(null, user);
@@ -49,20 +48,4 @@ passport_1.default.use('jwt', new passport_jwt_1.Strategy(options, (payload, don
         console.log('error caught', message);
     }
 })));
-// passport.use('admin-jwt', new JwtStrategy(options, async (payload: any, done: any) => {
-//     // console.log(payload);
-//     // console.log('jwt',options.jwtFromRequest);
-//     try {
-//         const admin = await Admin.findById(payload.id);
-//         // console.log('user inside jwt strategy', user);
-//         if (admin) {
-//             return done(null, admin);
-//         } else {
-//             return done(null, false);
-//         }
-//     } catch (error) {
-//         let message = catchError(error)
-//         console.log('error caught', message);
-//     }
-// }));
 exports.authentication = passport_1.default.authenticate('jwt', { session: false });
