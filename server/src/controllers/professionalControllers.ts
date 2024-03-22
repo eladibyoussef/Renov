@@ -318,3 +318,33 @@ if (Array.isArray(keywords)) {
     }
 }
 
+export const rateProfessional = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const {userId,rating,comment} = req.body;
+        const proId = req.params.id;
+        const professional = await Professional.findById(proId);
+    if (!professional){
+    res.status(404).json({message:'professional not found'});
+    
+    }else{
+        professional.reviews?.push({userId,rating,comment})
+        const totalReviews= professional.reviews?.length
+        console.log(totalReviews);
+        const ratingSum = professional.reviews?.reduce((accumulator, review) => accumulator + review.rating, 0);
+        console.log(ratingSum);
+        if(ratingSum&&totalReviews){
+            professional.overallRating = ratingSum/totalReviews;
+            const ratingAded= await professional.save();
+        
+       if(!ratingAded){
+        res.send(500).json({message:'internal server error '})
+       }
+       res.status(200).json({message:'thank you for submitting the review, it was added successfully', ratingaverage: professional.overallRating})}
+    }
+        
+    } catch (error) {
+        let message: string;
+        message = catchError(error);
+        res.status(500).json({ msg: message });
+    }
+}

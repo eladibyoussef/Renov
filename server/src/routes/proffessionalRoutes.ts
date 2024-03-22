@@ -1,5 +1,5 @@
 import express , {Router} from 'express'
-import { deleteProAccount,getProAccount,registrationRequest, registrationApproval, professionalLogin, changePassword , getAllprfessionals, updateProAccount, searchForPro} from '../controllers/professionalControllers'
+import { rateProfessional,deleteProAccount,getProAccount,registrationRequest, registrationApproval, professionalLogin, changePassword , getAllprfessionals, updateProAccount, searchForPro} from '../controllers/professionalControllers'
 const professionalRouter = express.Router();
 
 
@@ -9,9 +9,11 @@ professionalRouter.post('/login', professionalLogin);
 professionalRouter.put('/change-password' , changePassword);
 professionalRouter.get('/get-Pros', getAllprfessionals);
 professionalRouter.get('/',searchForPro)
-professionalRouter.get('/account',getProAccount)
+professionalRouter.get('/account',getProAccount);
+professionalRouter.post('/:id/rate', rateProfessional)
 professionalRouter.put('/:id', updateProAccount);
 professionalRouter.delete('/:id', deleteProAccount)
+
 
 
 export default professionalRouter
