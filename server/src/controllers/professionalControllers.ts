@@ -184,3 +184,137 @@ export const professionalLogin = async (
     res.status(500).json({ msg: message });
   }
 };
+
+export const getAllprfessionals = async (req: Request, res: Response): Promise<void> => {
+    const { approvalStatus , sort } = req.query;
+    try {
+        if (!approvalStatus){
+            const professionals = await Professional.find()
+              if(!professionals){
+                res.status(404).json({message:"no pros found "})
+              }else{
+                res.status(200).json(professionals)
+              } 
+        
+        }else{
+            const professionals = await Professional.find({'approved.approvalStatus': approvalStatus})
+            if(!professionals){
+              res.status(404).json({message:"no pros found "})
+            }else{
+              res.status(200).json(professionals)
+            } 
+      
+        }
+        
+    } catch (error) {
+        let message: string;
+    message = catchError(error);
+    res.status(500).json({ msg: message });
+    }
+
+}
+
+export const updateProAccount =  async (req: Request, res: Response): Promise<void> => {
+        const id = req.params.id
+        const informationToUpdate = req.body
+        delete informationToUpdate.password;
+        delete informationToUpdate.permissions
+        delete informationToUpdate.approved
+        console.log(informationToUpdate);
+        
+         try {
+            const accountToUpdate = await Professional.findByIdAndUpdate(id , informationToUpdate , {new:true});
+            if (!accountToUpdate){
+              res.status(404).json({message:"we are sorry , we cant find your accoun"})
+            }else {
+           res.status(200).json({message:'account updated', accountToUpdate})
+            }
+        } catch (error) {
+            let message: string;
+    message = catchError(error);
+    res.status(500).json({ msg: message });
+        }
+}
+
+export const getProAccount= async (req: Request, res: Response): Promise<void> => {
+    const {email} = req.body    
+    try {
+        const professional = await Professional.find({email:email});
+        if (!professional){
+            res.status(404).json({message:'no user found'})
+        }else{
+            res.status(201).json({professional})
+        }
+    } catch (error) {
+        let message: string;
+        message = catchError(error);
+        res.status(500).json({ msg: message });
+    }
+}
+
+export const deleteProAccount = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const id =req.params.id
+        const deletedPro = await Professional.findByIdAndDelete(id);
+
+        if (!deletedPro) {
+         res.status(404).json({ message: 'professional  not found' });
+        }
+
+        res.status(200).json({ message: 'professional account deleted successfully' });
+    } catch (error) {
+        let message: string;
+        message = catchError(error);
+        res.status(500).json({ msg: message });
+    }
+}
+
+//the next controller using regular expressions to perform searchs through the professional document
+//using multiple keywords , I used the regular expressions in order to assure that if the pro is available in our db it  appears in the results whatever the keywords used
+//so basically the user can search by license , name , company, email ... at the same time 
+//and only the approved pros will be returned in the search results 
+
+export const searchForPro =async (req: Request, res: Response): Promise<void> => {
+    try {
+        const keywords: string[] = req.query.keywords as string[];
+        console.log(keywords);
+
+        let regexPatterns: RegExp[];
+if (Array.isArray(keywords)) {
+    regexPatterns = keywords.map(keyword => new RegExp(keyword, 'i'));
+} else {
+    regexPatterns = [new RegExp(keywords, 'i')];
+}
+        console.log(regexPatterns);
+        const professionals: ProfessionalDocument[] = await Professional.find({
+            $and: [
+                {
+
+                    $or: [
+                        { license: { $in: regexPatterns } },
+                        { username: { $in: regexPatterns } },
+                        { email: { $in: regexPatterns } },
+                        {companyname:{$in: regexPatterns}},
+                        {aboutMe:{$in: regexPatterns}},
+                        {servicesProvided:{$in: regexPatterns}},
+                        {address:{$in:regexPatterns}}
+                    ]
+                },
+             { 'approved.approvalStatus': true}
+                
+            ]
+        });        
+    if(!professionals){
+        res.status(404).json({message:'cannot find a pro'})
+    }else{
+        res.status(200).json({results:professionals})
+    }
+    
+
+    } catch (error) {
+        let message: string;
+        message = catchError(error);
+        res.status(500).json({ msg: message });
+    }
+}
+
