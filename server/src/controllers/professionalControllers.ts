@@ -329,9 +329,7 @@ export const rateProfessional = async (req: Request, res: Response): Promise<voi
     }else{
         professional.reviews?.push({userId,rating,comment})
         const totalReviews= professional.reviews?.length
-        console.log(totalReviews);
         const ratingSum = professional.reviews?.reduce((accumulator, review) => accumulator + review.rating, 0);
-        console.log(ratingSum);
         if(ratingSum&&totalReviews){
             professional.overallRating = ratingSum/totalReviews;
             const ratingAded= await professional.save();
