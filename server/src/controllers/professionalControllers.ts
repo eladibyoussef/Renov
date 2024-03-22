@@ -58,6 +58,7 @@ export const registrationRequest = async (
   }
 };
 
+//the regitration approval route will be accessed by the admin to approve or reject the pro request
 export const registrationApproval = async (
   req: Request,
   res: Response
@@ -91,6 +92,8 @@ export const registrationApproval = async (
   }
 };
 
+// after approval the prfessional can change the default password provided by the admin , and also they can use the same route to change their password
+
 export const changePassword = async (
   req: Request,
   res: Response
@@ -104,12 +107,19 @@ export const changePassword = async (
     } else {
       const PasswordsMatch: boolean = await bcrypt.compare(
         oldPassword,
-        newPassword
+        professional.password
       );
       if (!PasswordsMatch) {
         res.status(400).json({ message: "invalid credencials" });
       } else {
         professional.password = newPassword;
+        const updatePro = await professional.save();
+        if(updatePro){
+
+            res.status(201).json({message:'pessword updated successfully'})
+        }else{
+            res.status(500).json({message:'something went wrong , please try agin later'})
+        }
       }
     }
   } catch (error) {
