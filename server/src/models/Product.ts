@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-interface Product extends Document {
+export interface productDocument extends Document {
     name: string;
     description: string;
     price: number;
@@ -12,7 +12,7 @@ interface Product extends Document {
     deliveryFees: number;
 }
 
-const productSchema: Schema<Product> = new Schema({
+const productSchema: Schema<productDocument> = new Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
@@ -24,4 +24,4 @@ const productSchema: Schema<Product> = new Schema({
     deliveryFees: { type: Number, default: 0 }
 });
 
-export default mongoose.model<Product>('Product', productSchema);
+export default mongoose.model<productDocument>('Product', productSchema);
