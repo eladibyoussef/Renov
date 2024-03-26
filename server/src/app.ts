@@ -2,6 +2,7 @@ import express from 'express';
 // import { Application, urlencoded, json } from 'express';
 import userRouter from './routes/userRouter';
 import serviceRouter from './routes/servicesRouter';
+import diyRouter from './routes/diyRouter'
 import db from './config/database';
 import * as dotenv from 'dotenv';
 
@@ -21,6 +22,7 @@ app.use(express.json());
 
 app.use('/user', userRouter);
 app.use('/services', serviceRouter)
+app.use('/diy', diyRouter)
 
 
 app.listen(PORT, () => {
