@@ -1,6 +1,7 @@
 import express from 'express';
 // import { Application, urlencoded, json } from 'express';
 import userRouter from './routes/userRouter';
+import serviceRouter from './routes/servicesRouter';
 import db from './config/database';
 import * as dotenv from 'dotenv';
 
@@ -19,6 +20,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use('/user', userRouter);
+app.use('/services', serviceRouter)
+
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
