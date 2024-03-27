@@ -131,4 +131,9 @@ const deleteProfile = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-export { registerUser, loginUser, getProfile, updateProfile, deleteProfile };
+export { registerUser,
+         loginUser,
+         getProfile,
+         updateProfile,
+         deleteProfile 
+    };
