@@ -5,7 +5,7 @@ const router = Router();
 
 router.post('/', createDiyTutorial);
 
-router.get('/:id', getAllDiyTutorials);
+router.get('/', getAllDiyTutorials);
 
 router.get('/search', searchDiyTutorials);
 
