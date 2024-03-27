@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.loginUser = exports.registerUser = void 0;
+exports.deleteProfile = exports.updateProfile = exports.getProfile = exports.loginUser = exports.registerUser = void 0;
 const errorCatch_1 = require("../Util/errorCatch");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
@@ -39,13 +39,13 @@ const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             }
         }
         else {
-            res.status(500).json({ message: "please try other credentials" });
+            res.status(409).json({ message: "please try other credentials" });
         }
     }
     catch (error) {
         let message;
         message = (0, errorCatch_1.catchError)(error);
-        res.status(401).json({ msg: message });
+        res.status(500).json({ msg: message });
     }
 });
 exports.registerUser = registerUser;
@@ -87,3 +87,56 @@ const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.loginUser = loginUser;
+//get user profile
+const getProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.params.id;
+        const user = yield User_1.default.findById(userId);
+        if (!user) {
+            res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json({ user });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+exports.getProfile = getProfile;
+const updateProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.params.id;
+        const { username, email, phoneNumber, address, location, paymentMethods } = req.body;
+        const updatedUser = yield User_1.default.findByIdAndUpdate(userId, {
+            username,
+            email,
+            phoneNumber,
+            address,
+            paymentMethods
+        });
+        if (!updatedUser) {
+            res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json({ message: 'User profile updated successfully', user: updatedUser });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: error });
+    }
+});
+exports.updateProfile = updateProfile;
+const deleteProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const userId = req.params.id;
+        const deletedUser = yield User_1.default.findByIdAndDelete(userId);
+        if (!deletedUser) {
+            res.status(404).json({ message: 'User not found' });
+        }
+        res.status(200).json({ message: 'User profile deleted successfully' });
+    }
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+exports.deleteProfile = deleteProfile;

@@ -43,14 +43,11 @@ database_1.default.once('open', () => {
 });
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.json());
-app.use('/user', userRouter_1.default);
-app.get('/protect', jwtPassport_1.authentication, (req, res) => {
-    res.status(200).json({ msg: 'you are connected' });
-});
 app.get('/superProtect', (0, authorization_1.checkAuthorization)('superAdmin'), jwtPassport_1.authentication, (req, res) => {
     res.status(200).json({ msg: 'you are connected' });
 });
 app.use('/admin', adminRouter_1.default);
+app.use('/user', userRouter_1.default);
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });

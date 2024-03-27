@@ -5,6 +5,8 @@ import jwt from 'jsonwebtoken';
 import User, { UserDocument } from '../models/User';
 import { log } from 'console';
 
+
+
 const registerUser = async (req: Request, res: Response): Promise<void> => {
     const { username, email, password } = req.body;
     log(req.body)
@@ -24,12 +26,12 @@ const registerUser = async (req: Request, res: Response): Promise<void> => {
                 res.status(500).json({ msg: "something went wrong , please try again later " });
             }
         } else {
-            res.status(500).json({ message: "please try other credentials" });
+            res.status(409).json({ message: "please try other credentials" });
         }
     } catch (error:unknown) {
         let message:string;
         message = catchError(error) ;       
-        res.status(401).json({ msg: message});       
+        res.status(500).json({ msg: message});       
     }
 };
 
@@ -47,15 +49,15 @@ const loginUser = async (req: Request, res: Response): Promise<void> => {
                 const payload = { id: user.id, username: user.username, type:'user'  };
                 console.log('signed payload', payload);
                 // console.log('SECRET', process.env.SECRET);              
-                
+                const key = process.env.SECRET || 'bsd25hgGG2156ljhcv';
                 jwt.sign(
                     payload,
-                    process.env.SECRET || '155fgnknbdg5dthrth',
+                    key,
                     { expiresIn: 3600000 },
                     (err: Error | null, token: string | undefined) => {
                         if (err) {
                             console.error(err);
-                            res.status(500).json({ msg: 'Failed to generate token' });
+                            res.status(500).json({ message: 'Failed to generate token' });
                         } else if (token) {
                             res.status(200).json({
                                 success: true,
@@ -66,7 +68,7 @@ const loginUser = async (req: Request, res: Response): Promise<void> => {
                     }
                 );
             } else {
-                res.status(401).json({ msg: "Password doesn't match" });
+                res.status(400).json({ msg: "invalid credencials" });
             }
         }
     } catch (error:unknown) {
@@ -92,14 +94,13 @@ const getProfile = async (req: Request, res: Response): Promise<void> => {
 
 const updateProfile = async (req: Request, res: Response): Promise<void> => {
     try {
-        const userId = req.body;
+        const userId = req.params.id;
         const { username, email, phoneNumber, address, location, paymentMethods } = req.body; 
         const updatedUser = await User.findByIdAndUpdate(userId, {
             username,
             email,
             phoneNumber,
             address,
-            location,
             paymentMethods
         });
 
@@ -110,7 +111,7 @@ const updateProfile = async (req: Request, res: Response): Promise<void> => {
         res.status(200).json({ message: 'User profile updated successfully', user: updatedUser });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
+        res.status(500).json({ message: error});
     }
 };
 
