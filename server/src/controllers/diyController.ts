@@ -89,16 +89,16 @@ export const deleteDiyTutorial = async (req: Request, res: Response): Promise<vo
 // Search DIY tutorials by name/keywords
 export const searchDiyTutorials = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { keywords } = req.query;
-        if (!keywords) {
+        const { keyword } = req.query;
+        if (!keyword) {
             res.status(400).json({ message: 'Please provide keywords for searching' });
             return;
         }
         const diyTutorials = await DiyTutorial.find({
             $or: [
-                { title: { $regex: keywords as string, $options: 'i' } },
-                { description: { $regex: keywords as string, $options: 'i' } },
-                { relatedServicesCategory: { $regex: keywords as string, $options: 'i' } }
+                { title: { $regex: keyword as string, $options: 'i' } },
+                { description: { $regex: keyword as string, $options: 'i' } },
+                { relatedServicesCategory: { $regex: keyword as string, $options: 'i' } }
             ]
         });
         res.status(200).json(diyTutorials);
