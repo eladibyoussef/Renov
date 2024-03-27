@@ -3,6 +3,8 @@ import { Request, Response } from 'express';
 import adminRouter from './routes/adminRouter';
 import professionalRouter from './routes/proffessionalRoutes';
 import userRouter from './routes/userRouter';
+import serviceRouter from './routes/servicesRouter';
+import diyRouter from './routes/diyRouter'
 import db from './config/database';
 import * as dotenv from 'dotenv';
 import { authentication  } from './config/jwtPassport';
@@ -28,6 +30,10 @@ app.get('/superProtect',checkAuthorization('superAdmin'),authentication,(req:Req
 app.use('/admin', adminRouter)
 app.use('/user', userRouter);
 app.use('/pro', professionalRouter)
+
+app.use('/services', serviceRouter)
+app.use('/diy', diyRouter)
+
 
 
 app.listen(PORT, () => {
