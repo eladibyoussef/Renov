@@ -40,7 +40,6 @@ interface Portfolio {
 }
 
 interface Review {
-  id: string;
   userId: string;
   rating: number;
   comment: string;
@@ -78,7 +77,7 @@ const professionalSchema = new Schema<ProfessionalDocument>({
     mediaUrl: { type: String, required: false }
   }],
   reviews: [{
-    userId: { type: String, required: false },
+    userId: { type: Schema.Types.ObjectId, required: false },
     rating: { type: Number, required: false },
     comment: { type: String, required: false }
   }],

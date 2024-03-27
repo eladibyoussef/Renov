@@ -85,3 +85,25 @@ export const deleteDiyTutorial = async (req: Request, res: Response): Promise<vo
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+// Search DIY tutorials by name/keywords
+export const searchDiyTutorials = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { keyword } = req.query;
+        if (!keyword) {
+            res.status(400).json({ message: 'Please provide keywords for searching' });
+            return;
+        }
+        const diyTutorials = await DiyTutorial.find({
+            $or: [
+                { title: { $regex: keyword as string, $options: 'i' } },
+                { description: { $regex: keyword as string, $options: 'i' } },
+                { relatedServicesCategory: { $regex: keyword as string, $options: 'i' } }
+            ]
+        });
+        res.status(200).json(diyTutorials);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};

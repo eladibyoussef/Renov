@@ -4,12 +4,11 @@ import Service, { ServiceDocument } from '../models/Service';
 //Creating a new service
 const createService = async (req: Request, res: Response): Promise<void> => {
     try {
-        const { name, description, price, category } = req.body;
+        const { name, description, subCategories } = req.body;
         const newService: ServiceDocument = new Service({
             name,
             description,
-            price,
-            category
+            subCategories
         });
         await newService.save();
         res.status(201).json({ message: 'Service created successfully', service: newService });
@@ -20,13 +19,14 @@ const createService = async (req: Request, res: Response): Promise<void> => {
 };
 
 // Updating a service
+//to enhance // the service is getting entirly replaced when trying to add a new subcategory
 const updateService = async (req: Request, res: Response): Promise<void> => {
     try {
         const serviceId  = req.params.id;
-        const { name, description, price, category } = req.body;
+        const { name, description, subCategories } = req.body;
         const updatedService: ServiceDocument | null = await Service.findByIdAndUpdate(
             serviceId,
-            { name, description, price, category },
+            { name, description,  subCategories },
             { new: true }
         );
         if (!updatedService) {
@@ -75,7 +75,9 @@ const searchService = async (req: Request, res: Response): Promise<void> => {
             $or: [
                 { name: { $regex: searchQuery, $options: 'i' } },
                 { description: { $regex: searchQuery, $options: 'i' } },
-                { category: { $regex: searchQuery, $options: 'i' } }
+                { 'subCategories.name': { $regex: searchQuery, $options: 'i' } }, 
+                { 'subCategories.description': { $regex: searchQuery, $options: 'i' } }
+             
             ]
         });
         res.status(200).json({ services });

@@ -22,4 +22,12 @@ const serviceCategorySchema: Schema<ServiceDocument> = new Schema({
     subCategories: { type: [subCategorySchema], required: true }
 });
 
+serviceCategorySchema.set('toJSON', {
+    transform: function (doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+      delete ret.password;
+    }
+  });
+
 export default mongoose.model<ServiceDocument>('Service', serviceCategorySchema);

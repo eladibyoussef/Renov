@@ -81,4 +81,23 @@ const loginAdmin = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-export { registerAdmin, loginAdmin };
+const deleteAdmin= async (req: Request, res: Response): Promise<void> => {
+
+    try {
+        const id =req.params.id
+        const admin = await Admin.findByIdAndDelete(id);
+
+        if (!admin) {
+         res.status(404).json({ message: 'admin  not found' });
+        }
+
+        res.status(200).json({ message: 'admin  deleted successfully' });
+    } catch (error) {
+        let message: string;
+        message = catchError(error);
+        res.status(500).json({ msg: message });
+    }
+}
+
+
+export { registerAdmin, loginAdmin,deleteAdmin };
