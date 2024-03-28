@@ -5,6 +5,7 @@ import professionalRouter from './routes/proffessionalRoutes';
 import userRouter from './routes/userRouter';
 import serviceRouter from './routes/servicesRouter';
 import diyRouter from './routes/diyRouter'
+import paymentRouter from './routes/paymentRoute';
 import db from './config/database';
 import * as dotenv from 'dotenv';
 import { authentication  } from './config/jwtPassport';
@@ -33,6 +34,7 @@ app.use('/pro', professionalRouter)
 
 app.use('/services', serviceRouter)
 app.use('/diy', diyRouter)
+app.use('/payment', paymentRouter)
 
 
 
