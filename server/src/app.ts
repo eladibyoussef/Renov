@@ -2,9 +2,10 @@ import express from 'express';
 import { Request, Response } from 'express';
 import adminRouter from './routes/adminRouter';
 import professionalRouter from './routes/proffessionalRoutes';
+import reviewRouter from './routes/reviewRouter';
 import userRouter from './routes/userRouter';
 import serviceRouter from './routes/servicesRouter';
-import diyRouter from './routes/diyRouter'
+import diyRouter from './routes/diyRouter';
 import paymentRouter from './routes/paymentRoute';
 import db from './config/database';
 import * as dotenv from 'dotenv';
@@ -15,7 +16,7 @@ import { checkAuthorization } from './middlewares/authorization';
 dotenv.config();
 
 const app = express();
-const PORT: number = 1337;
+const PORT: number = 3003;
 const secret = process.env.SECRET
 db.on('error', console.error.bind(console, 'Connection error:'));
 db.once('open', () => {
@@ -27,14 +28,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.get('/superProtect',checkAuthorization('superAdmin'),authentication,(req:Request,res:Response)=>{  
   res.status(200).json({msg:'you are connected'})
-})
+});
+
 app.use('/admin', adminRouter)
 app.use('/user', userRouter);
-app.use('/pro', professionalRouter)
+app.use('/pro', professionalRouter);
+app.use('/reviews', reviewRouter);
+app.use('/services', serviceRouter);
+app.use('/diy', diyRouter);
+app.use('/payment', paymentRouter);
 
-app.use('/services', serviceRouter)
-app.use('/diy', diyRouter)
-app.use('/payment', paymentRouter)
 
 
 

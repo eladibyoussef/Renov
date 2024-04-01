@@ -25,7 +25,7 @@ export const registrationRequest = async (
       res
         .status(409)
         .json({
-          message: "a request with the prvided information alreadi in process",
+          message: "a request with the prvided information already in process",
         });
     } else {
       const newProfessional = new Professional({
