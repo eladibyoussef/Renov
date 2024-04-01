@@ -1,38 +1,22 @@
-import mongoose, { Schema, Document } from 'mongoose';
 
+import mongoose, { Document, Schema } from 'mongoose';
 
-export interface orderDocument extends Document  {
-    _id: mongoose.Types.ObjectId;
-    userId: mongoose.Types.ObjectId;
-    date: Date;
-    totalAmount: number;
+export interface OrderDocument extends Document {
+    products: mongoose.Types.ObjectId[];
     status: string;
-    shippingAddress: string;
+    totalPrice: number;
     paymentMethod: string;
-    orderItem:orderItem[];
+    orderDate: Date;
+    deliveryStatus: string;
 }
 
-interface orderItem extends Document {
-    productId: mongoose.Types.ObjectId;
-    quantity: number;
-    priceAtPurchase: number;
-}
-
-const OrderSchema = new Schema<orderDocument>({
-    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    date: { type: Date, default: Date.now },
-    totalAmount: { type: Number, required: true },
+const orderSchema: Schema<OrderDocument> = new Schema({
+    products: [{ type: mongoose.Types.ObjectId, ref: 'Product' }],
     status: { type: String, required: true },
-    shippingAddress: { type: String, required: true },
+    totalPrice: { type: Number, required: true },
     paymentMethod: { type: String, required: true },
-    orderItem : [
-        {
-            productId: { type: mongoose.Types.ObjectId, ref: 'Product', required: true },
-            quantity: { type: Number, required: true },
-            priceAtPurchase: { type: Number, required: true }
-        }
-    ]
-
+    orderDate: { type: Date, required: true },
+    deliveryStatus: { type: String, required: true }
 });
 
-export default mongoose.model<orderDocument>('Order', OrderSchema);
+export default mongoose.model<OrderDocument>('Order', orderSchema);

@@ -6,7 +6,10 @@ export interface sellerDocument extends Document {
     deliveryRange: string;
     productsList: mongoose.Types.ObjectId[];
     reviews: mongoose.Types.ObjectId[];
-    
+     email: string;
+    phoneNumber: string;
+    password: string; 
+
 }
 
 const sellerSchema: Schema<sellerDocument> = new Schema({
@@ -15,7 +18,8 @@ const sellerSchema: Schema<sellerDocument> = new Schema({
     deliveryRange: { type: String, required: true },
     productsList: [{ type: mongoose.Types.ObjectId, ref: 'Product' }],
     reviews: [{ type: mongoose.Types.ObjectId, ref: 'Review' }]
-
+    email: { type: String, required: true },
+    phoneNumber: { type: String, required: true }
 });
 
 export default mongoose.model<sellerDocument>('Seller', sellerSchema);

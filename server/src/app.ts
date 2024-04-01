@@ -7,6 +7,9 @@ import userRouter from './routes/userRouter';
 import serviceRouter from './routes/servicesRouter';
 import diyRouter from './routes/diyRouter';
 import paymentRouter from './routes/paymentRoute';
+import sellerRouter from './routes/sallerRouter';
+import OrderRouter from './routes/OrderRoute';
+import geolocationRouter from './routes/geolocationRoutre';
 import db from './config/database';
 import * as dotenv from 'dotenv';
 import { authentication  } from './config/jwtPassport';
@@ -39,6 +42,13 @@ app.use('/diy', diyRouter);
 app.use('/payment', paymentRouter);
 
 
+app.use('/pro', professionalRouter)
+app.use('/seller', sellerRouter);
+
+app.use('/services', serviceRouter)
+app.use('/diy', diyRouter)
+app.use('/order', OrderRouter)
+app.use('/geolocation', geolocationRouter)
 
 
 app.listen(PORT, () => {
