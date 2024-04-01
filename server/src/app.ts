@@ -9,11 +9,14 @@ import db from './config/database';
 import * as dotenv from 'dotenv';
 import { authentication  } from './config/jwtPassport';
 import { checkAuthorization } from './middlewares/authorization';
+import messageRouter from "./routes/chatRouter";
+import { app, server } from "./socket/socket";
+
+
 
 
 dotenv.config();
 
-const app = express();
 const PORT: number = 1337;
 const secret = process.env.SECRET
 db.on('error', console.error.bind(console, 'Connection error:'));
@@ -33,9 +36,10 @@ app.use('/pro', professionalRouter)
 
 app.use('/services', serviceRouter)
 app.use('/diy', diyRouter)
+app.use('/messages',messageRouter)
 
 
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
