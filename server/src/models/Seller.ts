@@ -17,7 +17,7 @@ const sellerSchema: Schema<sellerDocument> = new Schema({
     companyName: { type: String, required: true },
     deliveryRange: { type: String, required: true },
     productsList: [{ type: mongoose.Types.ObjectId, ref: 'Product' }],
-    reviews: [{ type: mongoose.Types.ObjectId, ref: 'Review' }]
+    reviews: [{ type: mongoose.Types.ObjectId, ref: 'Review' }],
     email: { type: String, required: true },
     phoneNumber: { type: String, required: true }
 });
