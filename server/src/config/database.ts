@@ -3,12 +3,12 @@ import mongoose, { Connection } from 'mongoose';
 
 dotenv.config();
 
-const uri: string | undefined = process.env.URI;
-if (!uri) {
+const url: string | undefined = process.env.URI || '';
+if (!url) {
   throw new Error("MongoDB URI not found in environment variables.");
 }
 
-mongoose.connect(uri);
+mongoose.connect(url);
 const db: Connection = mongoose.connection;
 
 

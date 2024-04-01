@@ -27,9 +27,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const adminRouter_1 = __importDefault(require("./routes/adminRouter"));
 // import { Application, urlencoded, json } from 'express';
+const userRouter_1 = __importDefault(require("./routes/userRouter"));
 const database_1 = __importDefault(require("./config/database"));
 const dotenv = __importStar(require("dotenv"));
+const jwtPassport_1 = require("./config/jwtPassport");
+const authorization_1 = require("./middlewares/authorization");
 dotenv.config();
 const app = (0, express_1.default)();
 const PORT = 1337;
@@ -39,6 +43,11 @@ database_1.default.once('open', () => {
 });
 app.use(express_1.default.urlencoded({ extended: false }));
 app.use(express_1.default.json());
+app.get('/superProtect', (0, authorization_1.checkAuthorization)('superAdmin'), jwtPassport_1.authentication, (req, res) => {
+    res.status(200).json({ msg: 'you are connected' });
+});
+app.use('/admin', adminRouter_1.default);
+app.use('/user', userRouter_1.default);
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });

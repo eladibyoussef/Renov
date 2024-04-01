@@ -5,7 +5,7 @@ interface SubCategory {
     description: string;
 }
 
-interface ServiceCategory extends Document {
+export interface ServiceDocument extends Document {
     name: string;
     description: string;
     subCategories: SubCategory[];
@@ -16,10 +16,18 @@ const subCategorySchema = new Schema({
     description: { type: String, required: true }
 });
 
-const serviceCategorySchema: Schema<ServiceCategory> = new Schema({
+const serviceCategorySchema: Schema<ServiceDocument> = new Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
     subCategories: { type: [subCategorySchema], required: true }
 });
 
-export default mongoose.model<ServiceCategory>('Service', serviceCategorySchema);
+serviceCategorySchema.set('toJSON', {
+    transform: function (doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+      delete ret.password;
+    }
+  });
+
+export default mongoose.model<ServiceDocument>('Service', serviceCategorySchema);

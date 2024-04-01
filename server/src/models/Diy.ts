@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-interface DiyTutorial extends Document {
+export interface DiyTutorialDocument extends Document {
     title: string;
     relatedServicesCategory: string[];
     description: string;
@@ -15,7 +15,7 @@ interface DiyTutorial extends Document {
     recommendedProducts: mongoose.Types.ObjectId[];
 }
 
-const diyTutorialSchema: Schema<DiyTutorial> = new Schema({
+const diyTutorialSchema: Schema<DiyTutorialDocument> = new Schema({
     title: { type: String, required: true },
     relatedServicesCategory: { type: [String], required: true },
     description: { type: String, required: true },
@@ -30,4 +30,4 @@ const diyTutorialSchema: Schema<DiyTutorial> = new Schema({
     recommendedProducts: [{ type: mongoose.Types.ObjectId, ref: 'Product' }]
 });
 
-export default mongoose.model<DiyTutorial>('DIYTutorial', diyTutorialSchema);
+export default mongoose.model<DiyTutorialDocument>('DIYTutorial', diyTutorialSchema);
