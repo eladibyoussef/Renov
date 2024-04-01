@@ -11,7 +11,7 @@ import { authentication  } from './config/jwtPassport';
 import { checkAuthorization } from './middlewares/authorization';
 import messageRouter from "./routes/chatRouter";
 import { app, server } from "./socket/socket";
-
+import quoteRouter from './routes/quoteRouter';
 
 
 
@@ -37,6 +37,7 @@ app.use('/pro', professionalRouter)
 app.use('/services', serviceRouter)
 app.use('/diy', diyRouter)
 app.use('/messages',messageRouter)
+app.use('/quote', quoteRouter)
 
 
 
