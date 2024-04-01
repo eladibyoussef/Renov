@@ -23,7 +23,6 @@ import quoteRouter from './routes/quoteRouter';
 dotenv.config();
 
 const PORT: number = 1337;
-const app = express();
 const secret = process.env.SECRET
 db.on('error', console.error.bind(console, 'Connection error:'));
 db.once('open', () => {
