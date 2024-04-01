@@ -3,7 +3,7 @@ import mongoose, { Connection } from 'mongoose';
 
 dotenv.config();
 
-const url: string | undefined = process.env.URI || 'mongodb+srv://demoproject:admins@cluster0.x7vj90f.mongodb.net/e-com';
+const url: string | undefined = process.env.URI || '';
 if (!url) {
   throw new Error("MongoDB URI not found in environment variables.");
 }
