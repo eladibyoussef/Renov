@@ -76,11 +76,8 @@ const professionalSchema = new Schema<ProfessionalDocument>({
     mediaType: { type: String, required: false },
     mediaUrl: { type: String, required: false }
   }],
-  reviews: [{
-    userId: { type: Schema.Types.ObjectId, required: false },
-    rating: { type: Number, required: false },
-    comment: { type: String, required: false }
-  }],
+  reviews:  [{ type: Schema.Types.ObjectId, ref: 'Review', required: false }],
+
   approved: { 
     approvalStatus:{type:Boolean , required:true , default:false},
     reason:{type:String , required:false}
