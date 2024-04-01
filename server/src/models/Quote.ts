@@ -1,11 +1,12 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
-interface QuoteDocument extends Document {
+export interface QuoteDocument extends Document {
   userId: mongoose.Types.ObjectId;
   professionalId: mongoose.Types.ObjectId;
   description: string;
   status: string;
   filePath: string;
+  publicId: string
   appointment: {
     date: Date;
     location: string;
@@ -19,9 +20,10 @@ const quoteSchema = new Schema<QuoteDocument>({
   description: { type: String, required: true },
   status: { type: String, enum: ['pending', 'accepted', 'rejected'], required: true },
   filePath: { type: String, required: true },
+  publicId: {type: String },
   appointment: {
-    date: { type: Date, required: true },
-    location: { type: String, required: true }
+    date: { type: Date, required: false },
+    location: { type: String, required: false }
   },
   totalPrice: { type: Number, required: true }
 });

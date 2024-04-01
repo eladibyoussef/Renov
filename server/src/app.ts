@@ -14,12 +14,16 @@ import db from './config/database';
 import * as dotenv from 'dotenv';
 import { authentication  } from './config/jwtPassport';
 import { checkAuthorization } from './middlewares/authorization';
+import messageRouter from "./routes/chatRouter";
+import { app, server } from "./socket/socket";
+import quoteRouter from './routes/quoteRouter';
+
 
 
 dotenv.config();
 
+const PORT: number = 1337;
 const app = express();
-const PORT: number = 3003;
 const secret = process.env.SECRET
 db.on('error', console.error.bind(console, 'Connection error:'));
 db.once('open', () => {
@@ -47,10 +51,12 @@ app.use('/seller', sellerRouter);
 
 app.use('/services', serviceRouter)
 app.use('/diy', diyRouter)
+app.use('/messages',messageRouter)
+app.use('/quote', quoteRouter)
 app.use('/order', OrderRouter)
 app.use('/geolocation', geolocationRouter)
 
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
