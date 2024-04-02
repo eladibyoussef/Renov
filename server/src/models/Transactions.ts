@@ -1,8 +1,8 @@
 import mongoose, { Schema, Document } from 'mongoose';
-import { orderDocument } from './Order'; 
+import { OrderDocument } from './Order'; 
 
 interface Transaction {
-  order: mongoose.Types.ObjectId | orderDocument;
+  order: mongoose.Types.ObjectId | OrderDocument;
   amount: number;
   status: 'pending' | 'success' | 'failed';
   paymentMethod?: String ;
