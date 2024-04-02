@@ -12,7 +12,7 @@ export const handlePayment = async (req: Request, res: Response): Promise<void> 
     const { token } = req.body;
 
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: 1000,
+      amount: req.body,
       currency: 'mad',
       payment_method_types: ['card'],
       payment_method: token,

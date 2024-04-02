@@ -76,6 +76,17 @@ const loginUser = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
+// Get all users
+const getAllUsers = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const users = await User.find();
+        res.status(200).json(users);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
 //get user profile
 const getProfile = async (req: Request, res: Response): Promise<void> => {
     try {
@@ -134,6 +145,7 @@ const deleteProfile = async (req: Request, res: Response): Promise<void> => {
 
 export { registerUser,
          loginUser,
+         getAllUsers,
          getProfile,
          updateProfile,
          deleteProfile 
