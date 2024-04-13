@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node build/src/app.js",
+    "start": "node build/server/src/app.js",
     "build": "tsc",
     "dev": "nodemon --watch \"server/**/**\" --ext \"ts,json\" --exec \"ts-node server/src/app.ts\""
   },
