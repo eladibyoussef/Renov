@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node build/server/src/app.js",
-    "build": "tsc",
+    "build": "npm install && tsc",
     "dev": "nodemon --watch \"server/**/**\" --ext \"ts,json\" --exec \"ts-node server/src/app.ts\""
   },
   "keywords": [],
