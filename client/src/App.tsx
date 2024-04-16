@@ -1,10 +1,24 @@
-import React from 'react'
-import './App.css'
+import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import BackOfficeLayout from "./layouts/BackOfficeLayout";
+import BackOfficeDashboard from "./components/BackOfficeDashboard";
+import UserManagement from './components/UserManagement';
+
 
 function App() {
- return (
-    <div><p>hello world</p></div>
- )
+  return (
+     <Routes>
+      <Route path="/backoffice" element={<BackOfficeLayout />} >
+         <Route index element={<BackOfficeDashboard />} />
+         <Route path='users' element={<UserManagement />}/>
+
+      </Route>
+
+
+     </Routes>
+
+
+
+  );
 }
 
-export default App
+export default App;
