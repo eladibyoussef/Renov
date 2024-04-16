@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node build/app.js",
     "build": "npm install && tsc",
-    "dev": "nodemon --watch \"server/**/**\" --ext \"ts,json\" --exec \"ts-node server/src/app.ts\""
+    "dev": "nodemon --watch \"server/**/**\" --ext \"ts,json\" --exec \"ts-node src/app.ts\""
   },
   "keywords": [],
   "author": "",
@@ -37,6 +37,8 @@
     "passport-jwt": "^4.0.1",
     "socket.io": "^4.7.5",
     "stripe": "^14.23.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
     "typescript": "^5.4.2"
   },
   "devDependencies": {
@@ -44,6 +46,8 @@
     "@types/dotenv": "^8.2.0",
     "@types/nodemailer": "^6.4.14",
     "@types/stripe": "^8.0.417",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.6",
     "ts-node-dev": "^2.0.0"
   }
 }
