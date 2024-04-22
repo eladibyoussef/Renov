@@ -1,11 +1,23 @@
 import { Outlet } from "react-router-dom"
 import BackOfficeSideBar from "../components/BackOfficeSideBar"
-function BackOfficeLayout() {
+
+
+
+
+const  BackOfficeLayout = () => {
+
+  
   return (
-    <div className="grid grid-cols-8 bg-customBlue gap-2" >
-       <BackOfficeSideBar />
+    <div className="grid grid-cols-8 bg-customBlue   " >
+      <div className=" hidden lg:block  lg:col-span-2 xl:col-span-1 ">
+       <BackOfficeSideBar  />
+      </div>
+      <div className="  col-span-8 lg:col-span-6">
+        
        {< Outlet />}
-       <div className=" col-span-1">right side notifications</div>
+
+      </div>
+       <div className=" col-span-1 h-screen bg-white hidden xl:block  ">right side notifications</div>
     </div>
   )
 }

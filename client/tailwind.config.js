@@ -8,13 +8,15 @@ export default {
     extend: {
       colors:{
         customBlue:'#E3F5FF',
-        customGrey:'#807A75',
+        customGrey:'#B5B7C0',
         customPurple:'#0C0A67'
       }
     },
     fontFamily : {
       inter : [ "Inter", "sans-serif"],
-      Outfit : [ "Outfit", 'sans-serif']
+      Outfit : [ "Outfit", 'sans-serif'],
+      Poppins : [ "Poppins", "sans-serif"]
+
     }
   },
   plugins: [],

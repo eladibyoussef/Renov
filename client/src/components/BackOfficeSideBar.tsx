@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link , useLocation } from 'react-router-dom'
 import Logo from '../assets/Logo.png'
 import { BiHomeAlt ,BiUser, BiHelpCircle } from "react-icons/bi";
 import { AiOutlineUserSwitch } from "react-icons/ai";
@@ -6,26 +6,35 @@ import { MdOutlineHomeRepairService , MdOutlinePayment } from "react-icons/md";
 import { TbShoppingCartSearch } from "react-icons/tb";
 import { IoChatbubblesOutline , IoSettingsOutline} from "react-icons/io5";
 import { CiLogout } from "react-icons/ci";
+import React ,  { useState  } from 'react';
 
 const linkClass =
 	'flex items-center gap-2 font-Outfit text-customGrey font-normal  px-3 py-2 hover:bg-neutral-700 hover:no-underline active:bg-neutral-600 rounded-sm text-base'
 
+  const activeLinkClass = 'text-gray-900 ';
 function BackOfficeSideBar() {
+  const location = useLocation(); 
+  const [activeLink, setActiveLink] = useState(location.pathname); 
+
+  const handleSetActiveLink = (path: React.SetStateAction<string>) => {
+    setActiveLink(path);
+    console.log(activeLink)
+  };
   return (
-    <div className=" relative flex flex-col col-span-1  h-screen bg-white" >
+    <div className=" relative flex flex-col   h-screen bg-white p-5   " >
       <div className=" flex items-center justify-center gap-2 py-3 mb-10 mt-10 ">
         <img src={Logo} alt="" />
       <p className=" font-inter   text-2xl ">Renovo</p>
       </div>
       <div className=" flex-1">
-        <Link to={'/backoffice'} className={linkClass}> <span><BiHomeAlt /></span> Home</Link>
-        <Link to={'/backoffice/users'} className={linkClass}> <span><BiUser /></span> users</Link>
-        <Link to={'/backoffice/professionals'} className={linkClass}> <span><MdOutlineHomeRepairService /></span> professionals</Link>
-        <Link to={'/backoffice/sellers'} className={linkClass}> <span><AiOutlineUserSwitch /></span> sellers</Link>
-        <Link to={'/backoffice/orders'} className={linkClass}> <span><TbShoppingCartSearch /></span> orders</Link>
-        <Link to={'/backoffice/payment'} className={linkClass}> <span><MdOutlinePayment /></span> payment</Link>
-        <Link to={'/backoffice/chats'} className={linkClass}> <span><IoChatbubblesOutline /></span> chats</Link>
-        <Link to={'/backoffice/settings'} className={linkClass}> <span><IoSettingsOutline /></span> settings</Link>
+        <Link to={'/backoffice'}  onClick={() => handleSetActiveLink('/backoffice')}  className={`${linkClass} ${activeLink === '/backoffice' ? activeLinkClass : ''}  `} > <span><BiHomeAlt /></span> Home</Link>
+        <Link to={'/backoffice/users'} onClick={() => handleSetActiveLink('/backoffice/users')}  className={`${linkClass} ${activeLink === '/backoffice/users' ? activeLinkClass : ''}`} > <span><BiUser /></span> users</Link>
+        <Link to={'/backoffice/professionals'} onClick={() => handleSetActiveLink('/backoffice/professionals')}  className={`${linkClass} ${activeLink === '/backoffice/professionals' ? activeLinkClass : ''}`}> <span><MdOutlineHomeRepairService /></span> professionals</Link>
+        <Link to={'/backoffice/sellers'} onClick={() => handleSetActiveLink('/backoffice/sellers')}  className={`${linkClass} ${activeLink === '/backoffice/sellers' ? activeLinkClass : ''}`}> <span><AiOutlineUserSwitch /></span> sellers</Link>
+        <Link to={'/backoffice/orders'} onClick={() => handleSetActiveLink('/backoffice/orders')}  className={`${linkClass} ${activeLink === '/backoffice/orders' ? activeLinkClass : ''}`}> <span><TbShoppingCartSearch /></span> orders</Link>
+        <Link to={'/backoffice/payment'} onClick={() => handleSetActiveLink('/backoffice/payment')}  className={`${linkClass} ${activeLink === '/backoffice/payment' ? activeLinkClass : ''}`}> <span><MdOutlinePayment /></span> payment</Link>
+        <Link to={'/backoffice/chats'}  onClick={() => handleSetActiveLink('/backoffice/chats')}  className={`${linkClass} ${activeLink === '/backoffice/chats' ? activeLinkClass : ''}`}> <span><IoChatbubblesOutline /></span> chats</Link>
+        <Link to={'/backoffice/settings'} onClick={() => handleSetActiveLink('/backoffice/settings')}  className={`${linkClass} ${activeLink === '/backoffice/settings' ? activeLinkClass : ''}`}> <span><IoSettingsOutline /></span> settings</Link>
 
 
 

@@ -1,10 +1,36 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../../services/api';
 
-interface User {
+interface Location {
+  lat: number;
+  long: number;
+}
+
+interface PaymentMethod {
+  cardType: string;
+  cardNumber: number;
+}
+
+interface Request {
+  id: string;
+  serviceType: string;
+  priority: string;
+  description: string;
+  images: string[];
+  
+}
+
+export interface User  {
   id: string;
   username: string;
   email: string;
+  password: string;
+  phoneNumber?: string;
+  address?: string;
+  location?: Location;
+  paymentMethods?: PaymentMethod[];
+  requests?: Request[];
+
 }
 
 interface UserState {
@@ -20,7 +46,7 @@ const initialState: UserState = {
 };
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-  const response = await axios.get('/users'); // Adjust the endpoint as per your backend API
+  const response = await axios.get('/user/AllUsers'); 
   return response.data;
 });
 
