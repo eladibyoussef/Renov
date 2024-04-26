@@ -1,24 +1,37 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
   ],
+ 
   theme: {
     extend: {
+
       colors:{
         customBlue:'#F9FBFF',
         customGrey:'#B5B7C0',
-        customPurple:'#0C0A67'
+        customPurple:'#0C0A67',
+       primary : "#265073",
+        secondary: "#2D9596",
       }
     },
     fontFamily : {
       inter : [ "Inter", "sans-serif"],
       Outfit : [ "Outfit", 'sans-serif'],
-      Poppins : [ "Poppins", "sans-serif"]
+      Poppins : [ "Poppins", "sans-serif"],
+               cursive: ["Allura" , "cursive"]
 
-    }
+
+    },
+       container: {
+        center: true,
+        padding: {
+          default: "1rem",
+          sm: "3rem",
+        }
+      }
+
   },
   plugins: [],
-}
 
+}
