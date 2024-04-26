@@ -40,8 +40,8 @@ const ServiceCard: React.FC = () => {
     <div className="md:h-full flex items-center text-black">
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-wrap -m-4">
-          <div className="p-4 sm:w-1/2 lg:w-1/3">
-            <div className="h-full border-2 border-opacity-60 rounded-lg overflow-hidden flex flex-col relative">
+          <div className="p-2 sm:w-1/2 lg:w-1/4">
+            <div className=" border-2 border-opacity-60 rounded-lg overflow-hidden flex flex-col relative">
               <img className="w-full h-50 object-cover object-center" src={work1} alt="Work" />
               <div className="p-6">
                 <h1 className="text-xl mb-2 text-cyan-800 font-bold">Cities are crowded</h1>

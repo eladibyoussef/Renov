@@ -25,7 +25,7 @@ const Hero: React.FunctionComponent = () => {
           </div>
         </div>
       </div>
-      <div className="h-[100px]  bg-[#385EA8] p-5">
+      <div className="h-[100px]  bg-[#385EA8] p-5 hidden md:block">
         <div className='flex gap-2'>
           <motion.div
             initial={{ opacity: 0, y: 50 }}

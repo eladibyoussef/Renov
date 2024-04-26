@@ -1,12 +1,27 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
   ],
+ 
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary : "#265073",
+        secondary: "#2D9596",
+      },
+      fontFamily:{
+        cursive: ["Allura" , "cursive"],
+      },
+      container: {
+        center: true,
+        padding: {
+          default: "1rem",
+          sm: "3rem",
+        }
+      }
+    },
   },
   plugins: [],
-}
 
+}
