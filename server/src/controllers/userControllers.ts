@@ -94,6 +94,8 @@ const getProfile = async (req: Request, res: Response): Promise<void> => {
 
 const updateProfile = async (req: Request, res: Response): Promise<void> => {
     try {
+        console.log(req.body);
+        
         const userId = req.params.id;
         const { username, email, phoneNumber, address, location, paymentMethods } = req.body; 
         const updatedUser = await User.findByIdAndUpdate(userId, {
@@ -101,8 +103,9 @@ const updateProfile = async (req: Request, res: Response): Promise<void> => {
             email,
             phoneNumber,
             address,
+            location,
             paymentMethods
-        });
+        } , {new:true});
 
         if (!updatedUser) {
          res.status(404).json({ message: 'User not found' });
@@ -132,9 +135,25 @@ const deleteProfile = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
+const getAllUsers = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const users = await User.find()
+        if (!users){
+            res.status(404).json({message: 'no users found'})
+        }
+        res.status(200).json(users)
+
+    } catch (error) {
+             let message: string;
+        message = catchError(error);
+        res.status(500).json({ msg: message });
+    }
+}
+
 export { registerUser,
          loginUser,
          getProfile,
          updateProfile,
-         deleteProfile 
+         deleteProfile ,
+         getAllUsers
     };

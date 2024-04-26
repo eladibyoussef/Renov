@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk , PayloadAction } from '@reduxjs/toolkit';
 import axios from '../../services/api';
 
 interface Location {
@@ -45,15 +45,26 @@ const initialState: UserState = {
   error: null,
 };
 
+
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
   const response = await axios.get('/user/AllUsers'); 
+  console.log(response.data);
+
   return response.data;
 });
+
+export const editUser =  createAsyncThunk('users/editUser', async (editedUser: User) => {
+   const response = await axios.put(`/user/${editedUser.id}` , editedUser)
+   console.log(response.data);
+   return response.data
+   
+})
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+},
   extraReducers: (builder) => {
     builder
       .addCase(fetchUsers.pending, (state) => {
@@ -67,12 +78,21 @@ const userSlice = createSlice({
       .addCase(fetchUsers.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Failed to fetch users.';
+      })
+      .addCase(editUser.fulfilled, (state, action) => {
+        const editedUser = action.payload.user;
+        const index = state.users.findIndex((user) => user.id === editedUser.id);
+        if (index !== -1) {
+          state.users[index] = editedUser;
+        }
       });
   },
 });
+
 
 export default userSlice.reducer;
 
 export const selectAllUsers = (state: { user: UserState }) => state.user.users;
 export const selectUserLoading = (state: { user: UserState }) => state.user.loading;
 export const selectUserError = (state: { user: UserState }) => state.user.error;
+

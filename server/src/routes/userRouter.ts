@@ -1,6 +1,8 @@
-import { loginUser , registerUser, getProfile, updateProfile, deleteProfile } from "../controllers/userControllers";
+import { loginUser , registerUser, getProfile, updateProfile, deleteProfile ,getAllUsers } from "../controllers/userControllers";
 import express, {Router}  from "express";
 const userRouter:Router = express.Router();
+
+userRouter.get('/AllUsers' , getAllUsers)
 
 /**
  * @swagger

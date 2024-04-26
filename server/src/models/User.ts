@@ -32,6 +32,7 @@ export interface UserDocument extends Document {
   paymentMethods?: PaymentMethod[];
   cart?: mongoose.Types.ObjectId;
   requests?: Request[];
+  createdAt?: Date; 
 
 }
 
@@ -59,6 +60,7 @@ const userSchema = new Schema<UserDocument>({
     images: [{ type: String, required: false }],
     quote: { type: Schema.Types.ObjectId, ref: 'Quote', required: false }
   }],
+  createdAt: { type: Date, default: Date.now }
 
 });
 

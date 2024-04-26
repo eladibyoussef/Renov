@@ -41,7 +41,7 @@ const BackofficeHeader: React.FC<BackofficeHeaderProps> = ({ currentPage }) => {
         </div>
         <div className='relative  justify-center items-center gap-1 hidden md:flex'>
           <div className='relative'>
-            <input type='text' placeholder='search' className='w-40 h-7 bg-zinc-900 bg-opacity-5 rounded-lg pl-5' />
+            <input type='text' placeholder='search' className='w-40 h-7 bg-customBlue   rounded-lg pl-5' />
             <img src={searchIcon} alt='' className='absolute top-2' />
           </div>
           <CiLight className='w-5 h-5 rounded-lg' />
@@ -51,13 +51,12 @@ const BackofficeHeader: React.FC<BackofficeHeaderProps> = ({ currentPage }) => {
         </div>
       </div>
       <hr className='border-customGrey mr-5 ml-5' />
-      <div className="bg-white mb-8 border ">
+      <div className="bg-white  border ">
         <h1 className="font-Poppins font-bold p-8 ">{currentPage} Management</h1>
         <hr className="border-t-8 border-customPurple w-72 rounded-full" />
       </div>
       {isSidebarOpen && (
           <div className='fixed inset-0 z-10 bg-gray-800 bg-opacity-50' onClick={toggleSidebar}>
-            {/* Overlay: This covers the entire screen */}
           </div>
         )}
       {isSidebarOpen && <div  className=' absolute z-50 right-1/3 top-1/3 overflow-y-auto max-h-[500px] md:hidden rounded-lg hide-scrollbar '>
@@ -65,8 +64,7 @@ const BackofficeHeader: React.FC<BackofficeHeaderProps> = ({ currentPage }) => {
       </div>}
     </section>
   
-    </>
-  );
+    </> );
 };
 
 export default BackofficeHeader;

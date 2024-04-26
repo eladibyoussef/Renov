@@ -29,6 +29,7 @@ const ProfessionalManagement = () => {
   if (error) return <p>Error: {error}</p>;
 
   const handlePageChange = (event: any, page: number) => {
+    event.preventDefault()
     setCurrentPage(page - 1);
   };
 
@@ -45,10 +46,6 @@ const ProfessionalManagement = () => {
   return (
     <div className="col-span-6 flex flex-col">
       <BackofficeHeader currentPage = 'Professionals' />
-      {/* <div className="bg-white rounded-bl-lg rounded-br-lg mr-5 mb-5 ml-5">
-        <h1 className="font-Poppins font-bold p-8">Pros Management</h1>
-        <hr className="border-t-8 border-customPurple w-72 rounded-full" />
-      </div> */}
       <div className="p-5">
         <TableContainer component={Paper} style={{ borderRadius: '12px', overflow: 'auto', maxHeight: '500px' }}>
           <Table aria-label="collapsible table" stickyHeader>
