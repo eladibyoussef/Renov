@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { loginUser } from '../features/login/loginSlice'; 
+import { loginUser } from '../features/SignupLogin/authSlice'; 
 import { useAppDispatch } from '../store/hooks';
 
 const LoginContainer: React.FC = () => {

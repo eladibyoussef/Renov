@@ -15,19 +15,19 @@ export const clearToken = (): void => {
 
 export const isAuthenticated = (): boolean => {
   const token = localStorage.getItem('token');
-  const role = localStorage.getItem('permission');
-  return !!token && !!role;
+  const permission = localStorage.getItem('permission');
+  return !!token && !!permission;
 };
 
 export function isAdmin(user: { permission: string }): boolean {
   return !!user && user.permission === 'admin';
 }
 
-export const getUserRole = (): string | null => {
+export const getUserPermission = (): string | null => {
   return localStorage.getItem('permission');
 };
 
-export const saveUserRole = (permission: string): void => {
+export const saveUserPermission= (permission: string): void => {
   localStorage.setItem('permission', permission);
 };
 
@@ -40,7 +40,7 @@ export const saveUsername = (username: string): void => {
 //   return token ? jwtDecode(token) : null;
 // };
 
-export const clearUserRole = (): void => {
+export const clearUserPermission = (): void => {
   localStorage.removeItem('role');
 };
 

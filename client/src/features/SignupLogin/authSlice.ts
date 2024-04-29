@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from '../../services/api';
-import { saveToken, saveUserRole, clearToken, clearUserRole } from '../../Utils/login';
+import { saveToken, saveUserPermission, clearToken, clearUserPermission} from '../../Utils/login';
 import { catchError } from '../../Utils/errorCatch'; 
 
 interface User {
@@ -18,7 +18,7 @@ interface User {
 interface AuthState {
   user: User | null;
   token: string | null;
-  role: string | null;
+  permission: string | null;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | undefined;
   isAuthenticated: boolean;
@@ -30,7 +30,7 @@ interface LoginData {
 }
 
 interface RegisterData {
-  name: string;
+  username: string;
   email: string;
   password: string;
 }
@@ -48,7 +48,7 @@ export const loginUser = createAsyncThunk<
       userData
     );
     saveToken(response.data.token);
-    saveUserRole(response.data.permission);
+    saveUserPermission(response.data.permission);
     console.log(response.data);
     
     return response.data;
@@ -67,11 +67,12 @@ export const registerUser = createAsyncThunk<
 >('auth/registerUser', async (userData, { rejectWithValue }) => {
   try {
     const response = await axios.post<{ user: User; token: string; permission: string }>(
-      '/users/register',
+      '/user/register',
       userData
     );
     saveToken(response.data.token);
-    saveUserRole(response.data.permission);
+    saveUserPermission(response.data.permission);
+    console.log(response.data);
     return response.data;
   } catch (error) {
     const message = catchError(error); 
@@ -84,7 +85,7 @@ export const authSlice = createSlice({
   initialState: {
     user: null,
     token: null,
-    role: null,
+    permission: null,
     status: 'idle',
     error: undefined,
     isAuthenticated: false,
@@ -92,10 +93,10 @@ export const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       clearToken();
-      clearUserRole();
+      clearUserPermission();
       state.user = null;
       state.token = null;
-      state.role = null;
+      state.permission = null;
       state.status = 'idle';
       state.error = undefined;
       state.isAuthenticated = false;
@@ -110,7 +111,7 @@ export const authSlice = createSlice({
         state.status = 'succeeded';
         state.user = action.payload.user;
         state.token = action.payload.token;
-        state.role = action.payload.permission;
+        state.permission = action.payload.permission;
         state.isAuthenticated = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -126,7 +127,7 @@ export const authSlice = createSlice({
         state.status = 'succeeded';
         state.user = action.payload.user;
         state.token = action.payload.token;
-        state.role = action.payload.permission;
+        state.permission = action.payload.permission;
         state.isAuthenticated = true;
       })
       .addCase(registerUser.rejected, (state, action) => {
