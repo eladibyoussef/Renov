@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Logo from '../../Assets/Logo.png';
+import Logo from '../../assets/Logo.png';
 import { IoMdSearch } from 'react-icons/io';
 import { AiOutlineTool, AiOutlineShop, AiOutlineBulb, AiOutlineMenuUnfold, AiOutlineClose } from 'react-icons/ai';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
         <div className='container flex justify-between items-center'>
 
           <Link to='/' className='font-bold text-xl sm:text-xl flex gap-2 items-center'>
-            <img src={Logo} alt='Logo' className='w-7 uppercase' />
+            <img src={Logo} alt='Logo' className='w-7 uppercase ml-5 md:ml-0' />
             RENOVO
           </Link>
 

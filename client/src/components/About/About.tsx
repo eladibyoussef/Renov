@@ -1,5 +1,5 @@
 import React from 'react';
-import plumber from '../../Assets/plumber.png';
+import plumber from '../../assets/plumber.png';
 
 const About: React.FunctionComponent = () => {
   return (

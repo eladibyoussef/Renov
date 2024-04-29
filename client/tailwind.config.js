@@ -19,7 +19,7 @@ export default {
       inter : [ "Inter", "sans-serif"],
       Outfit : [ "Outfit", 'sans-serif'],
       Poppins : [ "Poppins", "sans-serif"],
-               cursive: ["Allura" , "cursive"]
+      cursive: ["Allura" , "cursive"]
 
 
     },
