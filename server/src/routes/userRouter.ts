@@ -4,7 +4,7 @@ const userRouter:Router = express.Router();
 
 
 userRouter.post('/register', registerUser)
-userRouter.get('/login', loginUser)
+userRouter.post('/login', loginUser)
 userRouter.get('/:id', getProfile);
 userRouter.put('/:id', updateProfile);
 userRouter.delete('/:id', deleteProfile);

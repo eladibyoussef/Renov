@@ -17,6 +17,7 @@ import { checkAuthorization } from './middlewares/authorization';
 import messageRouter from "./routes/chatRouter";
 import { app, server } from "./socket/socket";
 import quoteRouter from './routes/quoteRouter';
+import cors from 'cors'
 
 
 
@@ -35,7 +36,7 @@ app.use(express.json());
 app.get('/superProtect',checkAuthorization('superAdmin'),authentication,(req:Request,res:Response)=>{  
   res.status(200).json({msg:'you are connected'})
 });
-
+app.use(cors())
 app.use('/admin', adminRouter)
 app.use('/user', userRouter);
 app.use('/pro', professionalRouter);
