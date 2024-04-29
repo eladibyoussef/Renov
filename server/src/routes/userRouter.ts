@@ -35,9 +35,7 @@ userRouter.get('/AllUsers' , getAllUsers)
  */
 
 userRouter.post('/register', registerUser)
-<<<<<<< HEAD
 userRouter.post('/login', loginUser)
-=======
 
 /**
  * @swagger
@@ -75,7 +73,6 @@ userRouter.post('/login', loginUser)
  *       500:
  *         description: Server error
  */
-userRouter.get('/login', loginUser)
 
 
 
@@ -106,7 +103,6 @@ userRouter.get('/login', loginUser)
  *       500:
  *         description: Server error
  */
->>>>>>> 6f25ce31e02b63f2d1b519b7c7542015f56eef50
 userRouter.get('/:id', getProfile);
 
 
