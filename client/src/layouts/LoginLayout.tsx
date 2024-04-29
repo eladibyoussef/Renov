@@ -1,7 +1,7 @@
 import React from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import logo2 from '../assets/Logo2.png';
+import logo2 from '../Assets/Logo2.png';
 import { Outlet } from 'react-router-dom';
 import { Carousel, initTWE } from 'tw-elements';
 import { Link } from 'react-router-dom';
