@@ -17,13 +17,9 @@ import { checkAuthorization } from './middlewares/authorization';
 import messageRouter from "./routes/chatRouter";
 import { app, server } from "./socket/socket";
 import quoteRouter from './routes/quoteRouter';
-<<<<<<< HEAD
-import cors from 'cors'
-=======
 import { setupSwagger } from './config/swaggerConfig';
 import cors from 'cors'
 
->>>>>>> 6f25ce31e02b63f2d1b519b7c7542015f56eef50
 
 
 
@@ -42,13 +38,8 @@ app.use(express.json());
 app.get('/superProtect',checkAuthorization('superAdmin'),authentication,(req:Request,res:Response)=>{  
   res.status(200).json({msg:'you are connected'})
 });
-<<<<<<< HEAD
 app.use(cors())
-=======
-app.use(cors());
 
-
->>>>>>> 6f25ce31e02b63f2d1b519b7c7542015f56eef50
 app.use('/admin', adminRouter)
 app.use('/user', userRouter);
 app.use('/pro', professionalRouter);
