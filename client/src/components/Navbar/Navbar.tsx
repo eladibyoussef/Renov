@@ -66,7 +66,7 @@ const Navbar: React.FC = () => {
               className='text-white bg-slate-950 py-1 px-4 rounded-full'
               whileHover={{ scale: 1.1 }}
             >
-              <Link to='/signup'>Sign Up</Link>
+              <Link to='/login/signup'>Sign Up</Link>
             </motion.button>
           </div>
 

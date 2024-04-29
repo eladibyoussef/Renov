@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import logo2 from '../assets/Logo2.png';
 import { Outlet } from 'react-router-dom';
 import { Carousel, initTWE } from 'tw-elements';
+import { Link } from 'react-router-dom';
 initTWE({ Carousel });
 
 interface CarouselSettings {
@@ -118,7 +119,7 @@ const LoginLayout: React.FC = () => {
       <div className="col-span-1 md:flex flex-col justify-center ml-44 items-center">
         <div className="w-[334px] h-[100px] left-[310px] top-[245px] text-white text-[64px] font-semibold font-poppins flex justify-center items-center gap-2">
           <img src={logo2} alt="" className="Logo w-13 h-13 pt-2"/>
-          <span className='w-80 h-24'>RENOVO</span>
+          <Link to={'/'} className='w-80 h-24'>RENOVO</Link>
         </div>
         {/* carousel */}
         <CarouselComponent settings={settings} />

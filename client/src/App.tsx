@@ -3,10 +3,9 @@ import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import React from 'react'
 import './App.css'
 // import ProForm from './componenet/ProForm'
-import SignUpForm from './componenet/signUp';
-import LoginContainer from './componenet/login';
+import SignUpForm from './components/signUp';
+import LoginContainer from './components/login';
 import LoginLayout from './layouts/LoginLayout';
-import { Route, Routes } from 'react-router-dom';
 
 import BackOfficeLayout from "./layouts/BackOfficeLayout";
 import BackOfficeDashboard from "./components/BackOfficeDashboard";

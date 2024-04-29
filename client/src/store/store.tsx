@@ -8,7 +8,7 @@ export const store = configureStore({
     professional:professionalReducer,
     auth: authReducer,
     user: userReducer,
-
+  }
     
   
 
