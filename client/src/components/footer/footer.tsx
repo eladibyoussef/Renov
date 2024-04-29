@@ -6,7 +6,7 @@ import {
   FaLocationArrow,
   FaMobileAlt,
 } from "react-icons/fa";
-import Logo1 from '../../assets/Logo1.png'
+import Logo1 from '../../Assets/Logo1.png'
 const Footer : React.FC = () => {
   return (
     <div className="bg-[#4B86B1] text-white dark:bg-gray-950">

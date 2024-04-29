@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import RH1 from '../../assets/1.png';
-import RH2 from '../../assets/2.png';
-import RH3 from '../../assets/3.png';
-import RH4 from '../../assets/4.png';
+import RH1 from '../../Assets/1.png';
+import RH2 from '../../Assets/2.png';
+import RH3 from '../../Assets/3.png';
+import RH4 from '../../Assets/4.png';
 
 interface Service {
   id: number;

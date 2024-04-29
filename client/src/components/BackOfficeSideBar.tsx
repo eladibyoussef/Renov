@@ -1,5 +1,5 @@
 import { Link , useLocation } from 'react-router-dom'
-import Logo from '../assets/Logo.png'
+import Logo from '../Assets/Logo.png'
 import { BiHomeAlt ,BiUser, BiHelpCircle } from "react-icons/bi";
 import { AiOutlineUserSwitch } from "react-icons/ai";
 import { MdOutlineHomeRepairService , MdOutlinePayment } from "react-icons/md";

@@ -1,7 +1,7 @@
 import React from 'react';
-import work1 from '../../assets/work1.png';
-import work2 from '../../assets/work2.png';
-import work3 from '../../assets/work3.png';
+import work1 from '../../Assets/work1.png';
+import work2 from '../../Assets/work2.png';
+import work3 from '../../Assets/work3.png';
 
 const Section: React.FC = () => {
   return (

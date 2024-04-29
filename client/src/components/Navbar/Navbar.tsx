@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Logo from '../../assets/Logo.png';
+import Logo from '../../Assets/Logo.png';
 import { IoMdSearch } from 'react-icons/io';
 import { AiOutlineTool, AiOutlineShop, AiOutlineBulb, AiOutlineMenuUnfold, AiOutlineClose } from 'react-icons/ai';
 import { motion, AnimatePresence } from 'framer-motion';

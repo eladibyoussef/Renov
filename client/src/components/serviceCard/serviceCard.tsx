@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Transition } from '@headlessui/react';
-import work1 from '../../assets/work1.png';
+import work1 from '../../Assets/work1.png';
 
 interface Props {
   isOpen: boolean;
