@@ -44,7 +44,6 @@ const loginUser = async (req: Request, res: Response): Promise<void> => {
         } else {
             const passMatch: boolean = await bcrypt.compare(password, user.password);
             if (passMatch) {
-                console.log(user);
                 
                 const payload = { id: user.id, username: user.username, type:'user'  };
                 console.log('signed payload', payload);
