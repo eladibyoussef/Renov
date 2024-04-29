@@ -13,6 +13,8 @@ export default {
         customPurple:'#0C0A67',
        primary : "#265073",
         secondary: "#2D9596",
+         loginBackground :"#2B6673"
+
       }
     },
     fontFamily : {
