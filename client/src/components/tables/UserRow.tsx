@@ -11,7 +11,7 @@ import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import Box from "@mui/material/Box";
 import { useAppDispatch , useAppSelector  } from "../../store/hooks";
-import Delete from '../../assets/Delete.png'
+import Delete from '../../Assets/Delete.png'
 
 
 

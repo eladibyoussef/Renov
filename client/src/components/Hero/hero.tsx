@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import plumbing from "../../assets/plumbing.png";
-import GH1 from "../../assets/GH 1.png";
+import plumbing from "../../Assets/plumbing.png";
+import GH1 from "../../Assets/GH 1.png";
 
 const Hero: React.FunctionComponent = () => {
   return (
