@@ -1,134 +1,136 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import RH1 from '../../Assets/1.png';
-import RH2 from '../../Assets/2.png';
-import RH3 from '../../Assets/3.png';
-import RH4 from '../../Assets/4.png';
+import React, { useRef } from 'react'
+import { FaArrowLeft, FaArrowRight} from 'react-icons/fa';
+import Carousel from "react-multi-carousel"
+import "react-multi-carousel/lib/styles.css"
+import cart1 from "../../Assets/1.png"
+import cart2 from "../../Assets/2.png"
+import cart3 from "../../Assets/3.png"
+import cart4 from "../../Assets/3.png"
+import cart5 from "../../Assets/5.png"
 
-interface Service {
-  id: number;
-  img: string;
-  name: string;
-  description: string;
+
+
+const responsive = {
+  superLargeDesktop: {
+    breakpoint: {max:4000 , min: 3000},
+    items: 4,
+  },
+  Desktop: {
+    breakpoint: {max:2000 , min: 1024 },
+    items: 4,
+  },
+  tablet: {
+    breakpoint: {max:1024 , min: 464},
+    items: 3,
+  },
+  module: {
+    breakpoint: {max:464 , min:0},
+    items: 1,
+  }
 }
 
-const ServicesData: Service[] = [
-  {
-    id: 1,
-    img: RH1,
-    name: 'Plomberie',
-    description: 'Service de plomberie Lorem ipsum dolor sit amet.',
-  },
-  {
-    id: 2,
-    img: RH2,
-    name: 'Painting',
-    description: 'Service de peinture Lorem ipsum dolor sit amet.',
-  },
-  {
-    id: 3,
-    img: RH3,
-    name: 'Electricity',
-    description: "Service d'électricité Lorem ipsum dolor sit amet.",
-  },
-  {
-    id: 4,
-    img: RH4,
-    name: 'Electricity',
-    description: "Service d'électricité Lorem ipsum dolor sit amet.",
-  },
-  {
-    id: 5,
-    img: RH4,
-    name: 'Electricity',
-    description: "Service d'électricité Lorem ipsum dolor sit amet.",
-  },
-  {
-    id: 6,
-    img: RH4,
-    name: 'Electricity',
-    description: "Service d'électricité Lorem ipsum dolor sit amet.",
-  },
-];
+function Services ()  {
+  const carouselRef = useRef();
 
-const Services: React.FC = () => {
-  const [startIndex, setStartIndex] = useState(0);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const maxVisibleCards = 4;
-  const endIndex = startIndex + maxVisibleCards;
-
-  useEffect(() => {
-    setCurrentIndex(startIndex);
-  }, [startIndex]);
-
-  const goToPreviousSlide = () => {
-    const newStartIndex = startIndex === 0 ? ServicesData.length - maxVisibleCards : startIndex - 1;
-    setStartIndex(newStartIndex);
+  const handleNext = () => {
+    if (carouselRef.current) carouselRef.current.next(0);
   };
 
-  const goToNextSlide = () => {
-    let newStartIndex = startIndex + 1;
-    if (newStartIndex + maxVisibleCards > ServicesData.length) {
-      newStartIndex = 0;
-    }
-    setStartIndex(newStartIndex);
+  const handlePrevious = () => {
+    if (carouselRef.current) carouselRef.current.previous(0);
   };
 
   return (
-    <div className="bg-white p-6 md:p-12 max-w-screen-lg mx-auto">
-      <hr className="border-t-2 border-gray-300 w-1/2 mx-auto md:my-4" />
-      <div className="text-center mb-8">
-        <p className="text-sm bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-          OUR SERVICES LIST
-        </p>
-        <h1 className="text-3xl font-bold">Services We Provide</h1>
+    <div className='container mx-auto px-6 py-16' data-aos-delay='300'>
+      <div className='flex items-center justify-between mb-12'>
+        <h2 className='font-black text-4xl'>OUR SERVICES LIST</h2>
+        <div className='flex items-center gap-x-2'>
+          <button onClick={handlePrevious} className='rounded-full p-2 border border-gray-200 hover:border-gray-500'>
+            <FaArrowLeft />
+          </button>
+          <button onClick={handleNext} className='rounded-full p-2 border border-gray-200 hover:border-gray-500'>
+            <FaArrowRight />
+          </button>
+        </div>
       </div>
 
-      <div className="relative flex space-x-4 overflow-x-auto md:hidden">
-        <motion.div
-          key={ServicesData[currentIndex].id}
-          className="max-w-[900px] w-full md:w-auto group rounded-2xl bg-white hover:bg-gray-300 shadow-xl overflow-hidden"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
+      <Carousel
+        responsive={responsive}
+        ssr={true}
+        infinite
+        autoPlay={true}
+        arrows={false}
+        keyBoardControl={true}
+        renderButtonGroupOutside={true}
+        ref={carouselRef}
+      >
+        <div  className='p-6 rounded-xl bg-[whitesmoke]  hover:bg-sky-200 lg:ml-8'>
+          <img src={cart1} alt="" style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '8px' }}/>
+          <span className='py-4 px-6 '>
+          <p className='text-xl font-bold mb-2'>Service 1</p>
+          <button className=' bg-sky-800 text-white px-4 py-2 rounded-lg hover:bg-sky-400 hover:text-black transition-bg'>
+            Visit Now
+          </button>
+          </span>
+        </div>
+        
+        <div className='p-6 rounded-xl bg-[whitesmoke]  hover:bg-sky-200  lg:ml-8'>
+          <img src={cart2} alt="" style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '8px' }}/>
+          <span className='py-4 px-6 '>
+          <p className='text-xl font-bold mb-2'>Service 2</p>
+          <button className=' bg-sky-800 text-white px-4 py-2 rounded-lg hover:bg-sky-400 hover:text-black transition-bg'>
+            Visit Now
+          </button>
+          </span>
+        </div>
+        <div className='p-6 rounded-xl bg-[whitesmoke] hover:bg-sky-200  lg:ml-8'>
+          <img src={cart3} alt="" style={{ width: '800%', height: '150px', objectFit: 'cover', borderRadius: '8px' }}/>
+          <span className='py-4 px-6 '>
+          <p className='text-xl font-bold mb-2'>Service 3</p>
+          <button className=' bg-sky-800 text-white px-4 py-2 rounded-lg hover:bg-sky-400 hover:text-black transition-bg'>
+            Visit Now
+          </button>
+           </span>
+        </div>
+        <div className='p-6 rounded-xl bg-[whitesmoke] hover:bg-sky-200  lg:ml-8'>
+          <img src={cart4} alt="" style={{ width: '800%', height: '150px', objectFit: 'cover', borderRadius: '8px' }}/>
+          <span className='py-4 px-6'>
+          <p className='text-xl font-bold mb-2'>Service 4</p>
+          <button className=' bg-sky-800 text-white px-4 py-2 rounded-lg hover:bg-sky-400 hover:text-black transition-bg'>
+            Visit Now
+          </button>
+           </span>
+        </div>
+       
+        <div className='p-6 rounded-xl bg-[whitesmoke] hover:bg-sky-200  lg:ml-8'>
+          <img src={cart3} alt="" style={{ width: '800%', height: '150px', objectFit: 'cover', borderRadius: '8px' }}/>
+          <span className='py-4 px-6 '>
+          <p className='text-xl font-bold mb-2'>Service 5</p>
+          <button className=' bg-sky-800 text-white px-4 py-2 rounded-lg hover:bg-sky-400 hover:text-black transition-bg'>
+            Visit Now
+          </button>
+           </span>
+        </div>
+        <div className='p-6 rounded-xl bg-[whitesmoke]  hover:bg-sky-200  lg:ml-8'>
+          <img src={cart5} alt="" style={{ width: '800%', height: '150px', objectFit: 'cover', borderRadius: '8px' }}/>
+          <span className='py-4 px-6 '>
+          <p className='text-xl font-bold mb-2'>Service 6</p>
+          <button className=' bg-sky-800 text-white px-4 py-2 rounded-lg hover:bg-sky-400 hover:text-black transition-bg'>
+            Visit Now
+          </button>
+           </span>
+        </div>
+      </Carousel>
+      <div className="mt-8 text-right">
+        <button
+          className="bg-gray-300 text-gray-800 px-6 py-1 shadow-xl rounded-lg border border-gray-200 hover:bg-gray-400 hover:text-gray-900 transition-bg"
+          style={{ fontSize: '16px', fontWeight: 'bold', boxShadow: '2px 2px 4px rgba(0, 0, 0, 0.1)' }}
         >
-          <img src={ServicesData[currentIndex].img} alt={ServicesData[currentIndex].name} className="w-full h-48 object-cover" />
-          <div className="p-4">
-            <h3 className="text-lg md:text-xl font-bold text-gray-800">{ServicesData[currentIndex].name}</h3>
-            <p className="text-sm md:text-base text-gray-600">{ServicesData[currentIndex].description}</p>
-          </div>
-        </motion.div>
-      </div>
-
-      <div className="relative items-center justify-start space-x-4 overflow-x-auto hidden md:flex pl-0 pr-0">
-        {ServicesData.slice(startIndex, endIndex).map((service) => (
-          <motion.div
-            key={service.id}
-            className="max-w-[600px] w-full md:w-auto group rounded-2xl bg-white hover:bg-gray-300 shadow-xl overflow-hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <img src={service.img} alt={service.name} className="w-full h-48 object-cover" />
-            <div className="p-4">
-              <h3 className="text-lg md:text-xl font-bold text-gray-800">{service.name}</h3>
-              <p className="text-sm md:text-base text-gray-600">{service.description}</p>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-
-      <div className="mt-6 flex justify-center space-x-4">
-        <button className="px-3 py-1 md:px-4 md:py-2 bg-gray-300 rounded-full" onClick={goToPreviousSlide}>
-          {'<'}
-        </button>
-        <button className="px-3 py-1 md:px-4 md:py-2 bg-gray-300 rounded-full" onClick={goToNextSlide}>
-          {'>'}
+          View All Services
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Services;
+export default Services
