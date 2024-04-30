@@ -1,5 +1,5 @@
 import express from 'express';
-import { Request, Response } from 'express';
+import { Request, Response , Express } from 'express';
 import adminRouter from './routes/adminRouter';
 import professionalRouter from './routes/proffessionalRoutes';
 import reviewRouter from './routes/reviewRouter';
@@ -17,6 +17,9 @@ import { checkAuthorization } from './middlewares/authorization';
 import messageRouter from "./routes/chatRouter";
 import { app, server } from "./socket/socket";
 import quoteRouter from './routes/quoteRouter';
+import { setupSwagger } from './config/swaggerConfig';
+import cors from 'cors'
+
 
 
 
@@ -35,6 +38,8 @@ app.use(express.json());
 app.get('/superProtect',checkAuthorization('superAdmin'),authentication,(req:Request,res:Response)=>{  
   res.status(200).json({msg:'you are connected'})
 });
+app.use(cors());
+
 
 app.use('/admin', adminRouter)
 app.use('/user', userRouter);
@@ -43,11 +48,8 @@ app.use('/reviews', reviewRouter);
 app.use('/services', serviceRouter);
 app.use('/diy', diyRouter);
 app.use('/payment', paymentRouter);
-
-
 app.use('/pro', professionalRouter)
 app.use('/seller', sellerRouter);
-
 app.use('/services', serviceRouter)
 app.use('/diy', diyRouter)
 app.use('/messages',messageRouter)
@@ -55,9 +57,13 @@ app.use('/quote', quoteRouter)
 app.use('/order', OrderRouter)
 app.use('/geolocation', geolocationRouter)
 
-app.get('/' ,(req:Request,res:Response)=>{
-  res.send('hello from server')
-} )
+setupSwagger(app);
+
+
+// app.get('/' ,(req:Request,res:Response)=>{
+//   res.send('hello from server')
+// } )
+
 
 
 server.listen(PORT, () => {
