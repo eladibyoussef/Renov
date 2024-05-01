@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import {
   fetchUsers,
   selectAllUsers,
   selectUserLoading,
   selectUserError,
   
-} from "../features/user/userSlice";
-import BackofficeHeader from "../layouts/BackofficeHeader";
+} from "../../features/user/userSlice";
+import BackofficeHeader from "../shared/BackofficeHeader";
 import { CircularProgress, Pagination } from "@mui/material";
 import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
@@ -17,8 +17,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import Row from "./tables/UserRow";
-import '../index.css'
+import Row from "./UserRow";
+import '../../index.css'
 import { IoFilter } from "react-icons/io5";
 
 

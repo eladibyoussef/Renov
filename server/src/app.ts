@@ -9,6 +9,7 @@ import diyRouter from './routes/diyRouter';
 import paymentRouter from './routes/paymentRoute';
 import sellerRouter from './routes/sallerRouter';
 import OrderRouter from './routes/OrderRoute';
+import ProductRouter from './routes/productRouter'
 import geolocationRouter from './routes/geolocationRoutre';
 import db from './config/database';
 import * as dotenv from 'dotenv';
@@ -19,7 +20,7 @@ import { app, server } from "./socket/socket";
 import quoteRouter from './routes/quoteRouter';
 import { setupSwagger } from './config/swaggerConfig';
 import cors from 'cors'
-
+import { uploadFile } from './Util/cloudinaryUpload';
 
 
 
@@ -47,7 +48,6 @@ app.use('/reviews', reviewRouter);
 app.use('/services', serviceRouter);
 app.use('/diy', diyRouter);
 app.use('/payment', paymentRouter);
-app.use('/pro', professionalRouter)
 app.use('/seller', sellerRouter);
 app.use('/services', serviceRouter)
 app.use('/diy', diyRouter)
@@ -55,7 +55,8 @@ app.use('/messages',messageRouter)
 app.use('/quote', quoteRouter)
 app.use('/order', OrderRouter)
 app.use('/geolocation', geolocationRouter)
-
+app.use('/products' , ProductRouter)
+app.use('/upload' , uploadFile)
 setupSwagger(app);
 
 

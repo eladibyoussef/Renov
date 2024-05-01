@@ -9,13 +9,14 @@ import LoginLayout from './layouts/LoginLayout';
 
 import BackOfficeLayout from "./layouts/BackOfficeLayout";
 import BackOfficeDashboard from "./components/BackOfficeDashboard";
-import UserManagement from './components/UserManagement';
-import ProfessionalManagement from './components/ProfessionalManagenemt';
+import UserManagement from './components/UserManagement/UserManagement';
+import ProfessionalManagement from './components/ProfessionalsManagement/ProfessionalManagenemt';
  import LandingPage from './pages/landingPage'
   import PageServices from './pages/PageServices'
 import PageShopAll from './pages/PageShopAll'
 import PageDiY from './pages/PageDiY'
 import InterfaceLayout from './layouts/InterfaceLayout'
+import ProductsManagement from './components/ProductsManagement/ProductsManagement';
 
 
 
@@ -27,6 +28,9 @@ function App() {
          <Route index element={<BackOfficeDashboard />} />
          <Route path='users' element={<UserManagement />}/>
          <Route path='professionals' element = {<ProfessionalManagement />} />
+         <Route path='products'  element={<ProductsManagement />}/>
+
+
 
       </Route>
          <Route path='/' element={<InterfaceLayout />}>
