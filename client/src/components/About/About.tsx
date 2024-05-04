@@ -13,7 +13,7 @@ function About() {
                 Why we are the best
               </h1>
               
-              <h2 className="text-xl md:text-2xl lg:text-xl xl:text-2xl font-cursive text-black md:mt-4 mb-4 md:mb-6 lg:mt-14">
+              <h2 className="text-xl md:text-2xl lg:text-3xl xl:text-3xl font-cursive text-black md:mt-4 mb-4 md:mb-6 lg:mt-14">
                 Our Philosophy
               </h2>
               

@@ -17,7 +17,7 @@ function Shop() {
           <div className='absolute inset-0 bg-gray-900 opacity-0 hover:opacity-50 transition-opacity duration-300'></div>
         </div>
         <div className='p-4'>
-          <h4 className='text-lg font-bold text-gray-800'>{name}</h4>
+          <button className='text-lg font-bold text-gray-800'>{name}</button>
           <p className='text-sm text-gray-600 mt-2'>{item}</p>
           <p className='text-lg font-bold text-red-500 mt-2'>{amount}.00Dhs</p>
         </div>

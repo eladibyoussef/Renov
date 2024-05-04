@@ -1,5 +1,5 @@
 import React from 'react';
-import searchIcon from '../assets/searchIcon.png';
+import searchIcon from '../Assets/searchIcon.png';
 import { CiLight } from 'react-icons/ci';
 import { SlBell } from 'react-icons/sl';
 import { MdHistory } from 'react-icons/md';
