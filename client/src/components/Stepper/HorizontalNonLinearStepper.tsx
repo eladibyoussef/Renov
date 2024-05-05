@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import InfoPersonnelles from '../multi-Form/InfoPersonnelles';
 import InfoProfessionnelles from '../multi-Form/InfoProfessionnelles';
-import FinishedPage from '../multi-Form/FinishedPage'; // Importer le composant FinishedPage
+import FinishedPage from '../multi-Form/FinishedPage'; 
 
 const steps = ['Personal Info', 'Professional Info', 'Finished'];
 
@@ -36,11 +36,9 @@ export default function HorizontalNonLinearStepper() {
     let isStepValid = false;
 
     if (activeStep === 0) {
-      // Valider les informations personnelles
       const requiredPersonalFields = ['username', 'cin', 'email', 'password', 'phoneNumber', 'address'];
       isStepValid = requiredPersonalFields.every(field => !!personalInfo[field]);
     } else if (activeStep === 1) {
-      // Valider les informations professionnelles
       const requiredProfessionalFields = ['license', 'servicesProvided', 'certificates', 'companyname', 'profilePicture', 'aboutMe', 'portfolio'];
       isStepValid = requiredProfessionalFields.every(field => !!professionalInfo[field]);
     }
@@ -51,7 +49,6 @@ export default function HorizontalNonLinearStepper() {
       setCompleted(newCompleted);
 
       if (activeStep === steps.length - 1) {
-        // Dernière étape atteinte, afficher la page de remerciement
         console.log('Navigating to Finished Page...');
       } else {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);

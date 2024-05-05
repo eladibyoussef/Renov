@@ -1,4 +1,3 @@
-import React from 'react';
 
 export default function InfoPersonnelles({ formData, handleChange }) {
   const handleInputChange = (e) => {
