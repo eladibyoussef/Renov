@@ -14,13 +14,15 @@ const CollapsibleCard = ({ service }) => {
       <div className="relative">
         <img className="w-[280px] h-[200px]" src={serviceImg} alt="Service" />
         <div className="absolute top-0 left-0 p-4">
-          <h2 className="text-black bg-gradient-to-r from-white to-slate-300 p-1 px-4 rounded-lg text-lg font-bold">{service.name}</h2>
+          <h2 className="text-black  p-1 px-4  text-lg font-bold">{service.name}</h2>
         </div>
       </div>
       <div className="p-4">
         <div className="mb-4">
+          
           {isOpen ? (
             <div style={{ maxHeight: '200px', overflowY: 'auto', paddingRight: '10px' }} className="scrollbar">
+              
               {service.subCategories.map((subCategory) => (
                 <Link
                   key={subCategory.id}
