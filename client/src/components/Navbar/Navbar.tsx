@@ -22,7 +22,7 @@ const Navbar: React.FC = () => {
         <div className='container flex justify-between items-center'>
 
           <Link to='/' className='font-bold text-xl sm:text-xl flex gap-2 items-center'>
-            <img src={Logo} alt='Logo' className='w-7 uppercase' />
+            <img src={Logo} alt='Logo' className='w-7 uppercase ml-5 md:ml-0' />
             RENOVO
           </Link>
 
@@ -66,7 +66,7 @@ const Navbar: React.FC = () => {
               className='text-white bg-slate-950 py-1 px-4 rounded-full'
               whileHover={{ scale: 1.1 }}
             >
-              <Link to='/signup'>Sign Up</Link>
+              <Link to='/login/signup'>Sign Up</Link>
             </motion.button>
           </div>
 

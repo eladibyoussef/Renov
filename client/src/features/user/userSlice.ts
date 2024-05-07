@@ -1,5 +1,5 @@
 
-import { createSlice, createAsyncThunk , PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk  } from '@reduxjs/toolkit';
 import axios from '../../services/api';
 
 interface Location {
@@ -65,7 +65,7 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-},
+}, 
   extraReducers: (builder) => {
     builder
       .addCase(fetchUsers.pending, (state) => {

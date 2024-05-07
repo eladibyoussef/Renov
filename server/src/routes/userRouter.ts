@@ -36,6 +36,8 @@ userRouter.get('/AllUsers' , getAllUsers)
 
 userRouter.post('/register', registerUser)
 
+
+
 /**
  * @swagger
  * /user/login:
@@ -72,8 +74,8 @@ userRouter.post('/register', registerUser)
  *       500:
  *         description: Server error
  */
-userRouter.get('/login', loginUser)
 
+userRouter.post('/login', loginUser)
 
 
 /**

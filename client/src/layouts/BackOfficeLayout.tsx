@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import BackOfficeSideBar from "../components/BackOfficeSideBar"
+import BackOfficeSideBar from "../components/shared/BackOfficeSideBar"
 
 
 
