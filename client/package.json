@@ -21,6 +21,7 @@
     "@types/react-router-dom": "^5.3.3",
     "antd": "^5.16.0",
     "axios": "^1.6.8",
+    "cloudinary-core": "^2.13.1",
     "dotenv": "^16.4.5",
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",

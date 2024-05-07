@@ -30,14 +30,19 @@ export const createProduct = createAsyncThunk(
       try {
           const uploadPromises = productData.photos.map(async (photo: string) => {
               const cloudinaryResponse = await axios.post('/upload', { file: photo });
+              console.log(cloudinaryResponse.data);
+              
               return cloudinaryResponse.data.url;
           });
 
           const imageUrls = await Promise.all(uploadPromises);
-
+            
           const modifiedProductData = { ...productData, photos: imageUrls };
+          
 
-          const response = await axios.post('/products/create', modifiedProductData);
+          const response = await axios.post('/products', modifiedProductData);
+          console.log(response.data);
+
           return response.data;
       } catch (error) {
           return thunkAPI.rejectWithValue(error);

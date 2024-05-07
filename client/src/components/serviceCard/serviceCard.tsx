@@ -20,7 +20,7 @@ const ArrowDownIcon: React.FC<Props> = ({ isOpen }) => (
   </svg>
 );
 
-const ServiceCard: React.FC = () => {
+const ServiceCard: React.FC = (ServiceCard) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
