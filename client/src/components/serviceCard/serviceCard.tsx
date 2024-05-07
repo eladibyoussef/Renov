@@ -3,7 +3,6 @@ import  { useState } from 'react';
 const CollapsibleCard = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-<<<<<<< HEAD
   const options = [
     {
       title: 'Option 1',
@@ -14,7 +13,7 @@ const CollapsibleCard = () => {
       subOptions: ['Sub Option A', 'Sub Option B', 'Sub Option C']
     }
   ];
-=======
+
 const ArrowDownIcon: React.FC<Props> = ({ isOpen }) => (
   <svg
     className="w-4 h-4 inline-block cursor-pointer"
@@ -44,7 +43,6 @@ const ServiceCard: React.FC = (ServiceCard) => {
     Option1: ['SubOption1', 'SubOption2'],
     Option2: ['SubOption3', 'SubOption4']
   };
->>>>>>> products-management
 
   return (
     <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-32 ms-8">
@@ -81,6 +79,6 @@ const ServiceCard: React.FC = (ServiceCard) => {
       </div>
     </div>
   );
-};
+}};
 
 export default CollapsibleCard;
