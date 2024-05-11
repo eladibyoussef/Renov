@@ -50,6 +50,13 @@ export const createProduct = createAsyncThunk(
   }
 );
 
+export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
+  const response = await axios.get('/products'); 
+  console.log(response.data);
+
+  return response.data;
+});
+
 const productSlice = createSlice({
   name: 'product',
   initialState,
