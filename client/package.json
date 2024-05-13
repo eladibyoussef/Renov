@@ -14,6 +14,11 @@
 
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "@fortawesome/free-solid-svg-icons": "^6.5.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@headlessui/react": "^1.7.19",
+
     "@material-tailwind/react": "^2.1.9",
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.16",
@@ -40,6 +45,7 @@
     "redux": "^5.0.1",
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
+    "swiper": "^11.1.1",
     "tw-elements": "^2.0.0",
     "tw-elements-react": "^1.0.0-alpha2"
   },
