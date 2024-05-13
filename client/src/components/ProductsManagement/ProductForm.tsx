@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form, Input, InputNumber, Switch, Upload, Modal } from "antd";
-import { createProduct } from "../../features/product/productSlice";
+import { createProduct, Product } from "../../features/product/productSlice";
 import { useAppDispatch } from "../../store/hooks";
 import { PlusOutlined } from "@ant-design/icons";
 import UploadWidget from "../UploadWidget";
@@ -12,31 +12,65 @@ const ProductForm: React.FC = () => {
   const [fileList, setFileList] = useState<any[]>([]);
   const dispatch = useAppDispatch();
   const [form] = Form.useForm();
+  const [productForm, setProductForm] = useState<Product>({
+    name: "",
+    description: "",
+    price: 0,
+    category: "",
+    availability: false,
+    photos: [],
+    deliveryFees: 0,
+  });
+
+  useEffect(() => {
+    console.log("Updated product:", productForm);
+
+  }, [productForm]);
 
   const onFinish = (values: any) => {
-    const productData = { ...values, photos: fileList.map((file) => file) };
-    console.log(productData);
-    console.log('values', values);
-    
-
-    dispatch(createProduct(productData));
+    const { name, description, price, category, availability } = values;
+    setProductForm({
+      ...productForm,
+      name,
+      description,
+      price,
+      category,
+      availability,
+    });
+    console.log("values", values);
+   console.log('product after submitting the from',productForm );
+   
     // setVisible(false);
 
-    form.resetFields();
   };
 
-  const handleChange = ({ fileList }: any) => {
-    setFileList(fileList);
-  };
-  const onChange = (checked: boolean) => {
-    console.log(`switch to ${checked}`);
-  };
+  const handleSubmit = ()=>{
+    dispatch(createProduct(productForm));
+    form.resetFields();
+
+
+  }
+
+  //   const handleChange = ({ fileList }: any) => {
+  //     setFileList(fileList);
+  //   };
+  //   const onChange = (checked: boolean) => {
+  //     console.log(`switch to ${checked}`);
+  //   };
 
   const normFile = (e: any) => {
     if (Array.isArray(e)) {
       return e;
     }
     return e && e.fileList;
+  };
+  const handleUploadSuccess = (url: string) => {
+    console.log("cloudinary url returned", url);
+
+    setProductForm((productForm) => ({
+      ...productForm,
+      photos: [...productForm.photos, url],
+    }));
   };
 
   return (
@@ -103,12 +137,16 @@ const ProductForm: React.FC = () => {
             <Switch defaultChecked onChange={onChange} />
           </Form.Item> */}
 
-<Form.Item  label="Availability"
-            name="availability" valuePropName="checked" initialValue={false}>
-        <Switch />
-      </Form.Item>
-
           <Form.Item
+            label="Availability"
+            name="availability"
+            valuePropName="checked"
+            initialValue={false}
+          >
+            <Switch />
+          </Form.Item>
+
+          {/* <Form.Item
             label="Photos"
             name="photos"
             valuePropName="fileList"
@@ -125,20 +163,22 @@ const ProductForm: React.FC = () => {
                 <div style={{ marginTop: 8 }}>Upload</div>
               </button>
             </Upload>
+          </Form.Item> */}
+          <Form.Item label="Photos" name="photos">
+            <UploadWidget
+              productForm={productForm}
+              setProductForm={setProductForm}
+              onUploadSuccess={handleUploadSuccess}
+            />
           </Form.Item>
-          {/* <Form.Item
-                      label="Photos"
-                      name="photos"
-                      valuePropName="fileList"
-                      getValueFromEvent={normFile}
-                    >
-                    <UploadWidget />
 
-                    </Form.Item> */}
           <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Submit
+            <Button type="primary" htmlType="submit" >
+              Submit info
             </Button>
+            <button onClick={handleSubmit}>
+              create product
+            </button>
           </Form.Item>
         </Form>
       </Modal>
