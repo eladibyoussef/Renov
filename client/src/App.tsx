@@ -1,4 +1,5 @@
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import React from 'react'
 import './App.css'
@@ -16,6 +17,7 @@ import ProfessionalManagement from './components/ProfessionalManagenemt';
 import PageShopAll from './pages/PageShopAll'
 import PageDiY from './pages/PageDiY'
 import InterfaceLayout from './layouts/InterfaceLayout'
+import RequestPage from './pages/RequestPage';
 
 
 
@@ -35,6 +37,7 @@ function App() {
        <Route path="/services" element={<PageServices />} />
        <Route path="/ShopAll" element={<PageShopAll />} />
        <Route path="/DiY" element={<PageDiY />} />
+       <Route path= "/ServiceRequest" element={<RequestPage/>}/>
       </Route>
       
        <Route path='/login' element={<LoginLayout/>}>
