@@ -1,15 +1,14 @@
 import React from 'react';
-import searchIcon from '../../Assets/searchIcon.png';
-
+import searchIcon from '../Assets/searchIcon.png';
 import { CiLight } from 'react-icons/ci';
 import { SlBell } from 'react-icons/sl';
 import { MdHistory } from 'react-icons/md';
 import { PiNotebookDuotone } from 'react-icons/pi';
 import { ImStarEmpty } from 'react-icons/im';
-import BackOfficeSideBar from "./BackOfficeSideBar"
+import BackOfficeSideBar from "../components/BackOfficeSideBar"
 import { useState  } from "react"
 import { FiMenu } from 'react-icons/fi'; 
-import '../../index.css'
+import '../index.css'
 
 
 interface BackofficeHeaderProps {
