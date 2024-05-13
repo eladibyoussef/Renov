@@ -9,6 +9,36 @@ const CollapsibleCard = ({ service }) => {
     setIsOpen(!isOpen);
   };
 
+const ArrowDownIcon: React.FC<Props> = ({ isOpen }) => (
+  <svg
+    className="w-4 h-4 inline-block cursor-pointer"
+    viewBox="0 0 24 24"
+    fill={isOpen ? "currentColor" : "none"}
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M19 9l-7 7-7-7" />
+  </svg>
+);
+
+const ServiceCard: React.FC = (ServiceCard) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prevState) => !prevState);
+  };
+
+  const handleSubOptionClick = (option: string) => {
+    console.log('Option clicked:', option);
+  };
+
+  const subOptions = {
+    Option1: ['SubOption1', 'SubOption2'],
+    Option2: ['SubOption3', 'SubOption4']
+  };
+
   return (
     <div className={`max-w-md mx-auto bg-white shadow-lg rounded-lg mt-8  ${isOpen ? 'h-auto' : 'h-64'}`}>
       <div className="relative">
@@ -44,6 +74,6 @@ const CollapsibleCard = ({ service }) => {
       </div>
     </div>
   );
-};
+}};
 
 export default CollapsibleCard;

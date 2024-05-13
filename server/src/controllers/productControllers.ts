@@ -3,6 +3,8 @@ import Product, {productDocument} from '../models/Product';
 
 // Create a new product
 const createProduct = async (req: Request, res: Response): Promise<void> => {
+  console.log(req.body);
+  
   try {
     const newProduct: productDocument = new Product({
       name: req.body.name,
@@ -10,6 +12,7 @@ const createProduct = async (req: Request, res: Response): Promise<void> => {
       price: req.body.price,
       category: req.body.category,
       availability: req.body.availability, 
+      photos:req.body.photos
     });
     const savedProduct = await newProduct.save();
     res.status(201).json(savedProduct);
