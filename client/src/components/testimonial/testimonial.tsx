@@ -74,7 +74,7 @@ const Testimonial : React.FC = () => {
                   <img className="rounded-full block mx-auto w-28 h-28 mb-4" src={data.img} alt={data.name} />
                   <p className="text-gray-500 text-sm">{data.text}</p>
                   <h1 className="text-lg font-bold">{data.name}</h1>
-                  <p className="text-7xl  font-serif absolute top-0 right-0 text-black opacity-20">,,</p>
+                  <p className=" text-7xl font-serif  absolute top-0 right-0 text-black opacity-20 " style={{fontFamily:"serif"}}>,,</p>
                 </div>
               </div>
             ))}

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import DiyTutorial, { DiyTutorialDocument } from '../models/Diy';
+import { catchError } from '../Util/errorCatch';
 
 // Create a new DIY tutorial
 export const createDiyTutorial = async (req: Request, res: Response): Promise<void> => {
@@ -17,8 +18,9 @@ export const createDiyTutorial = async (req: Request, res: Response): Promise<vo
         const savedDiyTutorial = await newDiyTutorial.save();
         res.status(201).json(savedDiyTutorial);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error' });
+        let message: string;
+    message = catchError(error);
+    res.status(500).json({ msg: message });
     }
 };
 
