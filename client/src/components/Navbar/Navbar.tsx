@@ -17,7 +17,7 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <div className='shadow-md bg-slate-500 dark:bg-cyan-700 dark:text-white'>
+    <div className='shadow-md bg-slate-500 '>
       <div className='bg-white py-3'>
         <div className='container flex justify-between items-center'>
 

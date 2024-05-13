@@ -76,7 +76,7 @@ professionalRouter.post('/request-register', registrationRequest);
 professionalRouter.post('/approve-request', registrationApproval);
 professionalRouter.post('/login', professionalLogin);
 professionalRouter.put('/change-password' , changePassword);
-professionalRouter.get('/get-Pros', getAllprfessionals);
+professionalRouter.get('/getAllPros', getAllprfessionals);
 professionalRouter.get('/',searchForPro)
 professionalRouter.get('/account',getProAccount);
 professionalRouter.post('/:id/rate', rateProfessional)
