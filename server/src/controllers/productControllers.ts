@@ -12,7 +12,8 @@ const createProduct = async (req: Request, res: Response): Promise<void> => {
       price: req.body.price,
       category: req.body.category,
       availability: req.body.availability, 
-      photos:req.body.photos
+      photos:req.body.photos,
+      rentable:req.body.rentable
     });
     const savedProduct = await newProduct.save();
     res.status(201).json(savedProduct);
