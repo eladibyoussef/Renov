@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import cloudinary from "../services/cloudinary";
 import { catchError } from "../Util/errorCatch";
 import Quote , {QuoteDocument} from "../models/Quote";
-import { uploadFile } from "../Util/cloudinaryUpload";
+import { uploadFiles } from "../Util/cloudinaryUpload";
 
 
 

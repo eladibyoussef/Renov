@@ -28,22 +28,34 @@ export const createProduct = createAsyncThunk(
   'products/createProduct',
   async (productData: Product, thunkAPI) => {
       try {
-          const uploadPromises = productData.photos.map(async (photo: string) => {
-              const cloudinaryResponse = await axios.post('/upload', { file: photo });
-              return cloudinaryResponse.data.url;
-          });
+          // const uploadPromises = productData.photos.map(async (photo: string) => {
+          //     const cloudinaryResponse = await axios.post('/upload', { file: photo });
+          //     console.log(cloudinaryResponse.data);
+              
+          //     return cloudinaryResponse.data.url;
+          // });
 
-          const imageUrls = await Promise.all(uploadPromises);
+          // const imageUrls = await Promise.all(uploadPromises);
+            
+          // const modifiedProductData = { ...productData, photos: imageUrls };
+          
 
-          const modifiedProductData = { ...productData, photos: imageUrls };
+          const response = await axios.post('/products', productData);
+          console.log('server response', response.data);
 
-          const response = await axios.post('/products/create', modifiedProductData);
           return response.data;
       } catch (error) {
           return thunkAPI.rejectWithValue(error);
       }
   }
 );
+
+export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
+  const response = await axios.get('/products'); 
+  console.log(response.data);
+
+  return response.data;
+});
 
 const productSlice = createSlice({
   name: 'product',

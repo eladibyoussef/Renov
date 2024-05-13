@@ -20,7 +20,9 @@ import { app, server } from "./socket/socket";
 import quoteRouter from './routes/quoteRouter';
 import { setupSwagger } from './config/swaggerConfig';
 import cors from 'cors'
-import { uploadFile } from './Util/cloudinaryUpload';
+import { uploadFiles } from './Util/cloudinaryUpload';
+import upload from "./middlewares/multer";
+
 
 
 
@@ -56,7 +58,7 @@ app.use('/quote', quoteRouter)
 app.use('/order', OrderRouter)
 app.use('/geolocation', geolocationRouter)
 app.use('/products' , ProductRouter)
-app.use('/upload' , uploadFile)
+app.post('/upload' , uploadFiles)
 setupSwagger(app);
 
 
