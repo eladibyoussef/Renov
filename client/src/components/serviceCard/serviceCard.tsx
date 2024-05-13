@@ -1,84 +1,55 @@
-import  { useState } from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import serviceImg from '../../Assets/1.png';
 
-const CollapsibleCard = () => {
+interface ServiceCardProps {
+  service: {
+    id: string;
+    name: string;
+    subCategories: { id: string; name: string }[];
+  };
+}
+
+const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const options = [
-    {
-      title: 'Option 1',
-      subOptions: ['Sub Option 1', 'Sub Option 2', 'Sub Option 3']
-    },
-    {
-      title: 'Option 2',
-      subOptions: ['Sub Option A', 'Sub Option B', 'Sub Option C']
-    }
-  ];
-
-const ArrowDownIcon: React.FC<Props> = ({ isOpen }) => (
-  <svg
-    className="w-4 h-4 inline-block cursor-pointer"
-    viewBox="0 0 24 24"
-    fill={isOpen ? "currentColor" : "none"}
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M19 9l-7 7-7-7" />
-  </svg>
-);
-
-const ServiceCard: React.FC = (ServiceCard) => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-  const toggleDropdown = () => {
-    setIsDropdownOpen((prevState) => !prevState);
-  };
-
-  const handleSubOptionClick = (option: string) => {
-    console.log('Option clicked:', option);
-  };
-
-  const subOptions = {
-    Option1: ['SubOption1', 'SubOption2'],
-    Option2: ['SubOption3', 'SubOption4']
+  const toggleCard = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
-    <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-32 ms-8">
+    <div className={`max-w-md mx-auto bg-white shadow-lg rounded-lg mt-8 ${isOpen ? 'h-auto' : 'h-64'}`}>
       <div className="relative">
-        <img className="w-[280px] h-[200px]" src="https://source.unsplash.com/random" alt="Service" />
+        <img className="w-[280px] h-[200px]" src={serviceImg} alt="Service" />
         <div className="absolute top-0 left-0 p-4">
-          <h2 className="text-white text-lg font-bold">Service Title</h2>
+          <h2 className="text-black p-1 px-4 text-lg font-bold">{service.name}</h2>
         </div>
       </div>
       <div className="p-4">
-        {isOpen && (
-          <div>
-            {options.map((option, index) => (
-              
-              <div key={index} className="mb-4">
-                <h3 className="text-lg font-semibold text-center">{option.title}</h3>
-                <button className=''>
-                <ul className=" list-inside">
-                  {option.subOptions.map((subOption, subIndex) => (
-                    <li key={subIndex}>{subOption}</li>
-                  ))}
-                </ul>
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
+        <div className="mb-4">
+          {isOpen && (
+            <div style={{ maxHeight: '200px', overflowY: 'auto', paddingRight: '10px' }} className="scrollbar">
+              {service.subCategories.map((subCategory) => (
+                <Link
+                  key={subCategory.id}
+                  to={`/${subCategory.name}`}
+                  className="block text-sm font-semibold text-blue-700 p-2 mb-2 hover:underline"
+                >
+                  {subCategory.name}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
         <button
-          className="block w-full text-center bg-gray-200 hover:bg-gray-300 p-2 mt-4"
-          onClick={() => setIsOpen(!isOpen)}
+          className={`block w-full text-center bg-gray-200 hover:bg-gray-300 p-2 mt-${isOpen ? '2' : '4'}`}
+          onClick={toggleCard}
         >
-          {isOpen ? 'Collapse ▲' : 'Open ▼'}
+          {isOpen ? 'Close ▲' : 'Services Available ▼'}
         </button>
       </div>
     </div>
   );
-}};
+};
 
-export default CollapsibleCard;
+export default ServiceCard;
