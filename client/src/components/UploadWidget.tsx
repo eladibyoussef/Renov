@@ -21,7 +21,8 @@ function UploadWidget({ productForm, setProductForm, onUploadSuccess }) {
     );
   }, []);
 
-  const handleUploadClick = () => {
+  const handleUploadClick = (e) => {
+    e.preventDefault();
     widgetRef.current.open();
   };
 

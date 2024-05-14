@@ -10,6 +10,7 @@ export interface Product {
   rentable?: boolean;
   photos: string[];
   deliveryFees: number;
+  _id:string
 }
 
 interface ProductState {
@@ -69,13 +70,24 @@ const productSlice = createSlice({
       .addCase(createProduct.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        // Assuming the backend returns the created product
         state.products.push(action.payload);
       })
       .addCase(createProduct.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Failed to create product.';
-      });
+      })
+      .addCase(fetchProducts.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.products = action.payload; 
+      })
+      .addCase(fetchProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Failed to fetch products.';
+      })
   },
 });
 

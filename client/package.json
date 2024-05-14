@@ -10,13 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.19",
-
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@headlessui/react": "^1.7.19",
     "@material-tailwind/react": "^2.1.9",
     "@mui/icons-material": "^5.15.15",
-    "@mui/material": "^5.15.16",
     "@mui/material": "^5.15.15",
     "@reduxjs/toolkit": "^2.2.3",
     "@types/axios": "^0.14.0",
@@ -27,7 +25,6 @@
     "cloudinary-core": "^2.13.1",
     "dotenv": "^16.4.5",
     "framer-motion": "^11.1.7",
-
     "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -37,8 +34,10 @@
     "react-router-dom": "^6.22.3",
     "react-scroll": "^1.9.0",
     "react-slick": "^0.30.2",
+    "react-swipeable": "^7.0.1",
+    "react-swipeable-views": "^0.14.0",
+    "react-swipeable-views-utils": "^0.14.0",
     "redux": "^5.0.1",
-    "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
     "tw-elements": "^2.0.0",
     "tw-elements-react": "^1.0.0-alpha2"
@@ -50,6 +49,7 @@
     "@types/react-dom": "^18.2.22",
     "@types/react-scroll": "^1.8.10",
     "@types/react-slick": "^0.23.13",
+    "@types/react-swipeable-views-utils": "^0.13.7",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.2.1",

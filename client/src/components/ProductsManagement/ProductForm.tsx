@@ -1,17 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Input, InputNumber, Switch, Upload, Modal } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Switch,
+  Modal,
+  Popconfirm,
+  message,
+  PopconfirmProps,
+} from "antd";
 import { createProduct, Product } from "../../features/product/productSlice";
 import { useAppDispatch } from "../../store/hooks";
 import { PlusOutlined } from "@ant-design/icons";
 import UploadWidget from "../UploadWidget";
+import { catchError } from "../../Utils/errorCatch";
 
 const { TextArea } = Input;
 
 const ProductForm: React.FC = () => {
   const [visible, setVisible] = useState(false);
-  const [fileList, setFileList] = useState<any[]>([]);
+
   const dispatch = useAppDispatch();
-  const [form] = Form.useForm();
   const [productForm, setProductForm] = useState<Product>({
     name: "",
     description: "",
@@ -20,56 +30,59 @@ const ProductForm: React.FC = () => {
     availability: false,
     photos: [],
     deliveryFees: 0,
+    _id:''
+
   });
+  const [submitted, setSubmitted] = useState(false);
+  const [form] = Form.useForm();
 
   useEffect(() => {
     console.log("Updated product:", productForm);
-
   }, [productForm]);
 
-  const onFinish = (values: any) => {
-    const { name, description, price, category, availability } = values;
-    setProductForm({
-      ...productForm,
-      name,
-      description,
-      price,
-      category,
-      availability,
-    });
-    console.log("values", values);
-   console.log('product after submitting the from',productForm );
-   
-    // setVisible(false);
-
+  const handleChange = (changedValues: any) => {
+    setProductForm((prevProductForm) => ({
+      ...prevProductForm,
+      ...changedValues,
+    }));
   };
 
-  const handleSubmit = ()=>{
-    dispatch(createProduct(productForm));
-    form.resetFields();
-
-
-  }
-
-  //   const handleChange = ({ fileList }: any) => {
-  //     setFileList(fileList);
-  //   };
-  //   const onChange = (checked: boolean) => {
-  //     console.log(`switch to ${checked}`);
-  //   };
-
-  const normFile = (e: any) => {
-    if (Array.isArray(e)) {
-      return e;
+  const confirm: PopconfirmProps["onConfirm"] = async (e) => {
+    console.log(e);
+    try {
+      message.loading({ content: "Creating product...", key: "creating" });
+      setSubmitted(true);
+      const response = await dispatch(createProduct(productForm)).unwrap();
+      message.success({ content: `Product created successfully id: ${response._id}`, key: "creating" });
+      form.resetFields();
+      setProductForm({
+        name: "",
+        description: "",
+        price: 0,
+        category: "",
+        availability: false,
+        photos: [],
+        deliveryFees: 0,
+        _id:''
+      });
+      setVisible(false);
+    } catch (error) {
+      message.error({ content: `Failed to create product: ${catchError(error)}`, key: "creating" });
     }
-    return e && e.fileList;
   };
+
+  const cancel: PopconfirmProps["onCancel"] = (e) => {
+    console.log(e);
+    message.error("product creation cancelled");
+  };
+
+ 
+
   const handleUploadSuccess = (url: string) => {
     console.log("cloudinary url returned", url);
-
-    setProductForm((productForm) => ({
-      ...productForm,
-      photos: [...productForm.photos, url],
+    setProductForm((prevProductForm) => ({
+      ...prevProductForm,
+      photos: [...prevProductForm.photos, url],
     }));
   };
 
@@ -93,8 +106,8 @@ const ProductForm: React.FC = () => {
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 14 }}
           layout="horizontal"
-          onFinish={onFinish}
           style={{ maxWidth: 600 }}
+          onValuesChange={handleChange}
           form={form}
         >
           <Form.Item
@@ -129,14 +142,6 @@ const ProductForm: React.FC = () => {
           >
             <Input />
           </Form.Item>
-          {/* <Form.Item
-            label="Availability"
-            name="availability"
-            valuePropName="checked"
-          >
-            <Switch defaultChecked onChange={onChange} />
-          </Form.Item> */}
-
           <Form.Item
             label="Availability"
             name="availability"
@@ -145,25 +150,6 @@ const ProductForm: React.FC = () => {
           >
             <Switch />
           </Form.Item>
-
-          {/* <Form.Item
-            label="Photos"
-            name="photos"
-            valuePropName="fileList"
-            getValueFromEvent={normFile}
-          >
-            <Upload
-              listType="picture-card"
-              fileList={fileList}
-              onChange={handleChange}
-              multiple
-            >
-              <button style={{ border: 0, background: "none" }} type="button">
-                <PlusOutlined />
-                <div style={{ marginTop: 8 }}>Upload</div>
-              </button>
-            </Upload>
-          </Form.Item> */}
           <Form.Item label="Photos" name="photos">
             <UploadWidget
               productForm={productForm}
@@ -171,14 +157,19 @@ const ProductForm: React.FC = () => {
               onUploadSuccess={handleUploadSuccess}
             />
           </Form.Item>
-
           <Form.Item>
-            <Button type="primary" htmlType="submit" >
-              Submit info
-            </Button>
-            <button onClick={handleSubmit}>
-              create product
-            </button>
+            <Popconfirm
+              title="Add product"
+              description="Confirm product creation?"
+              onConfirm={confirm}
+              onCancel={cancel}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button type="primary" htmlType="submit" danger>
+                Create product
+              </Button>{" "}
+            </Popconfirm>
           </Form.Item>
         </Form>
       </Modal>

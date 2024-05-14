@@ -24,13 +24,14 @@ import { IoFilter } from "react-icons/io5";
 
 
 import { MdAddCircleOutline } from "react-icons/md";
+import { AppDispatch } from "../../store/store";
 
 const ROWS_PER_PAGE = 8;
 
 
 
 const UserManagement: React.FC = () => {
-  const dispatch = useAppDispatch();
+  const dispatch: AppDispatch = useAppDispatch();
   const users = useAppSelector(selectAllUsers);
   const loading = useAppSelector(selectUserLoading);
   const error = useAppSelector(selectUserError);
