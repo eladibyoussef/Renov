@@ -12,9 +12,12 @@ import {
 } from "antd";
 import { createProduct, Product } from "../../features/product/productSlice";
 import { useAppDispatch } from "../../store/hooks";
-import { PlusOutlined } from "@ant-design/icons";
 import UploadWidget from "../UploadWidget";
 import { catchError } from "../../Utils/errorCatch";
+import { FloatButton } from 'antd';
+import { FaPlus } from "react-icons/fa6";
+
+
 
 const { TextArea } = Input;
 
@@ -62,7 +65,7 @@ const ProductForm: React.FC = () => {
         category: "",
         availability: false,
         photos: [],
-        deliveryFees: 0,
+                deliveryFees: 0,
         _id:''
       });
       setVisible(false);
@@ -76,26 +79,23 @@ const ProductForm: React.FC = () => {
     message.error("product creation cancelled");
   };
 
- 
-
-  const handleUploadSuccess = (url: string) => {
-    console.log("cloudinary url returned", url);
+  const handleUploadSuccess = (url: string, id: string) => {
     setProductForm((prevProductForm) => ({
       ...prevProductForm,
-      photos: [...prevProductForm.photos, url],
+      photos: [
+        ...prevProductForm.photos,
+        { url: url, cloudinaryId: id } 
+      ],
     }));
   };
+  
+  
 
   return (
     <>
-      <Button
-        type="primary"
-        icon={<PlusOutlined />}
-        onClick={() => setVisible(true)}
-        style={{ position: "absolute", bottom: 20, right: 20 }}
-      >
-        Add Product
-      </Button>
+      
+          <FloatButton icon={<FaPlus />} type="primary" style={{ right: 24 }} onClick={() => setVisible(true)} />
+
       <Modal
         title="Add Product"
         open={visible}

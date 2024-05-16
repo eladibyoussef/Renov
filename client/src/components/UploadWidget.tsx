@@ -13,9 +13,9 @@ function UploadWidget({ productForm, setProductForm, onUploadSuccess }) {
       },
       function(error, result) {
         if (!error && result && result.event === "success") {
-          const url = result.info.secure_url;
-          // console.log(url);
-          onUploadSuccess(url);
+          const {secure_url ,public_id} = result.info;
+          console.log(result);
+          onUploadSuccess(secure_url, public_id);
         }
       }
     );

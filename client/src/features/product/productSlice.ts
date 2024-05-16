@@ -8,7 +8,7 @@ export interface Product {
   category: string;
   availability: boolean;
   rentable?: boolean;
-  photos: string[];
+  photos: [];
   deliveryFees: number;
   _id:string
 }

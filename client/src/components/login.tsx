@@ -5,6 +5,7 @@ import { useAppDispatch } from '../store/hooks';
 import type { FormProps } from 'antd';
 import { Button, Checkbox, Form, Input } from 'antd';
 import logo2 from '../Assets/Logo2.png';
+import '../App.css'
 
 type FieldType = {
   email: string | undefined;
@@ -30,7 +31,7 @@ const LoginContainer: React.FC = () => {
     console.log('Failed:', errorInfo);
   };
   return (
-    <div>
+    <div className='  apearFromLeft 	'>
       <div className='p-5'>
       <div className="w-full h-[100px] left-[310px] top-[245px] text-white text-[64px] font-semibold font-poppins flex justify-center items-center gap-2 sm:hidden ">
           <img src={logo2} alt="" className="Logo w-13 h-13 pt-2"/>

@@ -1,0 +1,34 @@
+
+  .apearFromLeft{
+    animation: 0.5s apearFromLeft linear forwards;
+
+  }
+  .apearFromRight{
+    animation: 0.5s apearFromRight ease-in-out forwards;
+
+  }
+
+  @keyframes apearFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20%);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  
+  @keyframes apearFromRight {
+    from {
+        opacity: 0;
+      transform: translateX(20%);
+      display: none;
+    }
+    to {
+        opacity: 1;
+      transform: translateX(0);
+      display: block;
+    }
+  }
+  

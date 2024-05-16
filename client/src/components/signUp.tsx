@@ -32,7 +32,7 @@ const LoginContainer: React.FC = () => {
     console.log('Failed:', errorInfo);
   };
   return (
-    <div>
+    <div className='  apearFromRight'>
       <div className='p-5'>
       <div className="w-full h-[100px] left-[310px] top-[245px] text-white text-[64px] font-semibold font-poppins flex justify-center items-center gap-2 sm:hidden ">
           <img src={logo2} alt="" className="Logo w-13 h-13 pt-2"/>
@@ -91,8 +91,8 @@ const LoginContainer: React.FC = () => {
       <Checkbox>I Accept Terms & Conditions</Checkbox>
     </Form.Item>
    
-    <Form.Item wrapperCol={{ span: 16 }}       className=' w-full '>
-      <Button type="primary" htmlType="submit" className=' w-full md:ml-20 bg-black  '>
+    <Form.Item wrapperCol={{ span: 16 }}       className=' w-full mb-0'>
+      <Button type="primary" htmlType="submit" className=' w-full md:ml-20 bg-black   '>
         Create account
       </Button>
     </Form.Item>

@@ -25,7 +25,7 @@ function LoginLayout() {
       </Carousel>
       </div>
       <div className=' lg:pr-20 lg:pl-28 col-span-2 lg:col-span-1  h-full w-full  '>
-      <div className=' sm:bg-white h-full w-full  md:rounded-3xl bg-cyan-600'>
+      <div className=' sm:bg-white h-full w-full  md:rounded-3xl bg-cyan-600  overflow-hidden'>
       <Outlet />
 
       </div>

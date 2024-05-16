@@ -16,10 +16,13 @@ function ProductsManagement() {
   }, [dispatch  ]);
 
   return (
-    <div className=' relative  h-screen'>
+    <div className='   h-screen'>
       <BackofficeHeader currentPage="Products" />
+      <div className='h-screen  overflow-auto  hide-scrollbar ' >
         <ProductForm />
         <ProductDisplay />
+
+      </div>
     </div>
   )
 }
