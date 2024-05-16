@@ -2,82 +2,124 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { loginUser } from '../features/SignupLogin/authSlice'; 
 import { useAppDispatch } from '../store/hooks';
+import type { FormProps } from 'antd';
+import { Button, Checkbox, Form, Input } from 'antd';
+import logo2 from '../Assets/Logo2.png';
+
+type FieldType = {
+  email: string | undefined;
+  password: string | undefined;
+  remember?: string | undefined;
+};
+
+
+
 
 const LoginContainer: React.FC = () => {
   const dispatch = useAppDispatch();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  
 
-  const handleLogin = () => {
-    dispatch(loginUser({ email, password }));
+  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+    console.log('Success:', values);
+    dispatch(loginUser(values));
+  
+  
   };
-
+  
+  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
   return (
-    <div className="max-w-md col-span-2 md:col-span-1 bg-neutral-50 rounded-tl-3xl overflow-auto flex flex-col gap-2 h-screen">
-      <div className="rounded-tl-3xl rounded-tr-3xl pl-8 pr-8 pt-8 ">
-        <div className="text-center">
-          <div className="text-black text-sm font-normal">WELCOME BACK</div>
-          <div className="text-black text-lg font-normal mt-2 mb-8">Log In to your Account</div>
+    <div>
+      <div className='p-5'>
+      <div className="w-full h-[100px] left-[310px] top-[245px] text-white text-[64px] font-semibold font-poppins flex justify-center items-center gap-2 sm:hidden ">
+          <img src={logo2} alt="" className="Logo w-13 h-13 pt-2"/>
+          <Link to={'/'} className='w-80 h-24'>RENOVO</Link>
         </div>
-        <div className="w-96 h-40 flex-col justify-start items-start gap-4 inline-flex ">
-          <div className="w-96 h-5 relative border ">
-            <div className="w-96 h-16 left-0 top-0 absolute">
-              <input
-                type="text"
-                className="w-96 h-14 left-0 top-[11px] absolute rounded-lg border border-stone-300"
-                placeholder="Enter your Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <div className="w-20 h-6 left-[11.18px] top-0 absolute">
-                <div className="w-20 h-6 left-0 top-0 absolute bg-neutral-50" />
-                <div className="w-16 left-[5.54px] top-0 absolute text-center text-neutral-500 text-xs font-normal font-['Zen Kaku Gothic Antique'] leading-snug">Email</div>
-              </div>
-            </div>
-            <div className="InputCopy w-96 h-16 left-0 top-[76px] absolute ">
-              <input
-                type="password"
-                className="w-96 h-14 left-0 top-[11px] absolute rounded-lg border border-stone-300"
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <div className="w-14 h-6 left-[11.17px] top-0 absolute ">
-                <div className="w-14 h-6 left-0 top-0 absolute bg-neutral-50" />
-                <div className="w-11 left-[5.55px] top-0 absolute text-center text-neutral-500 text-xs font-normal font-['Zen Kaku Gothic Antique'] leading-snug">Password</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="flex justify-between items-center ">
-          <div className="flex items-center gap-1">
-            <input type="checkbox" className="h-4 w-4 text-black" />
-            <label className="text-sm text-black font-normal">Remember me</label>
-          </div>
-          <a href="#" className="text-sm text-black font-normal">Forgot Password?</a>
-        </div>
-        <button className="w-full mt-4 bg-neutral-800 text-white py-3 rounded-lg font-bold " onClick={handleLogin}>CONTINUE</button>
+
+
+      <h3 className="text-black lg:text-sm font-normal text-center text-3xl hidden sm:block ">Welcome Back</h3>
+      <h1 className="text-black lg:text-lg font-bold text-center text-3xl">Log in to you account</h1>
       </div>
-      <div className="text-center ">Or</div>
-      <div className="bg-neutral-50 pl-32 rounded-b-xl ">
-        <button className="w-full bg-neutral-50 border border-zinc-100 text-zinc-600 py-3 rounded-lg mb-2 flex items-center gap-2">
+
+      <Form
+    name="basic"
+    wrapperCol={{ span: 16 }}
+    style={{ maxWidth: '100%' }}
+    initialValues={{ remember: true }}
+    onFinish={onFinish}
+    onFinishFailed={onFinishFailed}
+    autoComplete="off"
+    className=' p-5 sm:flex sm:flex-col sm:items-center sm:justify-center md:pl-20'
+    >
+    <Form.Item<FieldType>
+      label="email"
+      name="email"
+      rules={[{ required: true, message: 'Please input your username!' }]}
+      className=' w-full m-0 sm:mb-5'
+      >
+      <Input className=' md:ml-6 p-2' />
+    </Form.Item>
+
+    <Form.Item<FieldType>
+      label="Password"
+      name="password"
+      rules={[{ required: true, message: 'Please input your password!' }]}
+      className=' w-full m-0 sm:mb-5'
+
+      >
+      <Input.Password className='  p-2' />
+    </Form.Item>
+    <div className='grid sm:grid-cols-2 items-center justify-center w-full mt-5 sm:mt-0'>
+
+    <Form.Item<FieldType>
+      name="remember"
+      valuePropName="checked"
+      wrapperCol={{  span: 16 }}
+      >
+      <Checkbox>Remember me</Checkbox>
+    </Form.Item>
+    <Form.Item>
+    <a href="#" className="text-sm text-black font-normal">Forgot Password?</a>    </Form.Item>
+
+        </div>
+    <Form.Item wrapperCol={{ span: 16 }}       className=' w-full '>
+      <Button type="primary" htmlType="submit" className=' w-full md:ml-20 bg-black  '>
+        Submit
+      </Button>
+    </Form.Item>
+  </Form>
+  <div className=' flex justify-center items-center gap-1 pr-10 pl-10 '>
+    <hr className=' border border-b-slate-950 w-1/2'/>
+    <p>Or</p>
+
+    <hr className=' border border-b-slate-950 w-1/2'/>
+
+
+  </div>
+  <div className=" flex flex-col items-center justify-center  ">
+        <button className=" bg-neutral-50 border border-zinc-100 text-zinc-600 py-3 rounded-lg mb-2 flex items-center gap-2 p-10">
           <img src="http://pluspng.com/img-png/google-logo-png-google-logo-icon-png-transparent-background-1000.png" alt="Google Icon" className="w-6 h-6" />
           <span>Log In with Google</span>
         </button>
-        <button className="w-full bg-neutral-50 border border-zinc-100 text-zinc-600 py-3 rounded-lg mb-2 flex items-center gap-2">
+        <button className=" bg-neutral-50 border border-zinc-100 text-zinc-600 py-3 rounded-lg mb-2 flex items-center gap-2 p-8">
           <img src="http://pngimg.com/uploads/facebook_logos/facebook_logos_PNG19748.png" alt="Facebook Icon" className="w-6 h-6" />
           <span>Log In with Facebook</span>
         </button>
-        <button className="w-full bg-neutral-50 border border-zinc-100 text-zinc-600 py-3 rounded-lg flex items-center gap-2">
+        <button className=" bg-neutral-50 border border-zinc-100 text-zinc-600 py-3 rounded-lg flex items-center gap-2 p-12">
           <img src="http://purepng.com/public/uploads/large/purepng.com-apple-logologobrand-logoiconslogos-251519938788qhgdl.png" alt="Apple Icon" className="w-6 h-6" />
           <span>Log In with Apple</span>
         </button>
-      </div>
-      <div className="text-center mt-4">
+        <div className=" mt-5">
         <span className="text-sm text-black font-normal">New User?</span>
         <Link to="signup" className="text-sm text-black font-bold ml-1 underline">SIGN UP HERE</Link>
       </div>
-    </div>
+      </div>
+  
+
+      </div>
+    
+    
   );
 }
 

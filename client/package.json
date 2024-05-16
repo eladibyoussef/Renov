@@ -17,6 +17,7 @@
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
     "@reduxjs/toolkit": "^2.2.3",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@types/axios": "^0.14.0",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-slick": "^0.23.13",
