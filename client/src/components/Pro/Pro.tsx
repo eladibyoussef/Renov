@@ -7,6 +7,7 @@ import cart1 from "../../Assets/1.png";
 import cart2 from "../../Assets/2.png";
 import cart3 from "../../Assets/3.png";
 import cart4 from "../../Assets/4.png";
+import { Link } from 'react-router-dom';
 
 const categories = [
   { name: 'jean biter', rating: 4, imgSrc: cart1 },
@@ -42,7 +43,7 @@ const Pro = () => {
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
         }
       }
     ]
@@ -61,12 +62,12 @@ const Pro = () => {
   };
 
   return (
-    <div className="w-full"> 
+    <div className="w-full px-4 md:px-6"> {/* Utilisation de px-4 ou md:px-6 pour le padding */}
       <div className="bg-[#5389C8] text-black font-bold py-8 px-4 flex justify-between items-center">
         <div className="text-lg font-semibold">
           Maroua, thank you for considering RENOVO.
         </div>
-        <div className="text-sm text-right">
+        <div className="text-sm text-left">
           <p className="mb-2">Question?</p>
           <p className="mb-2">Contact phone Number</p>
           <p className="mb-2">+212 67890876</p>
@@ -78,32 +79,30 @@ const Pro = () => {
       <div className="relative">
         <Slider ref={sliderRef} {...settings}>
           {categories.map((category, index) => (
-            <div key={index} className="w-full px-2 sm:w-1/2 md:w-1/3 lg:w-1/5">
-              <section className="py-6 md:py-12 lg:py-16">
-                <div className="container grid gap-8 px-4 md:px-6">
-                  <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow dark:bg-gray-950 border-gray-100">
-                    <div className="flex flex-col items-center p-4 sm:p-6">
-                      <StarRating value={category.rating} onChange={(rating) => {}} />
-                      <h3 className="font-semibold text-base sm:text-lg">{category.name}</h3>
-                      <img
-                        alt={category.name}
-                        className="rounded-full"
-                        height={128}
-                        src={category.imgSrc}
-                        style={{
-                          aspectRatio: '1/1',
-                          objectFit: 'cover'
-                        }}
-                        width={128}
-                      />
+            <div key={index} className="px-2"> {/* Enlever les classes de largeur pour laisser Slider gérer le responsive */}
+              <section className="py-6">
+                <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow dark:bg-gray-950 border-gray-100">
+                  <div className="flex flex-col items-center p-4 sm:p-6">
+                    <StarRating value={category.rating} onChange={(rating) => {}} />
+                    <h3 className="font-semibold text-base sm:text-lg">{category.name}</h3>
+                    <img
+                      alt={category.name}
+                      className="rounded-full"
+                      height={128}
+                      src={category.imgSrc}
+                      style={{
+                        aspectRatio: '1/1',
+                        objectFit: 'cover'
+                      }}
+                      width={128}
+                    />
+                    <Link to={`/profile/${category.name}`} className="block">
                       <button
                         className="bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold py-2 px-4 rounded mt-2"
-                        onClick={() => {
-                        }}
                       >
                         View Profile
                       </button>
-                    </div>
+                    </Link>
                   </div>
                 </div>
               </section>

@@ -17,16 +17,16 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <div className='shadow-md bg-slate-500 '>
+    <div className='shadow-md bg-slate-500'>
       <div className='bg-white py-3'>
-        <div className='container flex justify-between items-center'>
+        <div className='container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center'>
 
-          <Link to='/' className='font-bold text-xl sm:text-xl flex gap-2 items-center'>
-            <img src={Logo} alt='Logo' className='w-7 uppercase ml-5 md:ml-0' />
+          <Link to='/' className='font-bold text-xl flex gap-2 items-center'>
+            <img src={Logo} alt='Logo' className='w-7 uppercase' />
             RENOVO
           </Link>
 
-          <div className='hidden sm:flex gap-5 items-center'>
+          <div className='hidden md:flex gap-5 items-center'>
             <motion.button
               className='text-gray-700 font-bold hover:text-primary focus:outline-none flex items-center'
               whileHover={{ scale: 1.1 }}
@@ -48,7 +48,7 @@ const Navbar: React.FC = () => {
               <AiOutlineBulb className='mr-2' />
               <Link to='/DiY'>DIY</Link>
             </motion.button>
-            <div className='relative'>
+            <div className='relative hidden md:block'>
               <input
                 type='text'
                 placeholder='Search'
@@ -83,7 +83,7 @@ const Navbar: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -50 }}
                 transition={{ duration: 0.3 }}
-                className='lg:hidden flex flex-col absolute bg-black text-white left-0 top-16 font-semibold text-2xl text-center pt-8 pb-4 gap-8 w-full h-fit p-4 rounded-lg z-10'
+                className='md:hidden flex flex-col absolute bg-black text-white left-0 top-16 font-semibold text-2xl text-center pt-8 pb-4 gap-8 w-full h-fit p-4 rounded-lg z-10'
               >
                 <Link to='/services' className="hover:text-white cursor-pointer" onClick={closeMenu}>Services</Link>
                 <Link to='/shop-all' className="hover:text-white cursor-pointer" onClick={closeMenu}>Shop All</Link>
