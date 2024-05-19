@@ -47,14 +47,14 @@ const loginUser = async (req: Request, res: Response): Promise<void> => {
             const passMatch: boolean = await bcrypt.compare(password, user.password);
             if (passMatch) {
                 
-                const payload = { id: user.id, username: user.username, type:'user'  };
+                const payload = {  user: user, type:'user'  };
                 console.log('signed payload', payload);
                 // console.log('SECRET', process.env.SECRET);              
                 const key = process.env.SECRET || 'bsd25hgGG2156ljhcv';
                 jwt.sign(
                     payload,
                     key,
-                    { expiresIn: 3600000 },
+                    { expiresIn: 86400000 },
                     (err: Error | null, token: string | undefined) => {
                         if (err) {
                             console.error(err);
@@ -62,7 +62,6 @@ const loginUser = async (req: Request, res: Response): Promise<void> => {
                         } else if (token) {
                             res.status(200).json({
                                 success: true,
-                                user:user,
                                 token: "Bearer " + token,
                             });
                         }

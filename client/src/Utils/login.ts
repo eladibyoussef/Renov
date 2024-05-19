@@ -1,4 +1,4 @@
-// import jwtDecode from 'jwt-decode';
+import {jwtDecode} from 'jwt-decode';
 
 export const saveToken = (token: string): void => {
   localStorage.setItem('token', token);
@@ -35,10 +35,11 @@ export const saveUsername = (username: string): void => {
   localStorage.setItem('name', username);
 };
 
-// export const getUserDetails = (): Record<string, unknown> | null => {
-//   const token = getToken();
-//   return token ? jwtDecode(token) : null;
-// };
+export const getUserDetails = (): Record<string, unknown> | null => {
+  const token = getToken();
+  return token ? jwtDecode(token) : null;
+
+};
 
 export const clearUserPermission = (): void => {
   localStorage.removeItem('role');
@@ -48,3 +49,4 @@ export const logout = (): void => {
   localStorage.removeItem('token');
   localStorage.removeItem('permission');
 };
+
