@@ -23,7 +23,7 @@
     "@types/axios": "^0.14.0",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-slick": "^0.23.13",
-    "antd": "^5.16.0",
+    "antd": "^5.17.2",
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "cloudinary-core": "^2.13.1",

@@ -14,7 +14,7 @@ export interface productDocument extends Document {
 }
 interface photo {
     url: string;
-    cloudinaryId: number;
+    cloudinaryId: string;
   }
 const productSchema: Schema<productDocument> = new Schema({
     name: { type: String, required: true },

@@ -16,7 +16,7 @@ import UploadWidget from "../UploadWidget";
 import { catchError } from "../../Utils/errorCatch";
 import { FloatButton } from 'antd';
 import { FaPlus } from "react-icons/fa6";
-
+import { MdAddPhotoAlternate } from "react-icons/md";
 
 
 const { TextArea } = Input;
@@ -31,10 +31,10 @@ const ProductForm: React.FC = () => {
     price: 0,
     category: "",
     availability: false,
+    rentable: false,  // Add rentable field
     photos: [],
     deliveryFees: 0,
-    _id:''
-
+    _id: ''
   });
   const [submitted, setSubmitted] = useState(false);
   const [form] = Form.useForm();
@@ -64,9 +64,10 @@ const ProductForm: React.FC = () => {
         price: 0,
         category: "",
         availability: false,
+        rentable: false,  // Add rentable field
         photos: [],
-                deliveryFees: 0,
-        _id:''
+        deliveryFees: 0,
+        _id: ''
       });
       setVisible(false);
     } catch (error) {
@@ -77,25 +78,36 @@ const ProductForm: React.FC = () => {
   const cancel: PopconfirmProps["onCancel"] = (e) => {
     console.log(e);
     message.error("product creation cancelled");
+    form.resetFields();
+
+    setVisible(false);
+
+    setProductForm({
+      name: "",
+      description: "",
+      price: 0,
+      category: "",
+      availability: false,
+      rentable: false,  // Add rentable field
+      photos: [],
+      deliveryFees: 0,
+      _id: ''
+    });
+    
   };
 
-  const handleUploadSuccess = (url: string, id: string) => {
+  const handleUploadSuccess = (url: string ,  id:string) => {
+    console.log("cloudinary url returned", url);
+    const photo = { url:url , cloudinaryId:id}
     setProductForm((prevProductForm) => ({
       ...prevProductForm,
-      photos: [
-        ...prevProductForm.photos,
-        { url: url, cloudinaryId: id } 
-      ],
+      photos: [...prevProductForm.photos,photo ]
     }));
   };
   
-  
-
   return (
     <>
-      
-          <FloatButton icon={<FaPlus />} type="primary" style={{ right: 24 }} onClick={() => setVisible(true)} />
-
+      <FloatButton icon={<FaPlus />} type="primary" style={{ right: 24 }} onClick={() => setVisible(true)} />
       <Modal
         title="Add Product"
         open={visible}
@@ -150,10 +162,18 @@ const ProductForm: React.FC = () => {
           >
             <Switch />
           </Form.Item>
+          <Form.Item
+            label="Rentable"
+            name="rentable"
+            valuePropName="checked"
+            initialValue={false}
+          >
+            <Switch />
+          </Form.Item>
           <Form.Item label="Photos" name="photos">
             <UploadWidget
-              productForm={productForm}
-              setProductForm={setProductForm}
+              customElement={            <MdAddPhotoAlternate />
+            }
               onUploadSuccess={handleUploadSuccess}
             />
           </Form.Item>
@@ -168,7 +188,7 @@ const ProductForm: React.FC = () => {
             >
               <Button type="primary" htmlType="submit" danger>
                 Create product
-              </Button>{" "}
+              </Button>
             </Popconfirm>
           </Form.Item>
         </Form>
