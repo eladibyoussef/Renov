@@ -62,6 +62,7 @@ const loginUser = async (req: Request, res: Response): Promise<void> => {
                         } else if (token) {
                             res.status(200).json({
                                 success: true,
+                                user: user,
                                 token: "Bearer " + token,
                             });
                         }

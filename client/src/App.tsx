@@ -18,6 +18,7 @@ import PageDiY from './pages/PageDiY'
 import InterfaceLayout from './layouts/InterfaceLayout'
 import ProductsManagement from './components/ProductsManagement/ProductsManagement';
 import PagePro from './pages/PagePro';
+import AdminLogIn from './pages/AdminLogIn';
 
 
 
@@ -26,6 +27,7 @@ function App() {
 
   return (
      <Routes >
+      <Route path='/admin' element={<AdminLogIn />}></Route>
       <Route path="/backoffice" element={<BackOfficeLayout />} >
          <Route index element={<BackOfficeDashboard />} />
          <Route path='users' element={<UserManagement />}/>
