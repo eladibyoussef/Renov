@@ -1,7 +1,6 @@
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import React from 'react'
 import './App.css'
 // import ProForm from './componenet/ProForm'
 import SignUpForm from './components/signUp';
@@ -12,8 +11,8 @@ import BackOfficeDashboard from "./components/BackOfficeDashboard";
 import ApplyPage from './pages/ApplyPage'
 import UserManagement from './components/UserManagement/UserManagement';
 import ProfessionalManagement from './components/ProfessionalsManagement/ProfessionalManagenemt';
- import LandingPage from './pages/landingPage'
-  import PageServices from './pages/PageServices'
+import LandingPage from './pages/landingPage'
+import PageServices from './pages/PageServices'
 import PageShopAll from './pages/PageShopAll'
 import PageDiY from './pages/PageDiY'
 import InterfaceLayout from './layouts/InterfaceLayout'
@@ -22,6 +21,7 @@ import RequestPage from './pages/RequestPage';
 
 import ProductsManagement from './components/ProductsManagement/ProductsManagement';
 import PagePro from './pages/PagePro';
+import ProfilePage from './pages/ProfilePage'
 
 
 
@@ -43,17 +43,14 @@ function App() {
        <Route path= "/ServiceRequest" element={<RequestPage/>}/>
        <Route path="/apply-now" element={<ApplyPage />} />
        <Route path="/pro" element={<PagePro />} />
-
+       <Route path="/profile/:professionalId" element={<ProfilePage />} />
       </Route>
       
        <Route path='/login' element={<LoginLayout/>}>
           <Route index element={<LoginContainer/>} />
           <Route path='signup' index element={<SignUpForm/>}/>
         </Route>
-        
-       
-
-
+  
      </Routes>
 
 
