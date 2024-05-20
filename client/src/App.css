@@ -1,0 +1,61 @@
+
+  .apearFromLeft{
+    animation: 0.5s apearFromLeft linear forwards;
+
+  }
+  .apearFromRight{
+    animation: 0.5s apearFromRight ease-in-out forwards;
+
+  }
+  .fadeOut{
+    animation:0.5s fadeOut forwards ;
+  }
+  .deleted {
+    animation: shrinkOut 0.5s forwards; 
+  }
+  
+  @keyframes shrinkOut {
+    from {
+      transform: scale(1);
+      opacity: 1;
+    }
+    to {
+      transform: scale(0);
+      opacity: 0;
+    }
+  }
+  
+
+  @keyframes apearFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20%);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  
+  @keyframes apearFromRight {
+    from {
+        opacity: 0;
+      transform: translateX(20%);
+      display: none;
+    }
+    to {
+        opacity: 1;
+      transform: translateX(0);
+      display: block;
+    }
+  }
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+      transform: translate(20px , 0) ;
+    }
+    to {
+      opacity: 0;
+      transform: translate(0 , 20px);
+    }
+  }
