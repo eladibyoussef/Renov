@@ -22,6 +22,7 @@ import RequestPage from './pages/RequestPage';
 
 import ProductsManagement from './components/ProductsManagement/ProductsManagement';
 import PagePro from './pages/PagePro';
+import AdminLogIn from './pages/AdminLogIn';
 import ProfilePage from './pages/ProfilePage'
 
 
@@ -31,6 +32,7 @@ function App() {
 
   return (
      <Routes >
+      <Route path='/admin' element={<AdminLogIn />}></Route>
       <Route path="/backoffice" element={<BackOfficeLayout />} >
          <Route index element={<BackOfficeDashboard />} />
          <Route path='users' element={<UserManagement />}/>

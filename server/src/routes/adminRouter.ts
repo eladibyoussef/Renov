@@ -4,7 +4,7 @@ const adminRouter:Router = express.Router();
 
 
 adminRouter.post('/register', registerAdmin);
-adminRouter.get('/login', loginAdmin);
+adminRouter.post('/login', loginAdmin);
 adminRouter.delete('/:id',deleteAdmin )
 
 

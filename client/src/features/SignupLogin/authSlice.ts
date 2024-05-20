@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from '../../services/api';
-import { saveToken, saveUserPermission, clearToken, clearUserPermission} from '../../Utils/login';
+import { saveToken, saveUserPermission, clearToken, clearUserPermission , getUserDetails} from '../../Utils/login';
 import { catchError } from '../../Utils/errorCatch'; 
 
 interface User {
@@ -48,7 +48,10 @@ export const loginUser = createAsyncThunk<
       userData
     );
     saveToken(response.data.token);
-    saveUserPermission(response.data.permission);
+    const tokenPayload = getUserDetails()
+    console.log(tokenPayload);
+    
+    saveUserPermission(tokenPayload.type);
     console.log(response.data);
     
     return response.data;
@@ -70,6 +73,8 @@ export const registerUser = createAsyncThunk<
       '/user/register',
       userData
     );
+    console.log(response.data);
+    
     saveToken(response.data.token);
     saveUserPermission(response.data.permission);
     console.log(response.data);
@@ -108,10 +113,12 @@ export const authSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(loginUser.fulfilled, (state, action: PayloadAction<{ user: User; token: string; permission: string }>) => {
+        const tokenPayload = getUserDetails()
+
         state.status = 'succeeded';
         state.user = action.payload.user;
         state.token = action.payload.token;
-        state.permission = action.payload.permission;
+        state.permission = tokenPayload.type;
         state.isAuthenticated = true;
       })
       .addCase(loginUser.rejected, (state, action) => {
