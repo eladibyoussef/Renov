@@ -22,7 +22,7 @@ module.exports = {
       Poppins : [ "Poppins", "sans-serif"],
       cursive: ["Allura" , "cursive"],
       pacifico:["Pacifico", "cursive"]
-
+    },
 
 
     extend: {

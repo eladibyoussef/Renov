@@ -72,11 +72,11 @@ const Navbar: React.FC = () => {
             </div>
            { !isAuthenticated() && <><motion.button
               className='text-white bg-slate-950 py-1 px-4 rounded-full'
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.1 }}>
 
-            <motion.button
+            {/* // <motion.button
               className='text-white bg-slate-950  py-1 px-4 rounded-full hover:scale-110 transition-transform duration-300 transform-gpu'
-            >
+            > */}
               <Link to='/login'>Login</Link>
             </motion.button>
             <motion.button
