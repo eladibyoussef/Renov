@@ -51,7 +51,7 @@ const loginAdmin = async (req: Request, res: Response): Promise<void> => {
             if (passMatch) {
                 console.log(admin);
                 
-                const payload = { id: admin.id, username: admin.username, permissions:admin.permissions , type:'admin' };
+                const payload = {  user: admin, permissions:admin.permissions , type:'admin' };
                 // console.log('signed payload', payload);
                 // console.log('SECRET', process.env.SECRET);              
                 
@@ -66,7 +66,6 @@ const loginAdmin = async (req: Request, res: Response): Promise<void> => {
                         } else if (token) {
                             res.status(200).json({
                                 success: true,
-                                admin:admin,
                                 token: "Bearer " + token,
                             });
                         }

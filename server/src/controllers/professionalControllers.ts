@@ -148,8 +148,7 @@ export const professionalLogin = async (
       );
       if (PasswordsMatch) {
         const payload = {
-          id: professional.id,
-          username: professional.username,
+          user: professional,
           type: "professional",
         };
         const key = process.env.SECRET || "bsd25hgGG2156ljhcv";
@@ -166,7 +165,6 @@ export const professionalLogin = async (
             } else {
               res.status(200).json({
                 success: true,
-                user: professional,
                 token: "Bearer " + token,
               });
             }

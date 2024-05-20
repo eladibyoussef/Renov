@@ -3,7 +3,11 @@ import Logo from '../../Assets/Logo.png';
 import { IoMdSearch } from 'react-icons/io';
 import { AiOutlineTool, AiOutlineShop, AiOutlineBulb, AiOutlineMenuUnfold, AiOutlineClose } from 'react-icons/ai';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; 
+import { isAuthenticated  , logout} from '@/Utils/login';
+import { UserOutlined } from '@ant-design/icons';
+import { Avatar, Badge, Space } from 'antd';
+
 
 const Navbar: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -66,6 +70,10 @@ const Navbar: React.FC = () => {
               />
               <IoMdSearch className='text-gray-500 absolute top-1/2 -translate-y-1/2 right-3 search-icon' />
             </div>
+           { !isAuthenticated() && <><motion.button
+              className='text-white bg-slate-950 py-1 px-4 rounded-full'
+              whileHover={{ scale: 1.1 }}
+
             <motion.button
               className='text-white bg-slate-950  py-1 px-4 rounded-full hover:scale-110 transition-transform duration-300 transform-gpu'
             >
@@ -75,7 +83,21 @@ const Navbar: React.FC = () => {
               className='text-white bg-slate-950 mr- py-1 px-4 rounded-full hover:scale-110 transition-transform duration-300 transform-gpu'
             >
               <Link to='/login/signup'>Sign Up</Link>
-            </motion.button>
+            </motion.button></>}
+            {isAuthenticated() && <> <motion.button
+              className='text-white bg-slate-950 py-1 px-4 rounded-full'
+              whileHover={{ scale: 1.1 }}
+            >
+              <Link to='/login' onClick={()=>{logout()}}>Log Out</Link>
+            </motion.button> 
+            <Space size={24}>
+    <Badge count={0}>
+      <Avatar shape="square" icon={<UserOutlined />} />
+    </Badge>
+    
+  </Space>
+            
+            </> }
           </div>
 
           <div className='md:hidden flex items-center'> 
