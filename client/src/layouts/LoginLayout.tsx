@@ -9,6 +9,12 @@ import loginPic5 from '../Assets/loginPic5.jpg';
 import { Carousel } from 'antd';
 import { Link, Outlet } from 'react-router-dom';
 
+
+
+    
+     
+
+
 function LoginLayout() {
   return (
     <section className='h-screen bg-cyan-800 md:p-10 p-0 gap-2 grid grid-cols-2 '>
@@ -18,6 +24,9 @@ function LoginLayout() {
           <img src={logo2} alt="" className="Logo w-13 h-13 pt-2"/>
           <Link to={'/'} className='w-80 h-24'>RENOVO</Link>
         </div>
+        {/* carousel */}
+        {/* <CarouselComponent settings={settings} /> */}
+
       <Carousel autoplay  dotPosition='top' >
         <img src={loginPic4} className="w-full h-full  object-cover rounded-3xl " alt="" />
         <img src={homeRepaiTeam} className="w-full h-full object-cover rounded-3xl" alt="" />

@@ -16,6 +16,15 @@ module.exports = {
         "2xl": "1400px",
       },
     },
+    fontFamily : {
+      inter : [ "Inter", "sans-serif"],
+      Outfit : [ "Outfit", 'sans-serif'],
+      Poppins : [ "Poppins", "sans-serif"],
+      cursive: ["Allura" , "cursive"],
+      pacifico:["Pacifico", "cursive"]
+
+
+
     extend: {
       colors: {
         border: "hsl(var(--border))",
