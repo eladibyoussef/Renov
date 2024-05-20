@@ -23,7 +23,7 @@ module.exports = {
       cursive: ["Allura" , "cursive"],
       pacifico:["Pacifico", "cursive"]
 
-
+    },
 
     extend: {
       colors: {
