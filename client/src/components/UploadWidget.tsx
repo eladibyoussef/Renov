@@ -1,30 +1,38 @@
-import { useEffect , useRef } from "react"
+import { useEffect , useRef } from "react";
 
-
-function UploadWidget() {
+function UploadWidget({ productForm, setProductForm, onUploadSuccess }) {
   const cloudinaryRef = useRef();
   const widgetRef = useRef();
 
-  useEffect (() =>{
+  useEffect(() => {
     cloudinaryRef.current = window.cloudinary;
-   widgetRef.current = cloudinaryRef.current.createUploadWidget({
-      cloudName:"dbq8kigrk",
-      uploadPreset:'f35qfyph'
-        }, function(error: any , result: any){
-          console.log(result.info.secure_url);
-          
-        })
-    console.log(cloudinaryRef.current);
-    
-  } , [])
+    widgetRef.current = cloudinaryRef.current.createUploadWidget(
+      {
+        cloudName: "dbq8kigrk",
+        uploadPreset: "f35qfyph"
+      },
+      function(error, result) {
+        if (!error && result && result.event === "success") {
+          const url = result.info.secure_url;
+          // console.log(url);
+          onUploadSuccess(url);
+        }
+      }
+    );
+  }, []);
+
+  const handleUploadClick = () => {
+    widgetRef.current.open();
+  };
+
   return (
-    <button onClick={()=>{widgetRef.current.open()}}>
-      upload
+    <button onClick={handleUploadClick}>
+      Upload
     </button>
-  )
+  );
 }
 
-export default UploadWidget
+export default UploadWidget;
 
 
 
