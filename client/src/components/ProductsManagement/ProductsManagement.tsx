@@ -4,9 +4,11 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 import { fetchProducts } from '../../features/product/productSlice';
+import ProductDisplay from './ProductDisplay';
+import { AppDispatch } from '../../store/store';
 
 function ProductsManagement() {
-  const dispatch = useAppDispatch();
+  const dispatch: AppDispatch = useAppDispatch();
 
   
   useEffect(() => {
@@ -14,9 +16,13 @@ function ProductsManagement() {
   }, [dispatch  ]);
 
   return (
-    <div className=' relative  h-screen'>
+    <div className='   h-screen'>
       <BackofficeHeader currentPage="Products" />
+      <div className='h-screen  overflow-auto  hide-scrollbar ' >
         <ProductForm />
+        <ProductDisplay />
+
+      </div>
     </div>
   )
 }

@@ -23,7 +23,7 @@ const ProForm: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setForm(prevState => ({
+    setForm((prevState: any) => ({
       ...prevState,
       [name]: name === 'servicesProvided' ? value.split(',') : value, 
       

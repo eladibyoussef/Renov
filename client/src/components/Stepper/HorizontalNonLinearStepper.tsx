@@ -68,10 +68,14 @@ export default function HorizontalNonLinearStepper() {
 
   const handlePersonalInfoChange = (field, value) => {
     setPersonalInfo({ ...personalInfo, [field]: value });
+    console.log(personalInfo);
+    
   };
 
   const handleProfessionalInfoChange = (field, value) => {
     setProfessionalInfo({ ...professionalInfo, [field]: value });
+    console.log(professionalInfo);
+
   };
 
   return (

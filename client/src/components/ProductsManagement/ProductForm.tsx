@@ -1,88 +1,113 @@
 import React, { useState, useEffect } from "react";
-import { Button, Form, Input, InputNumber, Switch, Upload, Modal } from "antd";
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Switch,
+  Modal,
+  Popconfirm,
+  message,
+  PopconfirmProps,
+} from "antd";
 import { createProduct, Product } from "../../features/product/productSlice";
 import { useAppDispatch } from "../../store/hooks";
-import { PlusOutlined } from "@ant-design/icons";
 import UploadWidget from "../UploadWidget";
+import { catchError } from "../../Utils/errorCatch";
+import { FloatButton } from 'antd';
+import { FaPlus } from "react-icons/fa6";
+import { MdAddPhotoAlternate } from "react-icons/md";
+
 
 const { TextArea } = Input;
 
 const ProductForm: React.FC = () => {
   const [visible, setVisible] = useState(false);
-  const [fileList, setFileList] = useState<any[]>([]);
+
   const dispatch = useAppDispatch();
-  const [form] = Form.useForm();
   const [productForm, setProductForm] = useState<Product>({
     name: "",
     description: "",
     price: 0,
     category: "",
     availability: false,
+    rentable: false,  // Add rentable field
     photos: [],
     deliveryFees: 0,
+    _id: ''
   });
+  const [submitted, setSubmitted] = useState(false);
+  const [form] = Form.useForm();
 
   useEffect(() => {
     console.log("Updated product:", productForm);
-
   }, [productForm]);
 
-  const onFinish = (values: any) => {
-    const { name, description, price, category, availability } = values;
-    setProductForm({
-      ...productForm,
-      name,
-      description,
-      price,
-      category,
-      availability,
-    });
-    console.log("values", values);
-   console.log('product after submitting the from',productForm );
-   
-    // setVisible(false);
-
-  };
-
-  const handleSubmit = ()=>{
-    dispatch(createProduct(productForm));
-    form.resetFields();
-
-
-  }
-
-  //   const handleChange = ({ fileList }: any) => {
-  //     setFileList(fileList);
-  //   };
-  //   const onChange = (checked: boolean) => {
-  //     console.log(`switch to ${checked}`);
-  //   };
-
-  const normFile = (e: any) => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e && e.fileList;
-  };
-  const handleUploadSuccess = (url: string) => {
-    console.log("cloudinary url returned", url);
-
-    setProductForm((productForm) => ({
-      ...productForm,
-      photos: [...productForm.photos, url],
+  const handleChange = (changedValues: any) => {
+    setProductForm((prevProductForm) => ({
+      ...prevProductForm,
+      ...changedValues,
     }));
   };
 
+  const confirm: PopconfirmProps["onConfirm"] = async (e) => {
+    console.log(e);
+    try {
+      message.loading({ content: "Creating product...", key: "creating" });
+      setSubmitted(true);
+      const response = await dispatch(createProduct(productForm)).unwrap();
+      message.success({ content: `Product created successfully id: ${response._id}`, key: "creating" });
+      form.resetFields();
+      setProductForm({
+        name: "",
+        description: "",
+        price: 0,
+        category: "",
+        availability: false,
+        rentable: false,  // Add rentable field
+        photos: [],
+        deliveryFees: 0,
+        _id: ''
+      });
+      setVisible(false);
+    } catch (error) {
+      message.error({ content: `Failed to create product: ${catchError(error)}`, key: "creating" });
+    }
+  };
+
+  const cancel: PopconfirmProps["onCancel"] = (e) => {
+    console.log(e);
+    message.error("product creation cancelled");
+    form.resetFields();
+
+    setVisible(false);
+
+    setProductForm({
+      name: "",
+      description: "",
+      price: 0,
+      category: "",
+      availability: false,
+      rentable: false,  // Add rentable field
+      photos: [],
+      deliveryFees: 0,
+      _id: ''
+    });
+    
+  };
+
+  const handleUploadSuccess = (url: string ,  id:string) => {
+    console.log("cloudinary url returned", url);
+    const photo = { url:url , cloudinaryId:id}
+    setProductForm((prevProductForm) => ({
+      ...prevProductForm,
+      photos: [...prevProductForm.photos,photo ]
+    }));
+  };
+  
   return (
     <>
-      <Button
-        type="primary"
-        icon={<PlusOutlined />}
-        onClick={() => setVisible(true)}
-        style={{ position: "absolute", bottom: 20, right: 20 }}
-      >
-        Add Product
-      </Button>
+      <FloatButton icon={<FaPlus />} type="primary" style={{ right: 24 }} onClick={() => setVisible(true)} />
       <Modal
         title="Add Product"
         open={visible}
@@ -93,8 +118,8 @@ const ProductForm: React.FC = () => {
           labelCol={{ span: 4 }}
           wrapperCol={{ span: 14 }}
           layout="horizontal"
-          onFinish={onFinish}
           style={{ maxWidth: 600 }}
+          onValuesChange={handleChange}
           form={form}
         >
           <Form.Item
@@ -129,14 +154,6 @@ const ProductForm: React.FC = () => {
           >
             <Input />
           </Form.Item>
-          {/* <Form.Item
-            label="Availability"
-            name="availability"
-            valuePropName="checked"
-          >
-            <Switch defaultChecked onChange={onChange} />
-          </Form.Item> */}
-
           <Form.Item
             label="Availability"
             name="availability"
@@ -145,40 +162,34 @@ const ProductForm: React.FC = () => {
           >
             <Switch />
           </Form.Item>
-
-          {/* <Form.Item
-            label="Photos"
-            name="photos"
-            valuePropName="fileList"
-            getValueFromEvent={normFile}
+          <Form.Item
+            label="Rentable"
+            name="rentable"
+            valuePropName="checked"
+            initialValue={false}
           >
-            <Upload
-              listType="picture-card"
-              fileList={fileList}
-              onChange={handleChange}
-              multiple
-            >
-              <button style={{ border: 0, background: "none" }} type="button">
-                <PlusOutlined />
-                <div style={{ marginTop: 8 }}>Upload</div>
-              </button>
-            </Upload>
-          </Form.Item> */}
+            <Switch />
+          </Form.Item>
           <Form.Item label="Photos" name="photos">
             <UploadWidget
-              productForm={productForm}
-              setProductForm={setProductForm}
+              customElement={            <MdAddPhotoAlternate />
+            }
               onUploadSuccess={handleUploadSuccess}
             />
           </Form.Item>
-
           <Form.Item>
-            <Button type="primary" htmlType="submit" >
-              Submit info
-            </Button>
-            <button onClick={handleSubmit}>
-              create product
-            </button>
+            <Popconfirm
+              title="Add product"
+              description="Confirm product creation?"
+              onConfirm={confirm}
+              onCancel={cancel}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button type="primary" htmlType="submit" danger>
+                Create product
+              </Button>
+            </Popconfirm>
           </Form.Item>
         </Form>
       </Modal>

@@ -58,7 +58,7 @@ app.use('/quote', quoteRouter)
 app.use('/order', OrderRouter)
 app.use('/geolocation', geolocationRouter)
 app.use('/products' , ProductRouter)
-app.post('/upload' , uploadFiles)
+app.post('/delete-file' , uploadFiles)
 setupSwagger(app);
 
 

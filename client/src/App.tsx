@@ -1,6 +1,7 @@
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import {BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+
+import {BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom'
+import React, { useState } from 'react'
 import './App.css'
 // import ProForm from './componenet/ProForm'
 import SignUpForm from './components/signUp';
@@ -26,8 +27,10 @@ import ProfilePage from './pages/ProfilePage'
 
 
 function App() {
+ 
+
   return (
-     <Routes>
+     <Routes >
       <Route path="/backoffice" element={<BackOfficeLayout />} >
          <Route index element={<BackOfficeDashboard />} />
          <Route path='users' element={<UserManagement />}/>
@@ -46,7 +49,7 @@ function App() {
        <Route path="/profile/:professionalId" element={<ProfilePage />} />
       </Route>
       
-       <Route path='/login' element={<LoginLayout/>}>
+       <Route  path='/login' element={<LoginLayout/>}>
           <Route index element={<LoginContainer/>} />
           <Route path='signup' index element={<SignUpForm/>}/>
         </Route>
