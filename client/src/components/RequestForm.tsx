@@ -1,7 +1,12 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useEffect } from 'react';
 import logo2 from '../Assets/Logo2.png';
+// import { useHistory } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
+
 
 const HeroSection: React.FC = () => {
+    // const history = useHistory(); 
+
     const [currentStep, setCurrentStep] = useState<number>(1);
     const [city, setCity] = useState<string>('');
     const [selectedAreas, setSelectedAreas] = useState<string[]>([]);
@@ -11,10 +16,16 @@ const HeroSection: React.FC = () => {
         phone: '',
         email: '',
     });
+    useEffect(()=>{
+        console.log('current step',currentStep);
+        
+    },[currentStep])
+
     const [address, setAddress] = useState<string>('');
 
     const handleNextStep = () => {
         setCurrentStep(currentStep + 1);
+        
     };
 
     const handlePreviousStep = () => {
@@ -40,6 +51,9 @@ const HeroSection: React.FC = () => {
     const handleSubmit = () => {
         // Submit logic here
         console.log("Form submitted");
+        // history.push('/pro');
+        // window.location.href = "http://localhost:3000/pro";
+
     };
 
     return (
@@ -53,7 +67,7 @@ const HeroSection: React.FC = () => {
             />
 
             {/* Content */}
-            <div className="bg-zinc-400 flex-1 flex flex-col justify-center items-center">
+            <div className=" bg-gray-400 flex-1 flex flex-col justify-center items-center">
                 {/* Title */}
                 <h1 className="text-5xl text-black font-bold shadow-md mb-8">Plumbing Service</h1>
 
@@ -64,7 +78,7 @@ const HeroSection: React.FC = () => {
                             <div className="mb-8 flex flex-col items-center">
                                 <img src={logo2} width="50" alt="" className="mb-2" />
                                 <h1 className="mb-2 text-2xl">Renovo</h1>
-                                <span className="rounded-3xl border-none bg-blue-900 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-800 shadow-lg outline-none backdrop-blur-md mb-4 sm:mb-0">Check Availability</span>
+                                <span className="rounded-3xl border-none bg-blue-900  px-6 py-2 text-center text-inherit placeholder-slate-800 shadow-lg outline-none backdrop-blur-md mb-4 sm:mb-0">Check Availability</span>
                             </div>
                             <form action="#" onSubmit={handleSubmit}>
                                 {currentStep === 1 && (
@@ -90,7 +104,7 @@ const HeroSection: React.FC = () => {
                                                 <label className="inline-flex items-center mt-2 mr-4">
                                                     <input 
                                                         type="checkbox" 
-                                                        className="form-checkbox h-5 w-5 text-blue-600" 
+                                                        className="form-checkbox h-5 w-5 text-blue-800" 
                                                         value="kitchen" 
                                                         checked={selectedAreas.includes('kitchen')} 
                                                         onChange={() => handleAreaSelection('kitchen')} 
@@ -100,7 +114,7 @@ const HeroSection: React.FC = () => {
                                                 <label className="inline-flex items-center mt-2">
                                                     <input 
                                                         type="checkbox" 
-                                                        className="form-checkbox h-5 w-5 text-blue-600" 
+                                                        className="form-checkbox h-5 w-5 text-blue-800" 
                                                         value="bathroom" 
                                                         checked={selectedAreas.includes('bathroom')} 
                                                         onChange={() => handleAreaSelection('bathroom')} 
@@ -112,7 +126,7 @@ const HeroSection: React.FC = () => {
                                                 <label className="inline-flex items-center mr-4">
                                                     <input 
                                                         type="checkbox" 
-                                                        className="form-checkbox h-5 w-5 text-blue-600" 
+                                                        className="form-checkbox h-5 w-5 text-blue-800" 
                                                         value="living-room" 
                                                         checked={selectedAreas.includes('living-room')} 
                                                         onChange={() => handleAreaSelection('living-room')} 
@@ -122,7 +136,7 @@ const HeroSection: React.FC = () => {
                                                 <label className="inline-flex items-center">
                                                     <input 
                                                         type="checkbox" 
-                                                        className="form-checkbox h-5 w-5 text-blue-600" 
+                                                        className="form-checkbox h-5 w-5 text-blue-800" 
                                                         value="bedroom" 
                                                         checked={selectedAreas.includes('bedroom')} 
                                                         onChange={() => handleAreaSelection('bedroom')} 
@@ -163,7 +177,7 @@ const HeroSection: React.FC = () => {
                                             <label className="text-black mb-0 mt-2">Email</label>
                                             <input 
                                                 type="email" 
-                                                className="rounded-3xl border-none bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md hover:border-blue-300 mb-2" 
+                                                className="rounded-3xl border-none bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md hover:border-blue-800 mb-2" 
                                                 placeholder="Email" 
                                                 value={contactInfo.email} 
                                                 onChange={(e) => handleContactInfoChange(e, 'email')} 
@@ -186,9 +200,10 @@ const HeroSection: React.FC = () => {
 
                                 <div className="mt-8 flex justify-between text-lg text-black">
                                     {currentStep > 1 && (
-                                        <button onClick={handlePreviousStep} type="button" className="rounded-3xl bg-blue-900 bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-blue-600">Previous</button>
+                                        <button onClick={handlePreviousStep} type="button" className="rounded-3xl bg-blue-900 bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-blue-800">Previous</button>
                                     )}
-                                    <button onClick={handleNextStep} type="button" className="rounded-3xl bg-blue-900 bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-blue-600">{currentStep === 4 ? 'Submit' : 'Next'}</button>
+                                    {currentStep < 4 &&<button onClick={handleNextStep} type="button" className="rounded-3xl bg-blue-900 bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-blue-800">next</button>}
+                                    {currentStep === 4 && <Link to='/pro'><button onClick={handleSubmit} className="rounded-3xl bg-blue-900 bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-blue-800" >submit</button></Link>}
                                 </div>
                             </form>
                         </div>

@@ -41,6 +41,7 @@ function App() {
        <Route path="/ShopAll" element={<PageShopAll />} />
        <Route path="/DiY" element={<PageDiY />} />
        <Route path= "/ServiceRequest" element={<RequestPage/>}/>
+       
        <Route path="/apply-now" element={<ApplyPage />} />
        <Route path="/pro" element={<PagePro />} />
 

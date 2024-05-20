@@ -1,8 +1,10 @@
 import React from 'react'
+import ProductsCarousel from '../components/ProductsCarousel'
 
 function PageShopAll() {
   return (
-    <div>
+    <div className='relative'>
+      <ProductsCarousel/>
       
     </div>
   )

@@ -4,14 +4,12 @@ import RequestForm from '../components/RequestForm';
 import HowItWorks from '../components/HowItWorks';
 import ProvidedServices from '../components/ProvidedServices';
 import Faq from '../components/FAQ';
-import Reviews from '../components/Reviews';
 
 
 export interface Refs {
     howItWorksRef: RefObject<HTMLDivElement>;
     servicesRef: RefObject<HTMLDivElement>;
     faqRef:RefObject<HTMLDivElement>;
-    ReviewsRef:RefObject<HTMLDivElement>;
 
 
 }
@@ -21,7 +19,6 @@ const RequestPage = () => {
         howItWorksRef: useRef<HTMLDivElement>(null),
         servicesRef: useRef<HTMLDivElement>(null),
         faqRef :useRef<HTMLDivElement>(null),
-        ReviewsRef :useRef<HTMLDivElement>(null)
 
 
     };
@@ -43,7 +40,6 @@ const RequestPage = () => {
             <HowItWorks howItWorksRef={refs.howItWorksRef} />
             <ProvidedServices ProvidedServicesRef={refs.servicesRef}/>
             <Faq FaqRef={refs.faqRef}/>
-            <Reviews ReviewsRef={refs.ReviewsRef}/>
 
 
             
