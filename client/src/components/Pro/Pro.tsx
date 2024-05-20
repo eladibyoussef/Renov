@@ -7,6 +7,7 @@ import cart1 from "../../Assets/1.png";
 import cart2 from "../../Assets/2.png";
 import cart3 from "../../Assets/3.png";
 import cart4 from "../../Assets/4.png";
+import { Link } from 'react-router-dom';
 
 const categories = [
   { name: 'jean biter', rating: 4, imgSrc: cart1 },
@@ -62,11 +63,11 @@ const Pro = () => {
 
   return (
     <div className="w-full"> 
-      <div className="bg-[#5389C8] text-black font-bold py-8 px-4 flex justify-between items-center">
+      <div className="bg-[#67a1e4] text-white font-bold py-8 px-4 flex justify-between items-center">
         <div className="text-lg font-semibold">
           Maroua, thank you for considering RENOVO.
         </div>
-        <div className="text-sm text-right">
+        <div className="text-sm text-left">
           <p className="mb-2">Question?</p>
           <p className="mb-2">Contact phone Number</p>
           <p className="mb-2">+212 67890876</p>
@@ -96,13 +97,13 @@ const Pro = () => {
                         }}
                         width={128}
                       />
-                      <button
-                        className="bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold py-2 px-4 rounded mt-2"
-                        onClick={() => {
-                        }}
-                      >
-                        View Profile
-                      </button>
+                      <Link to={`/profile/${category.name}`} className="block">
+                        <button
+                          className="bg-blue-500 hover:bg-blue-600 text-white text-sm font-bold py-2 px-4 rounded mt-2"
+                        >
+                          View Profile
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 </div>

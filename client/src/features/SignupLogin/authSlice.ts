@@ -25,8 +25,8 @@ interface AuthState {
 }
 
 interface LoginData {
-  email: string;
-  password: string;
+  email: string | undefined;
+  password: string | undefined;
 }
 
 interface RegisterData {

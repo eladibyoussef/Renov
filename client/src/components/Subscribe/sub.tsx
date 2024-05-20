@@ -24,13 +24,12 @@ const Subscribe = () => {
                 }}
             >
                 <source src={video} type='video/mp4' />
-                {/* Ajoutez d'autres sources pour les différents types de vidéo si nécessaire */}
                 Your browser does not support the video tag.
             </video>
             <div className='container mx-auto py-10 backdrop-filter backdrop-blur-sm'>
                 <div className='max-w-xl mx-auto space-y-6 text-center'>
                     <h1 className='text-3xl sm:text-5xl font-semibold'>
-                        Get Notified About New Products
+                        Get Notified About New 
                     </h1>
                     <input
                         data-aos="fade-up"

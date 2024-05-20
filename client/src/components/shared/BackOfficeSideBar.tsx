@@ -14,7 +14,7 @@ import React ,  { useState  } from 'react';
 const linkClass =
 	'flex items-center gap-2 font-Outfit text-customGrey font-normal  px-3 py-2 hover:bg-neutral-700 hover:no-underline active:bg-neutral-600 rounded-sm text-base'
 
-  const activeLinkClass = 'text-gray-900 ';
+  const activeLinkClass = 'text-gray-900 bg-slate-500 border-none rounded-none    ';
 function BackOfficeSideBar() {
   const location = useLocation(); 
   const [activeLink, setActiveLink] = useState(location.pathname); 
@@ -24,7 +24,7 @@ function BackOfficeSideBar() {
     console.log(activeLink)
   };
   return (
-    <div className=" relative flex flex-col   h-screen bg-white p-5   " >
+    <div className=" relative flex flex-col   h-screen bg-white p-5      " >
       <div className=" flex items-center justify-center gap-2 py-3 mb-10 mt-10 ">
         <img src={Logo} alt="" />
       <Link to={'/'}><p className=" font-inter   text-2xl ">Renovo</p></Link>

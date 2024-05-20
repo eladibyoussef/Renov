@@ -1,5 +1,7 @@
 import { Request, Response } from 'express';
 import Product, {productDocument} from '../models/Product';
+import cloudinary from "../services/cloudinary";
+
 
 // Create a new product
 const createProduct = async (req: Request, res: Response): Promise<void> => {
@@ -62,8 +64,9 @@ const updateProduct = async (req: Request, res: Response): Promise<void> => {
         price: req.body.price,
         category: req.body.category,
         availability: req.body.availability,
-      
-      });
+        photos : req.body.photos,
+        rentable : req.body.rentable     
+      } , {new : true});
 
     if (!updatedProduct) {
       res.status(404).json({ message: 'Product not found' });
@@ -80,11 +83,23 @@ const updateProduct = async (req: Request, res: Response): Promise<void> => {
 const deleteProduct = async (req: Request, res: Response): Promise<void> => {
   try {
     const productId = req.params.productId;
-    const deletedProduct = await Product.findByIdAndDelete(productId);
+    const deletedProduct: productDocument |null = await Product.findByIdAndDelete(productId);
     if (!deletedProduct) {
+      
       res.status(404).json({ message: 'Product not found' });
     } else {
+      console.log(deletedProduct.photos);
+      for (const photo of deletedProduct.photos){
+        const cloudResponse =  await cloudinary.uploader.destroy(photo.cloudinaryId);
+        if(cloudResponse.result == 'ok'){
+          console.log(`image ${photo.cloudinaryId} deleted`);
+        }else{
+          console.log('file not found');
+        }
+
+      }
       res.status(200).json({ message: 'Product deleted successfully' });
+
     }
   } catch (error) {
     console.error(error);
