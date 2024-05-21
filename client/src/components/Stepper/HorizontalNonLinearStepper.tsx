@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -19,81 +19,84 @@ import InformationReview from './infoReview';
 import { useAppDispatch } from '@/store/hooks';
 import { ProfessionalRequest } from '@/features/professional/professionalSlice';
 
-
 const steps = ['Personal Info', 'Professional Info', 'Finished'];
 
+interface PersonalInfo {
+  username: string;
+  CIN: string;
+  email: string;
+  phoneNumber: string;
+  address: string;
+  CINPictures: { url: string; cloudinaryId: string }[];
+}
+
 export default function HorizontalNonLinearStepper() {
-  const [openModal, setOpenModal] = React.useState<boolean>(false);
-
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
+  const [openModal, setOpenModal] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(anchorEl ? null : event.currentTarget);
   };
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popper' : undefined;
 
-
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState([false, false, false]);
-  const dispatch = useAppDispatch()
-  const [personalInfo, setPersonalInfo] = useState({
+  const dispatch = useAppDispatch();
+
+  const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
     username: '',
     CIN: '',
     email: '',
     phoneNumber: '',
     address: '',
+    CINPictures: []
   });
+
   const [professionalInfo, setProfessionalInfo] = useState({
     license: '',
     servicesProvided: '',
     certificates: '',
     companyname: '',
     anthropometricCertificate: '',
- 
   });
-
 
   useEffect(() => {
     console.log('Personal Info changed:', personalInfo);
-    const requiredPersonalFields = ['username', 'cin', 'email',  'phoneNumber', 'address'];
-     const  isStepValid = requiredPersonalFields.every(field => !!personalInfo[field]);
-      if (isStepValid){
-        setAnchorEl(null)
-      }
+    const requiredPersonalFields = ['username', 'CIN', 'email', 'phoneNumber', 'address', 'CINPictures'];
+    const isStepValid = requiredPersonalFields.every(field => !!personalInfo[field]);
+    if (isStepValid) {
+      setAnchorEl(null);
+    }
   }, [personalInfo]);
 
   useEffect(() => {
     console.log('Professional Info changed:', professionalInfo);
     const requiredProfessionalFields = ['license', 'servicesProvided', 'certificates', 'companyname'];
-      const isStepValid = requiredProfessionalFields.every(field => !!professionalInfo[field]);
-      if (isStepValid){
-        setAnchorEl(null)
-      }
+    const isStepValid = requiredProfessionalFields.every(field => !!professionalInfo[field]);
+    if (isStepValid) {
+      setAnchorEl(null);
+    }
   }, [professionalInfo]);
 
   const handleNext = (e) => {
     let isStepValid = false;
-
     if (activeStep === 0) {
-      const requiredPersonalFields = ['username', 'CIN', 'email',  'phoneNumber', 'address'];
+      const requiredPersonalFields = ['username', 'CIN', 'email', 'phoneNumber', 'address'];
       isStepValid = requiredPersonalFields.every(field => !!personalInfo[field]);
     } else if (activeStep === 1) {
       const requiredProfessionalFields = ['license', 'servicesProvided', 'certificates', 'companyname'];
       isStepValid = requiredProfessionalFields.every(field => !!professionalInfo[field]);
     }
-
     if (isStepValid) {
       const newCompleted = [...completed];
       newCompleted[activeStep] = true;
       setCompleted(newCompleted);
-     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-     if(activeStep === 1 ){
-      setOpenModal(true)
-     }
-      
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+      if (activeStep === 1) {
+        setOpenModal(true);
+      }
     } else {
-      handleClick(e)
+      handleClick(e);
     }
   };
 
@@ -108,25 +111,31 @@ export default function HorizontalNonLinearStepper() {
   const handlePersonalInfoChange = (field, value) => {
     setPersonalInfo({ ...personalInfo, [field]: value });
     console.log(personalInfo);
-    
   };
 
   const handleProfessionalInfoChange = (field, value) => {
     setProfessionalInfo({ ...professionalInfo, [field]: value });
     console.log(professionalInfo);
-
   };
+
   const onSub = async () => {
     if (activeStep === 2) {
       const combinedForm = { ...personalInfo, ...professionalInfo };
       console.log('The full form is', combinedForm);
-      const response = await dispatch(ProfessionalRequest(combinedForm)).unwrap()
-      console.log('server res',response);
-      return response
-      
+      const response = await dispatch(ProfessionalRequest(combinedForm)).unwrap();
+      console.log('server res', response);
+      return response;
     }
-  }
-  
+  };
+
+  const handleCinUploadSuccess = (url: string, id: string) => {
+    console.log("cloudinary url returned", url);
+    const photo = { url: url, cloudinaryId: id };
+    setPersonalInfo((prevProductForm) => ({
+      ...prevProductForm,
+      CINPictures: [...prevProductForm.CINPictures, photo]
+    }));
+  };
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -139,14 +148,13 @@ export default function HorizontalNonLinearStepper() {
       </Stepper>
       <div>
         {activeStep === 0 && (
-          <InfoPersonnelles formData={personalInfo} handleChange={handlePersonalInfoChange} />
+          <InfoPersonnelles formData={personalInfo} handleChange={handlePersonalInfoChange} handleCinUploadSuccess={handleCinUploadSuccess} setPersonalInfo={setPersonalInfo}/>
         )}
         {activeStep === 1 && (
           <InfoProfessionnelles formData={professionalInfo} handleChange={handleProfessionalInfoChange} />
         )}
         {activeStep === 2 && (
           <FinishedPage />
-          
         )}
 
         <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
@@ -156,17 +164,16 @@ export default function HorizontalNonLinearStepper() {
           <Box sx={{ flex: '1 1 auto' }} />
           {activeStep !== steps.length - 1 && (
             <>
-            <Button onClick={handleNext}>
-              {completed[activeStep] ? 'Next' : 'Complete Step'}
-            </Button>
-            <Popper id={id} open={open} anchorEl={anchorEl}         placement='top-end'
->           
-        <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' , display:'flex' , justifyContent:'center' , alignItems:'center' , gap:0.5}}>
-        <CgDanger className=' text-red-800 ' />
-   Please fill out all required fields.        </Box>
-      </Popper>
+              <Button onClick={handleNext}>
+                {completed[activeStep] ? 'Next' : 'Complete Step'}
+              </Button>
+              <Popper id={id} open={open} anchorEl={anchorEl} placement='top-end'>
+                <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 0.5 }}>
+                  <CgDanger className='text-red-800' />
+                  Please fill out all required fields.
+                </Box>
+              </Popper>
             </>
-            
           )}
         </Box>
       </div>

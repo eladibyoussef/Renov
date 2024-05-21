@@ -19,6 +19,7 @@ import { FaPlus } from "react-icons/fa6";
 import { MdAddPhotoAlternate } from "react-icons/md";
 
 
+
 const { TextArea } = Input;
 
 const ProductForm: React.FC = () => {
@@ -88,7 +89,7 @@ const ProductForm: React.FC = () => {
       price: 0,
       category: "",
       availability: false,
-      rentable: false,  // Add rentable field
+      rentable: false,  
       photos: [],
       deliveryFees: 0,
       _id: ''

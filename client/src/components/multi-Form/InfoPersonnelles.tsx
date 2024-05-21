@@ -1,8 +1,29 @@
+import UploadWidget from "../UploadWidget";
+import { PlusOutlined } from '@ant-design/icons';
+import { Upload } from 'antd';
+import { useEffect } from "react";
+import { deleteFormFile } from "@/features/product/productSlice";
+import { useAppDispatch } from "@/store/hooks";
+import { TiDelete } from "react-icons/ti";
 
-export default function InfoPersonnelles({ formData, handleChange }) {
+export default function InfoPersonnelles({ formData, handleChange, handleCinUploadSuccess, setPersonalInfo }) {
+  const dispatch = useAppDispatch();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     handleChange(name, value);
+  };
+
+  const onDelete = (file) => {
+    console.log(file);
+
+    dispatch(deleteFormFile(file));
+    
+    // Update the state directly to remove the deleted file
+    setPersonalInfo((prevInfo) => ({
+      ...prevInfo,
+      CINPictures: prevInfo.CINPictures.filter(fileForm => fileForm.url !== file.url)
+    }));
   };
 
   return (
@@ -52,7 +73,6 @@ export default function InfoPersonnelles({ formData, handleChange }) {
           required
         />
       </div>
-  
       <div className="mb-4">
         <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
           Numéro de téléphone *
@@ -82,6 +102,28 @@ export default function InfoPersonnelles({ formData, handleChange }) {
           placeholder="Entrez votre adresse"
           required
         ></textarea>
+      </div>
+      <div className="mb-4 mt-2">
+        <label htmlFor="cinPictures" className="block text-sm font-medium text-gray-700 mb-5">
+          Images CIN recto-verso *
+        </label>
+        <div className="flex gap-3">
+          {formData.CINPictures.length > 0 && formData.CINPictures.map((pic) => (
+            <div key={pic.url} className="relative">
+              <TiDelete className="absolute top-0 right-0 cursor-pointer" onClick={() => onDelete(pic)} />
+              <img src={pic.url} alt="CIN" className="h-24 w-24 rounded-lg" />
+            </div>
+          ))}
+          <UploadWidget 
+            onUploadSuccess={handleCinUploadSuccess}
+            customElement={   
+              <button type="button" className="border hover:border-blue-600 p-5 rounded-lg mt-5">
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>Upload</div>
+              </button>
+            } 
+          />
+        </div>
       </div>
     </div>
   );

@@ -21,7 +21,8 @@ export const registrationRequest = async (
     address,
     servicesProvided,
     certificates,
-    companyname
+    companyname,
+    CINPictures
   } = req.body;
   try {
     const professional: ProfessionalDocument | null =
@@ -41,7 +42,10 @@ export const registrationRequest = async (
         phoneNumber,
         address,
         servicesProvided: servicesProvided.split(','),
-        anthropometricCertificate
+        anthropometricCertificate,
+        CINPictures,
+        certificates,
+    companyname
       });
       const savenewProfessional = await newProfessional.save();
       if (savenewProfessional) {

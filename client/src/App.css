@@ -59,3 +59,42 @@
       transform: translate(0 , 20px);
     }
   }
+
+  .details-sheet {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+  }
+  
+  .details-header {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .details-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .details-item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+  }
+  
+  .details-label {
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .details-value {
+    color: #777;
+  }
+  
