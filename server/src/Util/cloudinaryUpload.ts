@@ -2,6 +2,7 @@ import cloudinary from "../services/cloudinary";
 import Product from "../models/Product";
 import { Request, Response } from 'express';
 import Message from "../models/Message";
+import { catchError } from "./errorCatch";
 
 export const uploadFiles = async (req: Request, res: Response) => {
     console.log(req.body); 
@@ -53,3 +54,21 @@ if (product) {
     // }
 };
 
+export const  deletFormFile = async (req: Request, res: Response) => {
+
+console.log(req.body);
+try {
+    const cloudResponse =  await cloudinary.uploader.destroy(req.body.cloudinaryId);
+    if(cloudResponse.result == 'ok')
+      {
+  
+          console.log('Photo deleted successfully' , cloudResponse);
+          res.status(200).json({cloudResponse})
+      }else{
+          res.status(404).json({message: `the file cannot be found: ${cloudResponse} `})
+      }
+} catch (error) {
+    res.status(500).json({message: catchError(error)})
+    
+}
+}

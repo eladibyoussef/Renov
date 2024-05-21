@@ -1,8 +1,29 @@
+import UploadWidget from "../UploadWidget";
+import { PlusOutlined } from '@ant-design/icons';
+import { Upload } from 'antd';
+import { useEffect } from "react";
+import { deleteFormFile } from "@/features/product/productSlice";
+import { useAppDispatch } from "@/store/hooks";
+import { TiDelete } from "react-icons/ti";
 
-export default function InfoPersonnelles({ formData, handleChange }) {
+export default function InfoPersonnelles({ formData, handleChange, handleCinUploadSuccess, setPersonalInfo }) {
+  const dispatch = useAppDispatch();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     handleChange(name, value);
+  };
+
+  const onDelete = (file) => {
+    console.log(file);
+
+    dispatch(deleteFormFile(file));
+    
+    // Update the state directly to remove the deleted file
+    setPersonalInfo((prevInfo) => ({
+      ...prevInfo,
+      CINPictures: prevInfo.CINPictures.filter(fileForm => fileForm.url !== file.url)
+    }));
   };
 
   return (
@@ -28,8 +49,8 @@ export default function InfoPersonnelles({ formData, handleChange }) {
         </label>
         <input
           type="text"
-          id="cin"
-          name="cin"
+          id="CIN"
+          name="CIN"
           value={formData.cin}
           onChange={handleInputChange}
           className="mt-1 p-2 w-full border border-gray-300 rounded-md"
@@ -49,21 +70,6 @@ export default function InfoPersonnelles({ formData, handleChange }) {
           onChange={handleInputChange}
           className="mt-1 p-2 w-full border border-gray-300 rounded-md"
           placeholder="Entrez votre adresse e-mail"
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-          Mot de passe *
-        </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleInputChange}
-          className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          placeholder="Entrez votre mot de passe"
           required
         />
       </div>
@@ -91,11 +97,33 @@ export default function InfoPersonnelles({ formData, handleChange }) {
           name="address"
           value={formData.address}
           onChange={handleInputChange}
-          rows="3"
+          rows={3}
           className="mt-1 p-2 w-full border border-gray-300 rounded-md"
           placeholder="Entrez votre adresse"
           required
         ></textarea>
+      </div>
+      <div className="mb-4 mt-2">
+        <label htmlFor="cinPictures" className="block text-sm font-medium text-gray-700 mb-5">
+          Images CIN recto-verso *
+        </label>
+        <div className="flex gap-3">
+          {formData.CINPictures.length > 0 && formData.CINPictures.map((pic) => (
+            <div key={pic.url} className="relative">
+              <TiDelete className="absolute top-0 right-0 cursor-pointer" onClick={() => onDelete(pic)} />
+              <img src={pic.url} alt="CIN" className="h-24 w-24 rounded-lg" />
+            </div>
+          ))}
+          <UploadWidget 
+            onUploadSuccess={handleCinUploadSuccess}
+            customElement={   
+              <button type="button" className="border hover:border-blue-600 p-5 rounded-lg mt-5">
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>Upload</div>
+              </button>
+            } 
+          />
+        </div>
       </div>
     </div>
   );

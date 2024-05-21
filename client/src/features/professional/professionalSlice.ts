@@ -51,11 +51,13 @@ interface Approved {
 interface ProfessionalState {
   professionals: Professional[];
   loading: boolean;
+  ProRequestResponse: string | null;
   error: string | null;
 }
 
 const initialState: ProfessionalState = {
   professionals: [],
+  ProRequestResponse: null,
   loading: false,
   error: null,
 };
@@ -63,8 +65,20 @@ const initialState: ProfessionalState = {
 export const fetchProfessionals = createAsyncThunk('professionals/fetchProfessionals', async () => {
   const response = await axios.get('/pro/getAllPros');
   console.log(response.data);
-  
   return response.data;
+});
+
+export const ProfessionalRequest = createAsyncThunk('professionals/ProfessionalRequest', async (data, { rejectWithValue }) => {
+  try {
+    const response = await axios.post('/pro/request-register', data);
+    return response.data;
+  } catch (err) {
+    if (err.response) {
+      return rejectWithValue(err.response.data);
+    } else {
+      return rejectWithValue({ message: 'Network error' });
+    }
+  }
 });
 
 const professionalSlice = createSlice({
@@ -84,6 +98,18 @@ const professionalSlice = createSlice({
       .addCase(fetchProfessionals.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Failed to fetch professionals.';
+      })
+      .addCase(ProfessionalRequest.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(ProfessionalRequest.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.ProRequestResponse = action.payload.message;
+      })
+      .addCase(ProfessionalRequest.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || 'Failed to submit professional request.';
       });
   },
 });
@@ -93,3 +119,4 @@ export default professionalSlice.reducer;
 export const selectAllProfessionals = (state: { professional: ProfessionalState }) => state.professional.professionals;
 export const selectProfessionalLoading = (state: { professional: ProfessionalState }) => state.professional.loading;
 export const selectProfessionalError = (state: { professional: ProfessionalState }) => state.professional.error;
+export const selectResponse = (state: { professional: ProfessionalState }) => state.professional.ProRequestResponse;

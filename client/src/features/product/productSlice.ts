@@ -59,7 +59,12 @@ export const deleteFile = createAsyncThunk(
   'products/deleteFile', 
   async (file: photo, thunkAPI) => {
     try {
+      console.log('file to delete ', file);
+
       const response = await axios.post('/delete-file', file);
+      console.log('server delet res',response.data);
+      
+      
       return { ...response.data, file }; 
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -67,6 +72,22 @@ export const deleteFile = createAsyncThunk(
   }
 );
 
+export const deleteFormFile = createAsyncThunk(
+  'products/deleteFormFile', 
+  async (file: photo, thunkAPI) => {
+    try {
+      console.log('file to delete ', file);
+
+      const response = await axios.post('/delete-formFile', file);
+      console.log('server delet res',response.data);
+      
+      
+      return { ...response.data, file }; 
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
   const response = await axios.get('/products'); 
   console.log(response.data);

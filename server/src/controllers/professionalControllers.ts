@@ -17,12 +17,16 @@ export const registrationRequest = async (
     username,
     email,
     phoneNumber,
+    anthropometricCertificate,
     address,
     servicesProvided,
+    certificates,
+    companyname,
+    CINPictures
   } = req.body;
   try {
     const professional: ProfessionalDocument | null =
-      await Professional.findOne({ CIN: CIN });
+    await Professional.findOne({ $or: [{ CIN: CIN }, { email: email }] });
     if (professional) {
       res
         .status(409)
@@ -37,7 +41,11 @@ export const registrationRequest = async (
         email,
         phoneNumber,
         address,
-        servicesProvided,
+        servicesProvided: servicesProvided.split(','),
+        anthropometricCertificate,
+        CINPictures,
+        certificates,
+    companyname
       });
       const savenewProfessional = await newProfessional.save();
       if (savenewProfessional) {

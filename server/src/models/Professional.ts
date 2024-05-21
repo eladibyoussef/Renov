@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 export interface ProfessionalDocument extends Document {
   id: string;
   CIN: string;
+  CINPictures: photo [];
   anthropometricCertificate: String;
   license: string;
   username: string;
@@ -38,6 +39,10 @@ interface Portfolio {
   mediaType: string;
   mediaUrl: string;
 }
+interface photo {
+  url: string;
+  cloudinaryId: string;
+}
 
 interface Review {
   userId: string;
@@ -52,6 +57,10 @@ interface approved{
 const professionalSchema = new Schema<ProfessionalDocument>({
   CIN: { type: String, required: true },
   license: { type: String, required: true },
+  CINPictures:[{
+    url: { type: String, required: false },
+    cloudinaryId: { type: String, required: false }    }
+],
   anthropometricCertificate: {type:String , required:false},
   username: { type: String, required: true },
   companyname: {type:String, required:false},
