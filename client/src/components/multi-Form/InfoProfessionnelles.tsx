@@ -32,7 +32,7 @@ export default function InfoProfessionnelles({ formData, handleChange }) {
           name="servicesProvided"
           value={formData.servicesProvided}
           onChange={handleInputChange}
-          rows="3"
+          rows={3}
           className="mt-1 p-2 w-full border border-gray-300 rounded-md"
           placeholder="Entrez les services fournis (séparés par des virgules)"
           required
@@ -70,48 +70,19 @@ export default function InfoProfessionnelles({ formData, handleChange }) {
       </div>
       <div className="mb-4">
         <label htmlFor="profilePicture" className="block text-sm font-medium text-gray-700">
-          Profile Picture
-        </label>
+        anthropometricCertificate        </label>
         <input
           type="file"
-          id="profilePicture"
-          name="profilePicture"
+          id="anthropometricCertificate"
+          name="anthropometricCertificate"
           accept="image/*"
           onChange={handleInputChange}
           className="mt-1 p-2 w-full border border-gray-300 rounded-md"
           required
         />
       </div>
-      <div className="mb-4">
-        <label htmlFor="aboutMe" className="block text-sm font-medium text-gray-700">
-          About Me *
-        </label>
-        <textarea
-          id="aboutMe"
-          name="aboutMe"
-          value={formData.aboutMe}
-          onChange={handleInputChange}
-          rows="3"
-          className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          placeholder="Entrez une description ou une biographie"
-          required
-        ></textarea>
-      </div>
-      <div className="mb-4">
-        <label htmlFor="portfolio" className="block text-sm font-medium text-gray-700">
-          Portfolio (titre, type de média, URL) *
-        </label>
-        <textarea
-          id="portfolio"
-          name="portfolio"
-          value={formData.portfolio}
-          onChange={handleInputChange}
-          rows="3"
-          className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          placeholder="Entrez les détails du portefeuille (titre, type de média, URL)"
-          required
-        ></textarea>
-      </div>
+   
+    
     </div>
   );
 }

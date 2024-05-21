@@ -28,8 +28,8 @@ export default function InfoPersonnelles({ formData, handleChange }) {
         </label>
         <input
           type="text"
-          id="cin"
-          name="cin"
+          id="CIN"
+          name="CIN"
           value={formData.cin}
           onChange={handleInputChange}
           className="mt-1 p-2 w-full border border-gray-300 rounded-md"
@@ -52,21 +52,7 @@ export default function InfoPersonnelles({ formData, handleChange }) {
           required
         />
       </div>
-      <div className="mb-4">
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-          Mot de passe *
-        </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={formData.password}
-          onChange={handleInputChange}
-          className="mt-1 p-2 w-full border border-gray-300 rounded-md"
-          placeholder="Entrez votre mot de passe"
-          required
-        />
-      </div>
+  
       <div className="mb-4">
         <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
           Numéro de téléphone *
@@ -91,7 +77,7 @@ export default function InfoPersonnelles({ formData, handleChange }) {
           name="address"
           value={formData.address}
           onChange={handleInputChange}
-          rows="3"
+          rows={3}
           className="mt-1 p-2 w-full border border-gray-300 rounded-md"
           placeholder="Entrez votre adresse"
           required
